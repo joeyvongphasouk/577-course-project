@@ -36,5 +36,13 @@ lorem ipsum
 ### 5 - 
 dolor sit amet
 
+
 ## Deadlines
-- tba
+
+| Date | Description |
+| -------- | ------- |
+| Jan 21 | finalize ideas, schedule kathleen meeting, maybe reg meeting |
+| Jan 26 | team contract and delivery letter |
+| Jan 22 - Feb 7 | pitch proposal and meeting |
+| f | f |
+| f | f |
