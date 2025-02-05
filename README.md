@@ -1,9 +1,11 @@
 # 577-course-project
 Course project for the Mines CSCI 577 class.
 
-## Team
+## Team and Responsibilties
 - Sovann Sam
+  - 
 - Joey Vongphasouk
+  - 
 
 ---
 ## Ideas
@@ -36,5 +38,15 @@ lorem ipsum
 ### 5 - 
 dolor sit amet
 
+---
 ## Deadlines
-- tba
+| Date | Description |
+| -------- | ------- |
+| Jan 21 | finalize ideas, schedule kathleen meeting, maybe reg meeting |
+| Jan 26 | team contract and delivery letter |
+| Jan 22 - Feb 7 | pitch proposal and meeting |
+| Feb 16 | Game design doc and Product backlog |
+| Mar 14 | Alpha Delivery |
+| Apr 13 | Beta Delivery |
+| Apr 28 | Final Delivery |
+| Apr 28 - 30 | Final Presentation |
