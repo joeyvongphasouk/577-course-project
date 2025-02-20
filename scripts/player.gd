@@ -5,12 +5,14 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 @onready var camera_3d: Camera3D = $Camera3D
 
-var sensitivity = 0.002
+var sensitivity: float = 0.002
+var mass: float = 1.0
 #
 #func _ready() -> void:
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _unhandled_input(event) -> void:
+	
 	
 	# Look around
 	if event is InputEventMouseMotion:
@@ -18,7 +20,7 @@ func _unhandled_input(event) -> void:
 		camera_3d.rotation.x = camera_3d.rotation.x - event.relative.y * sensitivity
 		
 		# dont want to spin all the way
-		camera_3d.rotation.x = clamp(camera_3d.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+		camera_3d.rotation.x = clamp(camera_3d.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

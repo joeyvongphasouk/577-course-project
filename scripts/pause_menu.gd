@@ -1,6 +1,6 @@
 extends Control
 
-var menus = true
+var menus: bool = true
 
 func _ready() -> void:
 	set_process_unhandled_input(true)

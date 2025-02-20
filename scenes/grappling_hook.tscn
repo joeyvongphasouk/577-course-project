@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b67a0smlut71j"]
+
+[ext_resource type="Script" path="res://scripts/grappling_hook.gd" id="1_46y2w"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_immrf"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.0
+radial_segments = 6
+rings = 60
+
+[node name="GrapplingHook" type="Node3D"]
+script = ExtResource("1_46y2w")
+
+[node name="RopeRoot" type="Node3D" parent="."]
+
+[node name="Rope" type="MeshInstance3D" parent="RopeRoot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.5)
+mesh = SubResource("CylinderMesh_immrf")

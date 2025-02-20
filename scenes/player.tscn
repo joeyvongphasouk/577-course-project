@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=6 format=3 uid="uid://dkdw4ky2ef0l0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_rjqoc"]
+[ext_resource type="PackedScene" uid="uid://b67a0smlut71j" path="res://scenes/grappling_hook.tscn" id="2_pxra8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smimx"]
 
@@ -24,6 +25,9 @@ mesh = SubResource("CapsuleMesh_5vhxq")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.786717, 0)
+
+[node name="GrapplingHook" parent="Camera3D" instance=ExtResource("2_pxra8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.3, -0.3)
 
 [node name="Crosshair" type="ColorRect" parent="Camera3D"]
 anchors_preset = 8
