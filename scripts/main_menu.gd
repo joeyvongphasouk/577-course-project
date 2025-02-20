@@ -7,7 +7,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/tutorial_level.tscn")
+	PauseManager.menus = false
 	PauseManager.SetPaused(false)
+	get_tree().change_scene_to_file("res://scenes/tutorial_level.tscn")
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
