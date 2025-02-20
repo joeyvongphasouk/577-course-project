@@ -66,8 +66,5 @@ shape = SubResource("ConcavePolygonShape3D_iux7c")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vl41q")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.44563, 0)
-
 [node name="Player" parent="." instance=ExtResource("1_lu55d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.02108, 0.7)

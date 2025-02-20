@@ -6,22 +6,14 @@ const JUMP_VELOCITY = 4.5
 @onready var camera_3d: Camera3D = $Camera3D
 
 var sensitivity = 0.002
-var mouse_captured : bool = false
 #
 #func _ready() -> void:
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _unhandled_input(event) -> void:
-			# Mouse capturing
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		mouse_captured = true
-	if Input.is_key_pressed(KEY_ESCAPE):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		mouse_captured = false
 	
 	# Look around
-	if mouse_captured and event is InputEventMouseMotion:
+	if event is InputEventMouseMotion:
 		rotation.y = rotation.y - event.relative.x * sensitivity
 		camera_3d.rotation.x = camera_3d.rotation.x - event.relative.y * sensitivity
 		
