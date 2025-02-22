@@ -3,24 +3,22 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-@onready var camera_3d: Camera3D = $Camera3D
+@onready var head: Node3D = $Head
 
 var sensitivity: float = 0.002
 var mass: float = 1.0
-#
-#func _ready() -> void:
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _unhandled_input(event) -> void:
-	
-	
 	# Look around
 	if event is InputEventMouseMotion:
-		rotation.y = rotation.y - event.relative.x * sensitivity
-		camera_3d.rotation.x = camera_3d.rotation.x - event.relative.y * sensitivity
+		head.rotation.y = head.rotation.y - event.relative.x * sensitivity
+		head.rotation.x = head.rotation.x - event.relative.y * sensitivity
 		
 		# dont want to spin all the way
-		camera_3d.rotation.x = clamp(camera_3d.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -33,7 +31,7 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction := (head.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
