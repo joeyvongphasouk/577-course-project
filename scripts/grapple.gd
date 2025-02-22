@@ -1,37 +1,100 @@
 extends Node3D
 
-@onready var player: CharacterBody3D = $"../.."
-@onready var head: Node3D = $".."
-@onready var ray_cast_3d: RayCast3D = $"../RayCast3D"
+@onready var player: CharacterBody3D = $".."
+@onready var ray_cast_3d: RayCast3D = $"../Head/RayCast3D"
+@onready var rope: Node3D = $"../Head/Camera3D/Rope"
 
-var grapple_cd: float = 0
-var grappling: bool = false
+@export var rest_length: float = 2.0
+@export var stiffness: float = 10.0
+@export var damping: float = 1.0
+
+var launched: bool = false
 var grapple_point: Vector3
-var grapple_distance
+
 
 func _physics_process(delta: float) -> void:
-	grapple_distance = abs(ray_cast_3d.target_position.y)
 	if Input.is_action_just_pressed("grapple"):
-		start_grapple()
-	pass
-
-
-func start_grapple() -> void:
-	if (grapple_cd > 0): return
+		launch()
+	if Input.is_action_just_released("grapple"):
+		retract()
 	
-	grappling = true
+	if launched:
+		handle_grapple(delta)
+	
+	update_rope()
+
+func launch():
 	if ray_cast_3d.is_colliding():
 		grapple_point = ray_cast_3d.get_collision_point()
-		print("I grapple")
-		execute_grapple()
-	else:
-		grapple_point = head.position + head.rotation * grapple_distance
-		
-func execute_grapple() -> void:
-	pass
-func stop_grapple() -> void:
-	pass
+		launched = true
 
+
+func retract():
+	launched = false
+	
+func handle_grapple(delta: float):
+	var target_dir = player.global_position.direction_to(grapple_point)
+	var target_dist = player.global_position.distance_to(grapple_point)
+	
+	var displacement = target_dist - rest_length
+	var force = Vector3.ZERO
+	
+	# rope is stretched
+	if displacement > 0:
+		var spring_force_magnitude = stiffness * displacement
+		var spring_force = target_dir * spring_force_magnitude
+		
+		var vel_dot = player.velocity.dot(target_dir)
+		var damping = -damping * vel_dot * target_dir
+		
+		force = spring_force + damping
+		
+	player.velocity += force * delta
+
+func update_rope():
+	if !launched:
+		rope.visible = false
+		return
+	
+	rope.visible = true
+	var dist = player.global_position.distance_to(grapple_point)
+	rope.look_at(grapple_point)
+	rope.scale = Vector3(1, 1, dist)
+	
+		
+
+#
+#var grapple_cd: float = 5
+#var grapple_cd_timer: float = 0
+#var grappling: bool = false
+#var grapple_point: Vector3
+#var grapple_distance
+#
+#func _physics_process(delta: float) -> void:
+	#grapple_distance = abs(ray_cast_3d.target_position.y)
+	#if Input.is_action_just_pressed("grapple"):
+		#start_grapple()
+	##if grapple_cd_timer > 0:
+		##grapple_cd_timer -= delta
+#
+#
+#func start_grapple() -> void:
+	#grappling = true
+	#if ray_cast_3d.is_colliding():
+		#grapple_point = ray_cast_3d.get_collision_point()
+		#print(grapple_point)
+		#execute_grapple()
+	#else:
+		#grapple_point = head.position + head.rotation * grapple_distance
+		#stop_grapple()
+		#
+#func execute_grapple() -> void:
+	#pass
+#func stop_grapple() -> void:
+	#grappling = true
+	#grapple_cd_timer = grapple_cd
+	#
+#
 
 
 
