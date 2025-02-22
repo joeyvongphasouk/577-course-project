@@ -10,9 +10,10 @@ extends RayCast3D
 	#pass
 
 func _physics_process(delta: float) -> void:
-	if is_colliding():
-		var hit = get_collider()
-		print(hit.name)
+	pass
+	#if is_colliding():
+		#var hit = get_collider()
+		#print(hit.name)
 	#var mousePos=get_viewport().get_mouse_position()
 	#$Ray.target_position.x = mousePos.x
 	#$Ray.target_position.y = mousePos.y

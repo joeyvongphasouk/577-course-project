@@ -1,8 +1,8 @@
 extends Node3D
 
-@onready var player: CharacterBody3D = $"."
-@onready var head: Node3D = $Head
-@onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
+@onready var player: CharacterBody3D = $"../.."
+@onready var head: Node3D = $".."
+@onready var ray_cast_3d: RayCast3D = $"../RayCast3D"
 
 var grapple_cd: float = 0
 var grappling: bool = false
@@ -22,6 +22,7 @@ func start_grapple() -> void:
 	grappling = true
 	if ray_cast_3d.is_colliding():
 		grapple_point = ray_cast_3d.get_collision_point()
+		print("I grapple")
 		execute_grapple()
 	else:
 		grapple_point = head.position + head.rotation * grapple_distance
