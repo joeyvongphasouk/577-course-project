@@ -37,7 +37,9 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or grapple.launched):
 		velocity.y += jump_force
-		grapple.retract()
+		
+		# should we have it so that grapple retracts when we jump?
+		#grapple.retract() 
 
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")

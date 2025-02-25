@@ -4,6 +4,7 @@ extends Node3D
 @onready var ray_cast_3d: RayCast3D = $"../Head/RayCast3D"
 @onready var rope: Node3D = $"../Head/Camera3D/Rope"
 
+# this is for things involving rope springiness if needed
 @export var rest_length: float = 2.0
 @export var stiffness: float = 10.0
 @export var damping: float = 1.0
@@ -11,6 +12,7 @@ extends Node3D
 var launched: bool = false
 var grapple_point: Vector3
 
+var initial_dist: float;
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("grapple"):
@@ -18,14 +20,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("grapple"):
 		retract()
 	
+	# handle the player physics
 	if launched:
 		handle_grapple(delta)
 	
+	# need to physically update the rope shown on screen
 	update_rope()
 
 func launch():
 	if ray_cast_3d.is_colliding():
 		grapple_point = ray_cast_3d.get_collision_point()
+		initial_dist = player.global_position.distance_to(grapple_point)
 		launched = true
 
 
@@ -39,25 +44,49 @@ func handle_grapple(delta: float):
 	var displacement = target_dist - rest_length
 	var force = Vector3.ZERO
 	
+	# could look to set the max length of rope and "dangle" the rope
+	# 	needs segmented rope model
+	# additionally, if a player is going past the initial dist,
+	# then apply a force in opp dir to simulate "rope stretchcing" + newt 3rd
+	
+	# apply opp force if rope is stretching / player going against rope
+	var offset = player.global_position - grapple_point
+	if (target_dist > initial_dist ):
+		player.global_position = grapple_point + offset.normalized() * initial_dist
+		player.velocity = player.velocity.slide(offset.normalized())
+		#player.global_position = anchor_point + offset.normalized() * max_rope_length
+		#velocity = velocity.slide(offset.normalized())  # Slide along the rope boundary
+	
+	
+	
+	# the video looks to implement the rope as a spring
+	# idk if we want that or not
 	# rope is stretched
-	if displacement > 0:
-		var spring_force_magnitude = stiffness * displacement
-		var spring_force = target_dir * spring_force_magnitude
-		
-		var vel_dot = player.velocity.dot(target_dir)
-		var damping = -damping * vel_dot * target_dir
-		
-		force = spring_force + damping
-		
-	player.velocity += force * delta
+	#if displacement > 0:
+		#var spring_force_magnitude = stiffness * displacement
+		#var spring_force = target_dir * spring_force_magnitude
+		#
+		#var vel_dot = player.velocity.dot(target_dir)
+		#var damping = -damping * vel_dot * target_dir
+		#
+		#force = spring_force + damping
+		#
+	#player.velocity += force * delta
+	
+
+	
+	
+	
 
 func update_rope():
 	if !launched:
 		rope.visible = false
 		return
 	
+	# video does grapple dist based on player, but want to do so from
+	# global rope pos instead
 	rope.visible = true
-	var dist = player.global_position.distance_to(grapple_point)
+	var dist = rope.global_position.distance_to(grapple_point) / 2
 	rope.look_at(grapple_point)
 	rope.scale = Vector3(1, 1, dist)
 	
