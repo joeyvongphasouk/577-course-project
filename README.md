@@ -8,7 +8,10 @@ Course project for the Mines CSCI 577 class.
   - 
 
 ---
-## Ideas
+
+## Need to Know stuffs
+- Font size for menu is 40 px
+<!-- ## Ideas
 ### 1 - 3d puzzle grapple hook physics game what
 A 3D platformer game where the player must navigate a level from a designated start and end point. The player can shoot a grappling hook at specific points along the level. The player can use this interaction to swing off of this point to reach parts of a level.
 
@@ -36,7 +39,7 @@ Potent prob:
 lorem ipsum
 
 ### 5 - 
-dolor sit amet
+dolor sit amet -->
 
 ---
 ## Deadlines
