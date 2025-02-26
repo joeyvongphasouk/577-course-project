@@ -8,11 +8,11 @@ extends CharacterBody3D
 
 @export_group("Player Physics")
 @export var mass: float = 1.0
-@export var acceleration: float = 15.0
-@export var deceleration: float = 17.0
+@export var acceleration: float = 40.0
+@export var deceleration: float = 10.0
 #@export var gravity: float = 1.0
 @export var jump_force: float = 5
-@export var speed: float = 5.0
+@export var max_speed: float = 25.0 # max speed player can go
 
 @export_group("Movement Controls")
 @export var sensitivity: float = 0.002
@@ -41,13 +41,24 @@ func _physics_process(delta: float) -> void:
 		# should we have it so that grapple retracts when we jump?
 		#grapple.retract() 
 
-	# Get the input direction and handle the movement/deceleration.
+	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	# orig way of going about it is to approach max speed in dir by linear interp
+	# instead accel when there is an input, have less accel in the air
 	if input_dir.length() != 0:
-		velocity.x = lerpf(velocity.x, direction.x * speed, acceleration * delta)
-		velocity.z = lerpf(velocity.z, direction.z * speed, acceleration * delta)
-	else:
+		
+		# this is the movement in the air, can a person move in the air
+		var move_acceleration = acceleration
+		if !is_on_floor():
+			move_acceleration /= 48 
+			
+		velocity.x = lerpf(velocity.x, direction.x * max_speed, move_acceleration * delta)
+		velocity.z = lerpf(velocity.z, direction.z * max_speed, move_acceleration * delta)
+		
+	# instead slow down by friction if player is on a surface
+	elif is_on_floor():
 		velocity.x = lerpf(velocity.x, 0, deceleration * delta)
 		velocity.z = lerpf(velocity.z, 0, deceleration * delta)
 
