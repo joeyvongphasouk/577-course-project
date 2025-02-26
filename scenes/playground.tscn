@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=24 format=3 uid="uid://dy4fgvyaugnii"]
 
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://materials/testing_color.tres" id="1_j81bk"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="2_37cnx"]
@@ -61,6 +61,10 @@ size = Vector3(1, 20, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_n35hp"]
 data = PackedVector3Array(-0.5, 10, 0.5, 0.5, 10, 0.5, -0.5, -10, 0.5, 0.5, 10, 0.5, 0.5, -10, 0.5, -0.5, -10, 0.5, 0.5, 10, -0.5, -0.5, 10, -0.5, 0.5, -10, -0.5, -0.5, 10, -0.5, -0.5, -10, -0.5, 0.5, -10, -0.5, 0.5, 10, 0.5, 0.5, 10, -0.5, 0.5, -10, 0.5, 0.5, 10, -0.5, 0.5, -10, -0.5, 0.5, -10, 0.5, -0.5, 10, -0.5, -0.5, 10, 0.5, -0.5, -10, -0.5, -0.5, 10, 0.5, -0.5, -10, 0.5, -0.5, -10, -0.5, 0.5, 10, 0.5, -0.5, 10, 0.5, 0.5, 10, -0.5, -0.5, 10, 0.5, -0.5, 10, -0.5, 0.5, 10, -0.5, -0.5, -10, 0.5, 0.5, -10, 0.5, -0.5, -10, -0.5, 0.5, -10, 0.5, 0.5, -10, -0.5, -0.5, -10, -0.5)
 
+[sub_resource type="SphereMesh" id="SphereMesh_640ed"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_thjl4"]
+
 [node name="Tutorial_Level" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -109,8 +113,7 @@ shape = SubResource("ConcavePolygonShape3D_iux7c")
 environment = SubResource("Environment_vl41q")
 
 [node name="Player" parent="." instance=ExtResource("2_37cnx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.02108, 0.7)
-max_speed = 25.0
+transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, -2.6, 1.02108, 0.7)
 
 [node name="Ramp" type="StaticBody3D" parent="."]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 2, -5)
@@ -190,3 +193,13 @@ surface_material_override/0 = ExtResource("1_j81bk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pillar3"]
 shape = SubResource("ConcavePolygonShape3D_n35hp")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7, 2, 2.9)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+material_overlay = ExtResource("1_j81bk")
+mesh = SubResource("SphereMesh_640ed")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_thjl4")

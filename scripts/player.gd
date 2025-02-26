@@ -51,11 +51,19 @@ func _physics_process(delta: float) -> void:
 		
 		# this is the movement in the air, can a person move in the air
 		var move_acceleration = acceleration
-		if !is_on_floor():
-			move_acceleration /= 48 
+		# if we are on the floor, then accel to max_speed / 2
+		if is_on_floor():
+			velocity.x = lerpf(velocity.x, direction.x * max_speed / 4, move_acceleration * delta)
+			velocity.z = lerpf(velocity.z, direction.z * max_speed / 4, move_acceleration * delta)
+		
+		# if we are in the air though, accel to max_speed, but make move_accel way worse
+		# additionally, cap the accel through this
+		else:
+			move_acceleration *= 0.001
+			velocity.x = lerpf(velocity.x, direction.x * max_speed, move_acceleration * delta)
+			velocity.z = lerpf(velocity.z, direction.z * max_speed, move_acceleration * delta)
 			
-		velocity.x = lerpf(velocity.x, direction.x * max_speed, move_acceleration * delta)
-		velocity.z = lerpf(velocity.z, direction.z * max_speed, move_acceleration * delta)
+			
 		
 	# instead slow down by friction if player is on a surface
 	elif is_on_floor():
