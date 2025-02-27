@@ -12,7 +12,10 @@ extends CharacterBody3D
 @export var deceleration: float = 10.0
 #@export var gravity: float = 1.0
 @export var jump_force: float = 5
-@export var max_speed: float = 25.0 # max speed player can go
+# desired speed player can go
+# note that this isnt max speed player can go
+# but the speed that the player will lerp to
+@export var rel_max_speed: float = 6
 
 @export_group("Movement Controls")
 @export var sensitivity: float = 0.002
@@ -51,17 +54,16 @@ func _physics_process(delta: float) -> void:
 		
 		# this is the movement in the air, can a person move in the air
 		var move_acceleration = acceleration
-		# if we are on the floor, then accel to max_speed / 2
+		var move_speed = rel_max_speed
 		if is_on_floor():
-			velocity.x = lerpf(velocity.x, direction.x * max_speed / 4, move_acceleration * delta)
-			velocity.z = lerpf(velocity.z, direction.z * max_speed / 4, move_acceleration * delta)
+			velocity.x = lerpf(velocity.x, direction.x * move_speed, move_acceleration * delta)
+			velocity.z = lerpf(velocity.z, direction.z * move_speed, move_acceleration * delta)
 		
-		# if we are in the air though, accel to max_speed, but make move_accel way worse
-		# additionally, cap the accel through this
+		# if we are in the air, accel to rel_max_speed, but make move_accel way worse
 		else:
-			move_acceleration *= 0.001
-			velocity.x = lerpf(velocity.x, direction.x * max_speed, move_acceleration * delta)
-			velocity.z = lerpf(velocity.z, direction.z * max_speed, move_acceleration * delta)
+			move_acceleration *= 0.005
+			velocity.x = lerpf(velocity.x, direction.x * move_speed, move_acceleration * delta)
+			velocity.z = lerpf(velocity.z, direction.z * move_speed, move_acceleration * delta)
 			
 			
 		

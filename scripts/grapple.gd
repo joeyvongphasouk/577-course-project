@@ -11,17 +11,18 @@ extends Node3D
 
 var launched: bool = false
 var grapple_point: Vector3
+var obj_hit: CollisionObject3D
 
-var initial_dist: float;
+var initial_dist: float
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("grapple"):
+	if Input.is_action_just_pressed("grapple_attach"):
 		launch()
-	if Input.is_action_just_released("grapple"):
+	if Input.is_action_just_released("grapple_attach"):
 		retract()
-	
-	# handle the player physics
-	if launched:
+	if Input.is_action_pressed("grapple_pull"):
+		pull_to()
+	elif launched:
 		handle_grapple(delta)
 	
 	# need to physically update the rope shown on screen
@@ -32,6 +33,7 @@ func launch():
 		grapple_point = ray_cast_3d.get_collision_point()
 		initial_dist = player.global_position.distance_to(grapple_point)
 		launched = true
+		obj_hit = ray_cast_3d.get_collider()
 
 
 func retract():
@@ -56,6 +58,40 @@ func handle_grapple(delta: float):
 		player.velocity = player.velocity.slide(offset.normalized())
 		#player.global_position = anchor_point + offset.normalized() * max_rope_length
 		#velocity = velocity.slide(offset.normalized())  # Slide along the rope boundary
+
+	
+func pull_to():
+	
+	# check if the grapple is attached to something
+	if launched and obj_hit:
+		initial_dist = max(initial_dist - 0.1, 0.0)
+		var direction = (grapple_point - player.global_position).normalized()
+		
+		if (abs((grapple_point - player.global_position).length()) < 2):
+			return
+		
+		# if a staticbody, pull player towards it
+		if obj_hit is StaticBody3D:
+			player.velocity += direction * 0.25
+			print("pulling player")
+
+		# if a rigidbody, pull it towards player
+		elif obj_hit is RigidBody3D:
+			obj_hit.apply_central_impulse(- direction * 0.25)
+
+func update_rope():
+	if !launched:
+		rope.visible = false
+		return
+	
+	# video does grapple dist based on player, but want to do so from
+	# global rope pos instead
+	rope.visible = true
+	var dist = rope.global_position.distance_to(grapple_point) / 2
+	rope.look_at(grapple_point)
+	rope.scale = Vector3(1, 1, dist)
+	
+		
 	
 	
 	
@@ -73,25 +109,7 @@ func handle_grapple(delta: float):
 		#
 	#player.velocity += force * delta
 	
-
 	
-	
-	
-
-func update_rope():
-	if !launched:
-		rope.visible = false
-		return
-	
-	# video does grapple dist based on player, but want to do so from
-	# global rope pos instead
-	rope.visible = true
-	var dist = rope.global_position.distance_to(grapple_point) / 2
-	rope.look_at(grapple_point)
-	rope.scale = Vector3(1, 1, dist)
-	
-		
-
 #
 #var grapple_cd: float = 5
 #var grapple_cd_timer: float = 0
