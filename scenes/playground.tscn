@@ -3,16 +3,6 @@
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://materials/testing_color.tres" id="1_j81bk"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="2_37cnx"]
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ytjev"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_mcgwk"]
-size = Vector2(100, 100)
-
-[sub_resource type="BoxMesh" id="BoxMesh_vqbha"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_iux7c"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_stf88"]
 
 [sub_resource type="Sky" id="Sky_8o5xr"]
@@ -22,6 +12,16 @@ sky_material = SubResource("ProceduralSkyMaterial_stf88")
 background_mode = 2
 sky = SubResource("Sky_8o5xr")
 ambient_light_color = Color(0.76662, 0.76662, 0.76662, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ytjev"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mcgwk"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vqbha"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_iux7c"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ur12g"]
 data = PackedVector3Array(-0.5, 2, 1, 0.5, 2, 1, -0.5, -2, 1, 0.5, 2, 1, 0.5, -2, 1, -0.5, -2, 1, 0.5, 2, -1, -0.5, 2, -1, 0.5, -2, -1, -0.5, 2, -1, -0.5, -2, -1, 0.5, -2, -1, 0.5, 2, 1, 0.5, 2, -1, 0.5, -2, 1, 0.5, 2, -1, 0.5, -2, -1, 0.5, -2, 1, -0.5, 2, -1, -0.5, 2, 1, -0.5, -2, -1, -0.5, 2, 1, -0.5, -2, 1, -0.5, -2, -1, 0.5, 2, 1, -0.5, 2, 1, 0.5, 2, -1, -0.5, 2, 1, -0.5, 2, -1, 0.5, 2, -1, -0.5, -2, 1, 0.5, -2, 1, -0.5, -2, -1, 0.5, -2, 1, 0.5, -2, -1, -0.5, -2, -1)
@@ -73,9 +73,15 @@ data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, 
 
 [node name="Tutorial_Level" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vl41q")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939693, -0.219846, 0.262003, 3.58692e-08, 0.766044, 0.642788, -0.34202, -0.604023, 0.719846, 0, 16.8921, 0)
 shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_37cnx")]
+transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, -7.8, 0.999998, -1.1)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
@@ -114,12 +120,6 @@ surface_material_override/0 = ExtResource("1_j81bk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
 shape = SubResource("ConcavePolygonShape3D_iux7c")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_vl41q")
-
-[node name="Player" parent="." instance=ExtResource("2_37cnx")]
-transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, -7.8, 0.999998, -1.1)
 
 [node name="Ramp" type="StaticBody3D" parent="."]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 2, -5)

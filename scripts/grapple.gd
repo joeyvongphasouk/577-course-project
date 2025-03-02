@@ -16,13 +16,16 @@ var obj_hit: CollisionObject3D
 var initial_dist: float
 
 func _physics_process(delta: float) -> void:
+	# deploy/retract grapple
 	if Input.is_action_just_pressed("grapple_attach"):
 		launch()
 	if Input.is_action_just_released("grapple_attach"):
 		retract()
+		
+	# handle grapple mech
 	if Input.is_action_pressed("grapple_pull"):
 		pull_to()
-	elif launched:
+	if launched:
 		handle_grapple(delta)
 	
 	# need to physically update the rope shown on screen
@@ -34,7 +37,6 @@ func launch():
 		initial_dist = player.global_position.distance_to(grapple_point)
 		launched = true
 		obj_hit = ray_cast_3d.get_collider()
-
 
 func retract():
 	launched = false
@@ -64,20 +66,27 @@ func pull_to():
 	
 	# check if the grapple is attached to something
 	if launched and obj_hit:
-		initial_dist = max(initial_dist - 0.1, 0.0)
-		var direction = (grapple_point - player.global_position).normalized()
-		
+		# do not pull if obj too close
 		if (abs((grapple_point - player.global_position).length()) < 2):
 			return
+			
+			
+		var direction = (grapple_point - player.global_position).normalized()
 		
 		# if a staticbody, pull player towards it
 		if obj_hit is StaticBody3D:
+			var prev_player_pos = player.global_position
 			player.velocity += direction * 0.25
+			initial_dist = max(initial_dist - (player.global_position - prev_player_pos).length(), 0.0)
 			print("pulling player")
 
 		# if a rigidbody, pull it towards player
 		elif obj_hit is RigidBody3D:
+			var prev_obj_pos = obj_hit.global_position
 			obj_hit.apply_central_impulse(- direction * 0.25)
+			initial_dist = max(initial_dist - (obj_hit.global_position - prev_obj_pos).length(), 0.0)
+			print("pulling object")
+		
 
 func update_rope():
 	if !launched:
@@ -91,7 +100,7 @@ func update_rope():
 	rope.look_at(grapple_point)
 	rope.scale = Vector3(1, 1, dist)
 	
-		
+	
 	
 	
 	
