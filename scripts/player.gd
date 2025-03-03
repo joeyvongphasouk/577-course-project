@@ -12,6 +12,7 @@ extends CharacterBody3D
 @export var deceleration: float = 10.0
 #@export var gravity: float = 1.0
 @export var jump_force: float = 5
+@export var push_force: float = 2.0
 # desired speed player can go
 # note that this isnt max speed player can go
 # but the speed that the player will lerp to
@@ -73,3 +74,9 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerpf(velocity.z, 0, deceleration * delta)
 
 	move_and_slide()
+	
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		if c.get_collider() is RigidBody3D:
+			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+			

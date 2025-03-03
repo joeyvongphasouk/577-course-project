@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 		
 	# handle grapple mech
 	if Input.is_action_pressed("grapple_pull"):
-		pull_to()
+		pull_to(delta)
 	if launched:
 		handle_grapple(delta)
 	
@@ -48,8 +48,8 @@ func launch():
 		obj_hit = ray_cast_3d.get_collider()
 		
 		# instantiate rope
-		#if rope_2_node:
-			#rope_2_node.queue_free()
+		if is_instance_valid(rope_2_node):
+			rope_2_node.queue_free()
 		rope_2_node = rope_2_script.new()
 		rope_2_node.position = Vector3(0.7, 0, 0) # set offset to grapple
 		rope_2_node.RopeLength = initial_dist * 0.8
@@ -57,25 +57,25 @@ func launch():
 		get_parent().add_child(rope_2_node)
 		
 		# instantiate the grapple point node rope is hooked onto
-		#if rope_2_grapple_point_node:
-			#rope_2_grapple_point_node.queue_free()
+		if is_instance_valid(rope_2_grapple_point_node):
+			rope_2_grapple_point_node.queue_free()
 		rope_2_grapple_point_node = Node3D.new()
-		rope_2_grapple_point_node.global_position = grapple_point + (grapple_point - player.global_position).normalized() * 0.02
-		#rope_2_grapple_point_node.global_position = grapple_point
-		print(grapple_point)
+		
+		if obj_hit is RigidBody3D:
+			obj_hit.add_child(rope_2_grapple_point_node)
+			rope_2_grapple_point_node.position = obj_hit.to_local(grapple_point)
+		else:
+			rope_2_grapple_point_node.global_position = grapple_point + (grapple_point - player.global_position).normalized() * 0.02
+
 
 		# add nodes to the tree
 		get_tree().current_scene.add_child(rope_2_grapple_point_node)
-		#get_parent().add_child(rope_2_node)
 		
 		# attach the rope to the created node3D
 		rope_2_node.SetAttachEnd(rope_2_grapple_point_node)
 
 func retract():
 	launched = false
-	#if verlet_rope:
-		#verlet_rope.queue_free()
-		#verlet_rope = null
 	if is_instance_valid(rope_2_node):
 		rope_2_node.queue_free()
 	if is_instance_valid(rope_2_grapple_point_node):
@@ -94,46 +94,75 @@ func handle_grapple(delta: float):
 	# then apply a force in opp dir to simulate "rope stretchcing" + newt 3rd
 	
 	# apply opp force if rope is stretching / player going against rope
+	# this is the pull_to func as well
 	var offset = player.global_position - grapple_point
-	if (target_dist > initial_dist ):
+	
+	# check if stationary, if so, then pull only the player
+	if (target_dist > initial_dist):
 		player.global_position = grapple_point + offset.normalized() * initial_dist
 		player.velocity = player.velocity.slide(offset.normalized())
-		#player.global_position = anchor_point + offset.normalized() * max_rope_length
-		#velocity = velocity.slide(offset.normalized())  # Slide along the rope boundary
 
 	
-func pull_to():
+func pull_to(delta: float):
 	
 	# check if the grapple is attached to something
 	if launched and obj_hit:
 		# do not pull if obj too close
 		if (abs((grapple_point - player.global_position).length()) < 2):
 			return
-			
-			
-		var direction = (grapple_point - player.global_position).normalized()
-		
-		# if a staticbody, pull player towards it
-		if obj_hit is StaticBody3D:
-			var prev_player_pos = player.global_position
-			player.velocity += direction * 0.25
-			initial_dist = max(initial_dist - (player.global_position - prev_player_pos).length(), 0.0)
-			print("pulling player")
 
-		# if a rigidbody, pull it towards player
+		# if stationary, pull player to obj
+		if obj_hit is StaticBody3D:
+
+			# this is if we want to pull the player to the point
+			#player.velocity += force
+			
+			var direction = (grapple_point - player.global_position).normalized()
+			var force = direction * 2.0 # scale the norm vec by 2, cause pull is too slow
+
+			var displacement = force * delta
+			initial_dist = max(initial_dist - displacement.length(), 0.0)
+
+		# if moveable, pull obj to player
 		elif obj_hit is RigidBody3D:
-			var prev_obj_pos = obj_hit.global_position
-			obj_hit.apply_central_impulse(- direction * 0.25)
-			initial_dist = max(initial_dist - (obj_hit.global_position - prev_obj_pos).length(), 0.0)
-			print("pulling object")
-		
-		rope_2_node.RopeLength = initial_dist
-		
+
+			## first update where grapple point is from local
+			#grapple_point = rope_2_grapple_point_node.global_position
+			#var direction = (grapple_point - player.global_position).normalized()
+			#
+			## scale the norm vec by 2, cause pull is too slow
+			## also, times by the mass of the object
+			#var force = direction * 2.0 * obj_hit.mass
+			#
+			#var displacement = force * delta
+			#initial_dist = max(initial_dist - displacement.length(), 0.0)
+			
+			var direction = (player.global_position - grapple_point).normalized()
+			
+			# Ensure grapple point updates correctly
+			grapple_point = rope_2_grapple_point_node.global_position
+
+			# Calculate pull strength based on mass
+			var pull_strength = 2.0  # Adjust as needed
+			var force = direction * pull_strength / obj_hit.mass  # Heavier objects move slower
+
+			# Apply impulse to the object
+			obj_hit.apply_central_impulse(force)
+
+			# Optional: Apply opposite reaction force to the player (Newton's 3rd law)
+			player.velocity -= force * 0.5  # Scale down so player isn't thrown too fast
+			
+			var displacement = force * delta
+			initial_dist = max(initial_dist - displacement.length(), 0.0)
+
+		# Update rope length (this controls the visual rope length)
+		rope_2_node.RopeLength = initial_dist * 0.8
 
 # draw the rope
 func update_rope():
-	if !launched:
-		rope.visible = false
-		if verlet_rope:
-			verlet_rope.visible = false
-		return
+	pass
+	#if !launched:
+		#rope.visible = false
+		#if verlet_rope:
+			#verlet_rope.visible = false
+		#return

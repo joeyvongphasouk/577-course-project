@@ -8,9 +8,9 @@ top_radius = 0.05
 bottom_radius = 0.05
 radial_segments = 8
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_mk33v"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_srx1r"]
 resource_local_to_scene = true
-metadata/creation_stamp = 13006402557067
+metadata/creation_stamp = 1801168417396
 
 [node name="Rope" type="Node3D"]
 
@@ -21,5 +21,5 @@ mesh = SubResource("CylinderMesh_c271g")
 
 [node name="VerletRope" type="MeshInstance3D" parent="."]
 material_override = ExtResource("1_ut0eh")
-mesh = SubResource("ImmediateMesh_mk33v")
+mesh = SubResource("ImmediateMesh_srx1r")
 script = ExtResource("2_i6fw4")
