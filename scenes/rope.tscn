@@ -1,12 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfvw3wavk4hu1"]
+[gd_scene load_steps=5 format=3 uid="uid://bfvw3wavk4hu1"]
+
+[ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="1_ut0eh"]
+[ext_resource type="Script" path="res://addons/verlet_rope_4/VerletRope.cs" id="2_i6fw4"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_c271g"]
 top_radius = 0.05
 bottom_radius = 0.05
 radial_segments = 8
 
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_mk33v"]
+resource_local_to_scene = true
+metadata/creation_stamp = 13006402557067
+
 [node name="Rope" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
+visible = false
 mesh = SubResource("CylinderMesh_c271g")
+
+[node name="VerletRope" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_ut0eh")
+mesh = SubResource("ImmediateMesh_mk33v")
+script = ExtResource("2_i6fw4")

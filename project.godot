@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Mandira"
 run/main_scene="res://scenes/main_menu.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -27,6 +27,10 @@ window/size/viewport_height=720
 [dotnet]
 
 project/assembly_name="Mandira"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/verlet_rope_4/plugin.cfg")
 
 [input]
 

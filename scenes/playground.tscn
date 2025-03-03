@@ -1,7 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=29 format=3 uid="uid://dy4fgvyaugnii"]
 
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://materials/testing_color.tres" id="1_j81bk"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="2_37cnx"]
+[ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="3_3i7s3"]
+[ext_resource type="Script" path="res://addons/verlet_rope_4/VerletRope.cs" id="4_w8em7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_stf88"]
 
@@ -70,6 +72,10 @@ size = Vector3(10, 50, 10)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0p1y1"]
 data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, -25, 5, 5, 25, -5, -5, 25, -5, 5, -25, -5, -5, 25, -5, -5, -25, -5, 5, -25, -5, 5, 25, 5, 5, 25, -5, 5, -25, 5, 5, 25, -5, 5, -25, -5, 5, -25, 5, -5, 25, -5, -5, 25, 5, -5, -25, -5, -5, 25, 5, -5, -25, 5, -5, -25, -5, 5, 25, 5, -5, 25, 5, 5, 25, -5, -5, 25, 5, -5, 25, -5, 5, 25, -5, -5, -25, 5, 5, -25, 5, -5, -25, -5, 5, -25, 5, 5, -25, -5, -5, -25, -5)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ho04a"]
+resource_local_to_scene = true
+metadata/creation_stamp = 34968264831334
 
 [node name="Tutorial_Level" type="Node3D"]
 
@@ -229,3 +235,12 @@ mesh = SubResource("BoxMesh_qith7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
 shape = SubResource("ConcavePolygonShape3D_0p1y1")
+
+[node name="VerletRope" type="MeshInstance3D" parent="." node_paths=PackedStringArray("AttachEnd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71588, -4.4)
+material_override = ExtResource("3_3i7s3")
+mesh = SubResource("ImmediateMesh_ho04a")
+script = ExtResource("4_w8em7")
+AttachEnd = NodePath("../RigidBody3D")
+RopeLength = 10.0
+RopeCollisionBehavior = 2

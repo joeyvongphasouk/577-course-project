@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=9 format=3 uid="uid://dkdw4ky2ef0l0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_rjqoc"]
 [ext_resource type="Script" path="res://scripts/grapply_raycast.gd" id="2_xonsp"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_xxfed"]
 [ext_resource type="Script" path="res://scripts/grapple.gd" id="3_k0eyb"]
+[ext_resource type="Script" path="res://scripts/test.cs" id="5_dlykx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smimx"]
 
@@ -54,3 +55,7 @@ script = ExtResource("2_xonsp")
 [node name="Grapple" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 script = ExtResource("3_k0eyb")
+rope_scene = ExtResource("2_xxfed")
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("5_dlykx")

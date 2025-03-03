@@ -796,4 +796,10 @@ public partial class VerletRope : MeshInstance3D
 
         _mesh.SurfaceEnd();
     }
+
+
+    public void SetAttachEnd(Node3D node)
+    {
+        AttachEnd = node;
+    }
 }
