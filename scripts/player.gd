@@ -3,11 +3,11 @@ extends CharacterBody3D
 #const SPEED = 5.0
 #const JUMP_VELOCITY = 4.5
 @onready var head: Node3D = $Head
-@onready var grapple: Node3D = $Grapple
-
+@onready var camera_3d: Camera3D = $Head/Camera3D
+@onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
 
 @export_group("Player Physics")
-@export var mass: float = 1.0
+@export var player_mass: float = 80.0
 @export var acceleration: float = 40.0
 @export var deceleration: float = 10.0
 #@export var gravity: float = 1.0
@@ -21,8 +21,31 @@ extends CharacterBody3D
 @export_group("Movement Controls")
 @export var sensitivity: float = 0.002
 
+@export_group("Head Bobbing")
+@export var headbob_freq: float = 2.0
+@export var headbob_amp: float = 0.04
+var headbob_time: float = 0.0
+
+# footstep sounds
+@onready var footstep_audio_3d: AudioStreamPlayer3D = $FootstepAudio3D
+var footstep_play: bool = true
+var footstep_land: bool = false
+
+@export_group("Grapple Variables")
+@export var rope_scene: PackedScene
+var launched: bool = false
+var grapple_point: Vector3
+var obj_hit: CollisionObject3D
+var rope_dist: float
+var verlet_rope: Node3D
+var rope_2_script
+var rope_2_node: Node3D
+var rope_2_grapple_point_node: Node3D
+var pullable_mass: float = 115
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	rope_2_script = load("res://addons/verlet_rope_4/VerletRope.cs")
 	
 func _unhandled_input(event) -> void:
 	# Look around
@@ -39,7 +62,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or grapple.launched):
+	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or launched):
 		velocity.y += jump_force
 		
 		# should we have it so that grapple retracts when we jump?
@@ -73,10 +96,151 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerpf(velocity.x, 0, deceleration * delta)
 		velocity.z = lerpf(velocity.z, 0, deceleration * delta)
 
-	move_and_slide()
-	
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody3D:
-			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+			var push_dir = -c.get_normal()
+			var velocity_diff_in_push_dir = self.velocity.dot(push_dir) - c.get_collider().linear_velocity.dot(push_dir)
+			velocity_diff_in_push_dir = max(velocity_diff_in_push_dir, 0)
+			var mass_ratio = min(1, player_mass / c.get_collider().mass) # person mass is 80 kg
+			push_dir.y = 0
+			var push_force = mass_ratio * 2.0
 			
+			# push relative to the global position of the collider
+			c.get_collider().apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - c.get_collider().global_position)
+	
+	grapple_handle(delta)
+	
+	# actually apply movement to char
+	move_and_slide()
+	
+	# bobbing
+	headbob_time += delta * velocity.length() * float (is_on_floor())
+	camera_3d.transform.origin = headbob(headbob_time)
+	
+	if not footstep_land and is_on_floor():
+		footstep_audio_3d.play()
+	elif footstep_land and not is_on_floor():
+		footstep_audio_3d.play()
+	footstep_land = is_on_floor()
+		
+
+func headbob(headbob_time):
+	var headbob_pos = Vector3.ZERO
+	headbob_pos.y = sin(headbob_time * headbob_freq) * headbob_amp
+	headbob_pos.x = cos(headbob_time * headbob_freq / 2) * headbob_amp
+	
+	var footstep_threshold = -headbob_amp + 0.002
+	if headbob_pos.y > footstep_threshold:
+		footstep_play = true
+	elif headbob_pos.y < footstep_threshold and footstep_play:
+		footstep_play = false
+		footstep_audio_3d.play()
+	
+	return headbob_pos
+
+# handle all vel changes here from the grapple
+func grapple_handle(delta: float) -> void:
+	# change states of grapple
+	if Input.is_action_just_pressed("grapple_attach"):
+		launch()
+	if Input.is_action_just_released("grapple_attach"):
+		retract()
+		
+	## handle grapple vel changes
+
+		#pass
+	if launched:
+		handle_grapple(delta)
+
+func launch():
+	if ray_cast_3d.is_colliding():
+		grapple_point = ray_cast_3d.get_collision_point()
+		rope_dist = global_position.distance_to(grapple_point)
+		launched = true
+		obj_hit = ray_cast_3d.get_collider()
+		
+		# instantiate rope
+		if is_instance_valid(rope_2_node):
+			rope_2_node.queue_free()
+		rope_2_node = rope_2_script.new()
+		rope_2_node.position = Vector3(0.7, 0, 0) # set offset to grapple
+		rope_2_node.RopeLength = rope_dist * 0.8
+		rope_2_node.RopeCollisionBehavior = 1
+		add_child(rope_2_node)
+		
+		# instantiate the grapple point node rope is hooked onto
+		if is_instance_valid(rope_2_grapple_point_node):
+			rope_2_grapple_point_node.queue_free()
+		rope_2_grapple_point_node = Node3D.new()
+		
+		if obj_hit is RigidBody3D:
+			obj_hit.add_child(rope_2_grapple_point_node)
+			rope_2_grapple_point_node.position = obj_hit.to_local(grapple_point)
+		else:
+			#rope_2_grapple_point_node.global_position
+			get_tree().current_scene.add_child(rope_2_grapple_point_node)
+			rope_2_grapple_point_node.global_position = grapple_point + (grapple_point - global_position).normalized() * 0.02
+			
+		# attach the rope to the created node3D
+		rope_2_node.SetAttachEnd(rope_2_grapple_point_node)
+
+func retract():
+	launched = false
+	if is_instance_valid(rope_2_node):
+		rope_2_node.queue_free()
+	if is_instance_valid(rope_2_grapple_point_node):
+		rope_2_grapple_point_node.queue_free()
+
+func handle_grapple(delta: float) -> void:
+	var target_dist = global_position.distance_to(rope_2_grapple_point_node.global_position)
+	var direction_to_grapple = (rope_2_grapple_point_node.global_position - global_position).normalized()
+	var velocity_along_rope = velocity.project(direction_to_grapple)
+	
+	# if its a staticbody, then only pull player velocity
+	if obj_hit is StaticBody3D or (obj_hit.mass > pullable_mass):
+		
+		# take away to opposing vel if we strech past the rope distance
+		if (target_dist > rope_dist * 1.01):
+			velocity -= velocity_along_rope * 0.8
+			
+			# "snap" back to place, increase vel towards the grapple point
+			velocity += direction_to_grapple * 5.0 * (target_dist - rope_dist)
+		
+		if Input.is_action_pressed("grapple_pull"):
+			pull_to(delta)
+	
+	# else we have to recalculate the player pos from the grapple spot as its moving
+	# additionally pull on the object with weight in mind
+	elif obj_hit is RigidBody3D:
+		print("hello")
+		if target_dist > rope_dist:
+
+			# Calculate pull force based on object and player mass
+			var total_mass = obj_hit.mass + player_mass
+			var obj_ratio = obj_hit.mass / total_mass  # How much the object should move
+			var player_ratio = player_mass / total_mass  # How much the player should move
+
+			# Compute pull impulse based on stretch amount
+			var pull_force = -direction_to_grapple * 15.0 * (target_dist - rope_dist)
+
+			# Apply impulse to both player and object based on their ratios
+			#obj_hit.apply_central_force(pull_force * player_ratio)
+			obj_hit.apply_force(pull_force * player_ratio, obj_hit.to_local(rope_2_grapple_point_node.global_position))
+			velocity -= pull_force * obj_ratio  # Move player in the opposite direction
+			
+		if Input.is_action_pressed("grapple_pull"):
+			pull_to(delta)
+
+
+func pull_to(delta: float) -> void:
+	if launched and obj_hit:
+		
+		# do not pull if obj too close
+		if (abs((rope_2_grapple_point_node.global_position - global_position).length()) < 2):
+			return
+			
+		var pull_accel = 1.0
+		var max_pull_speed = 2.0
+		rope_dist = max(rope_dist - pull_accel * delta, 0)
+		rope_2_node.RopeLength = rope_dist * 0.8
