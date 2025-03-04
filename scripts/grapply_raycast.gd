@@ -1,4 +1,5 @@
 extends RayCast3D
+@onready var crosshair: ColorRect = $"../Camera3D/Crosshair"
 
 ## Called when the node enters the scene tree for the first time.
 #func _ready() -> void:
@@ -9,11 +10,11 @@ extends RayCast3D
 #func _process(delta: float) -> void:
 	#pass
 
-func _physics_process(delta: float) -> void:
-	pass
-	#if is_colliding():
-		#var hit = get_collider()
-		#print(hit.name)
+func _process(_delta: float) -> void:
+	if is_colliding():
+		crosshair.set_color(Color(0.5, 1.0, 0.5, 0.7))
+	else:
+		crosshair.set_color(Color(1.0, 1.0, 1.0, 0.7))
 	#var mousePos=get_viewport().get_mouse_position()
 	#$Ray.target_position.x = mousePos.x
 	#$Ray.target_position.y = mousePos.y

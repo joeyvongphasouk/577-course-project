@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=13 format=3 uid="uid://dkdw4ky2ef0l0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_rjqoc"]
 [ext_resource type="Script" path="res://scripts/grapply_raycast.gd" id="2_xonsp"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_xxfed"]
-[ext_resource type="Script" path="res://scripts/grapple.gd" id="3_k0eyb"]
+[ext_resource type="AudioStream" uid="uid://cnhhlash564lr" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_001_23311.mp3" id="4_wq3tc"]
+[ext_resource type="AudioStream" uid="uid://o6y3w6mfiw1a" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_002_23312.mp3" id="5_r5a42"]
+[ext_resource type="AudioStream" uid="uid://ck715hqqxth80" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_003_23313.mp3" id="6_y7p1b"]
+[ext_resource type="AudioStream" uid="uid://bvdwpk5lb7jet" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_004_23314.mp3" id="7_7ftjb"]
+[ext_resource type="AudioStream" uid="uid://c010m7j4rl663" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_005_23315.mp3" id="8_ikm8b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smimx"]
 
@@ -12,9 +16,22 @@ albedo_color = Color(0.970914, 0.648139, 0.111778, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5vhxq"]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hj58k"]
+random_pitch = 1.2
+streams_count = 5
+stream_0/stream = ExtResource("4_wq3tc")
+stream_1/stream = ExtResource("5_r5a42")
+stream_2/stream = ExtResource("6_y7p1b")
+stream_3/stream = ExtResource("7_7ftjb")
+stream_4/stream = ExtResource("8_ikm8b")
+
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02108, 0)
+collision_layer = 2
+collision_mask = 2
+platform_floor_layers = 4294967280
 script = ExtResource("1_rjqoc")
+rope_scene = ExtResource("2_xxfed")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_smimx")
@@ -44,16 +61,15 @@ mouse_filter = 2
 
 [node name="Rope" parent="Head/Camera3D" instance=ExtResource("2_xxfed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.4, -1.49012e-08)
+visible = false
 
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -30, 0)
 script = ExtResource("2_xonsp")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02108, 0)
-top_level = true
-
-[node name="Grapple" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-script = ExtResource("3_k0eyb")
+[node name="FootstepAudio3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+stream = SubResource("AudioStreamRandomizer_hj58k")
+volume_db = -0.5
+max_db = 0.0

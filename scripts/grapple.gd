@@ -11,16 +11,29 @@ extends Node3D
 
 var launched: bool = false
 var grapple_point: Vector3
+var obj_hit: CollisionObject3D
 
-var initial_dist: float;
+var initial_dist: float
+var verlet_rope: Node3D
+@export var rope_scene: PackedScene
+
+var rope_2_script
+var rope_2_node: Node3D
+var rope_2_grapple_point_node: Node3D
+
+func _ready() -> void:
+	rope_2_script = load("res://addons/verlet_rope_4/VerletRope.cs")
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("grapple"):
+	# deploy/retract grapple
+	if Input.is_action_just_pressed("grapple_attach"):
 		launch()
-	if Input.is_action_just_released("grapple"):
+	if Input.is_action_just_released("grapple_attach"):
 		retract()
-	
-	# handle the player physics
+		
+	# handle grapple mech
+	if Input.is_action_pressed("grapple_pull"):
+		pull_to(delta)
 	if launched:
 		handle_grapple(delta)
 	
@@ -32,190 +45,161 @@ func launch():
 		grapple_point = ray_cast_3d.get_collision_point()
 		initial_dist = player.global_position.distance_to(grapple_point)
 		launched = true
-
+		obj_hit = ray_cast_3d.get_collider()
+		
+		# instantiate rope
+		if is_instance_valid(rope_2_node):
+			rope_2_node.queue_free()
+		rope_2_node = rope_2_script.new()
+		rope_2_node.position = Vector3(0.7, 0, 0) # set offset to grapple
+		rope_2_node.RopeLength = initial_dist * 0.8
+		rope_2_node.RopeCollisionBehavior = 1
+		get_parent().add_child(rope_2_node)
+		
+		# instantiate the grapple point node rope is hooked onto
+		if is_instance_valid(rope_2_grapple_point_node):
+			rope_2_grapple_point_node.queue_free()
+		rope_2_grapple_point_node = Node3D.new()
+		
+		if obj_hit is RigidBody3D:
+			obj_hit.add_child(rope_2_grapple_point_node)
+			rope_2_grapple_point_node.position = obj_hit.to_local(grapple_point)
+		else:
+			#rope_2_grapple_point_node.global_position
+			get_tree().current_scene.add_child(rope_2_grapple_point_node)
+			rope_2_grapple_point_node.global_position = grapple_point + (grapple_point - player.global_position).normalized() * 0.02
+			
+		# attach the rope to the created node3D
+		rope_2_node.SetAttachEnd(rope_2_grapple_point_node)
 
 func retract():
 	launched = false
+	if is_instance_valid(rope_2_node):
+		rope_2_node.queue_free()
+	if is_instance_valid(rope_2_grapple_point_node):
+		rope_2_grapple_point_node.queue_free()
 	
 func handle_grapple(delta: float):
-	var target_dir = player.global_position.direction_to(grapple_point)
-	var target_dist = player.global_position.distance_to(grapple_point)
-	
-	var displacement = target_dist - rest_length
-	var force = Vector3.ZERO
+	#var target_dir = player.global_position.direction_to(grapple_point)
 	
 	# could look to set the max length of rope and "dangle" the rope
 	# 	needs segmented rope model
 	# additionally, if a player is going past the initial dist,
 	# then apply a force in opp dir to simulate "rope stretchcing" + newt 3rd
 	
-	# apply opp force if rope is stretching / player going against rope
-	var offset = player.global_position - grapple_point
-	if (target_dist > initial_dist ):
-		player.global_position = grapple_point + offset.normalized() * initial_dist
-		player.velocity = player.velocity.slide(offset.normalized())
-		#player.global_position = anchor_point + offset.normalized() * max_rope_length
-		#velocity = velocity.slide(offset.normalized())  # Slide along the rope boundary
-	
-	
-	
-	# the video looks to implement the rope as a spring
-	# idk if we want that or not
-	# rope is stretched
-	#if displacement > 0:
-		#var spring_force_magnitude = stiffness * displacement
-		#var spring_force = target_dir * spring_force_magnitude
-		#
-		#var vel_dot = player.velocity.dot(target_dir)
-		#var damping = -damping * vel_dot * target_dir
-		#
-		#force = spring_force + damping
-		#
-	#player.velocity += force * delta
-	
-
-	
-	
-	
-
-func update_rope():
-	if !launched:
-		rope.visible = false
-		return
-	
-	# video does grapple dist based on player, but want to do so from
-	# global rope pos instead
-	rope.visible = true
-	var dist = rope.global_position.distance_to(grapple_point) / 2
-	rope.look_at(grapple_point)
-	rope.scale = Vector3(1, 1, dist)
-	
+	# check if stationary, if so, then pull only the player
+	# can perform kinematics cause stationary obj
+	# would need to use forces if we want player mass to be a thing
+	if obj_hit is StaticBody3D:
+		var offset = player.global_position - grapple_point
+		var target_dist = player.global_position.distance_to(grapple_point)
 		
-
-#
-#var grapple_cd: float = 5
-#var grapple_cd_timer: float = 0
-#var grappling: bool = false
-#var grapple_point: Vector3
-#var grapple_distance
-#
-#func _physics_process(delta: float) -> void:
-	#grapple_distance = abs(ray_cast_3d.target_position.y)
-	#if Input.is_action_just_pressed("grapple"):
-		#start_grapple()
-	##if grapple_cd_timer > 0:
-		##grapple_cd_timer -= delta
-#
-#
-#func start_grapple() -> void:
-	#grappling = true
-	#if ray_cast_3d.is_colliding():
-		#grapple_point = ray_cast_3d.get_collision_point()
-		#print(grapple_point)
-		#execute_grapple()
-	#else:
-		#grapple_point = head.position + head.rotation * grapple_distance
-		#stop_grapple()
+		if (target_dist > initial_dist):
+			player.global_position = grapple_point + offset.normalized() * initial_dist
+			player.velocity = player.velocity.slide(offset.normalized())
+	
+	# else we have to calculate the player pos from the grapple spot as its moving
+	else:
+		## recalc player pos from where grapple point is
+		#var offset = player.global_position - rope_2_grapple_point_node.global_position
+		#var target_dist = player.global_position.distance_to(rope_2_grapple_point_node.global_position)
 		#
-#func execute_grapple() -> void:
-	#pass
-#func stop_grapple() -> void:
-	#grappling = true
-	#grapple_cd_timer = grapple_cd
-	#
-#
+		## next move the object if the rope length is shorter
+		##if (target_dist > initial_dist):
+			##print("rope stretched")
+			##player.global_position = grapple_point + offset.normalized() * initial_dist
+			##player.velocity = player.velocity.slide(offset.normalized())
+			
+		var offset = player.global_position - rope_2_grapple_point_node.global_position
+		var target_dist = player.global_position.distance_to(rope_2_grapple_point_node.global_position)
 
+		if target_dist > initial_dist:
+			var direction = (rope_2_grapple_point_node.global_position - player.global_position).normalized()
 
+			# Player gets pulled
+			player.velocity += direction * 5.0  # Adjust force applied to player
 
+			# Object gets pulled (but scaled by mass)
+			if obj_hit is RigidBody3D:
+				var force = direction * 10.0 / obj_hit.mass  # Scale force by inverse of mass
+				obj_hit.apply_central_force(force)
 
+	
+func pull_to(delta: float):
+	
+	# check if the grapple is attached to something
+	if launched and obj_hit:
+		# do not pull if obj too close
+		if (abs((grapple_point - player.global_position).length()) < 2):
+			return
 
+		# if stationary, pull player to obj
+		#if obj_hit is StaticBody3D:
+			
+		var direction = (grapple_point - player.global_position).normalized()
+		var force = direction * 2.0 # scale the norm vec by 2, cause pull is too slow
 
-# got this code from https://www.youtube.com/watch?v=07tfCS_RRGM
+		var displacement = force * delta
+		initial_dist = max(initial_dist - displacement.length(), 0.0)
 
-#@onready var rope: MeshInstance3D = $RopeRoot/Rope
-#@onready var rope_root: Node3D = $RopeRoot
-#@onready var player: CharacterBody3D = get_parent().get_parent()  # Get the parent of the hook, which is the player
-#
-#
-#var is_grappled: bool
-#var grapple_target: PhysicsBody3D
-#var grapple_point_local_pos: Vector3
-#var acceleration: float = 10.0
-#
-## Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#rope.visible = false
-	#pass # Replace with function body.
-#
-#
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#pass
-#
-#func _physics_process(delta: float) -> void:
-	#process_input()
-	#process_grapple()
-#
-#func process_input():
-	#if Input.is_action_just_pressed("grapple"):
-		#if is_grappled:
-			#is_grappled = false
-			#rope.visible = false
-			#grapple_point_local_pos = Vector3.ZERO
-			#grapple_target = null
-			#global_rotation_degrees = Vector3.ZERO
+		## if moveable, pull obj to player
+		#elif obj_hit is RigidBody3D:
 			#
-		#else:
-			#var from = global_position
-			#var forward = -global_basis.z
-			#var to = global_position + forward * 500
-			#var raycast_result = get_world_3d().direct_space_state.intersect_ray(
-				#PhysicsRayQueryParameters3D.create(from, to)
-			#)
+			#var direction = (player.global_position - grapple_point).normalized()
+			#grapple_point = rope_2_grapple_point_node.global_position
 			#
-			## check if we hit something
-			#if not raycast_result.is_empty():
-				#var node_hit = raycast_result["collider"] as PhysicsBody3D  # Corrected cast
-				#if node_hit:
-					#grapple_target = node_hit
-					#grapple_point_local_pos = node_hit.to_local(raycast_result["position"])
-					#is_grappled = true
-					#rope.visible = true
+			## Define the desired constant speed (change as needed)
+			#var desired_speed = 5.0
+#
+			## Compute required force based on mass
+			#var pull_force = direction * 10.0  # 10.0 is an arbitrary force strength, adjust as needed
+			#obj_hit.apply_central_force(pull_force)
+#
+			## **Velocity Clamping**: Ensure the object does not exceed the desired speed
+			#var current_velocity = obj_hit.linear_velocity
+			#var velocity_toward_player = current_velocity.project(direction)  # Get movement along pull direction
+#
+			## If the object is moving too fast toward the player, slow it down
+			#if velocity_toward_player.length() > desired_speed:
+				#obj_hit.linear_velocity = velocity_toward_player.normalized() * desired_speed
+#
+			### Calculate pull strength based on mass
+			##var pull_force = 5.0 * direction
+			##var force = direction * 2 * obj_hit.mass / delta  # Heavier objects move slower
+			##print(pull_force)
+			##print(force)
+			##obj_hit.apply_central_force(pull_force)
+##
+			### Apply impulse to the object
+			### use newt 2nd law a = f/m to see if such will move
+			### if it will move, apply the force onto the object
+			### if it does not move, apply the force onto the player, but do not change grapple
+			##if (pull_force / obj_hit.mass).length() > 0.01:
+				##obj_hit.apply_central_force(pull_force)
+				###initial_dist = max(initial_dist - displacement.length(), 0.0)
+			##else:
+				##var offset = player.global_position - grapple_point
+				##var target_dist = player.global_position.distance_to(grapple_point)
+				##
+				##if (target_dist > initial_dist):
+					##player.global_position = grapple_point + offset.normalized() * initial_dist
+					##player.velocity = player.velocity.slide(offset.normalized())
 #
 #
-##func process_input():
-	##if Input.is_action_just_pressed("grapple"):
-		##if is_grappled:
-			##is_grappled = false
-			##rope.visible = false
-			##grapple_point_local_pos = Vector3.ZERO
-			##grapple_target = null
-		##else:
-			##var from = global_position
-			##var forward = -global_basis.z
-			##var to = global_position + forward * 500
-			##var raycast_result = get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(from, to))
-			##
-			### check if we hit something
-			##if not raycast_result.is_empty():
-				##var node_hit = raycast_result["collider"] as Node3D
-				##if node_hit is PhysicsBody3D:
-					##grapple_target = node_hit
-					##grapple_point_local_pos = node_hit.to_local(raycast_result["position"] as Vector3)
-					##is_grappled = true
-					##rope.visible = true
-#
-#func process_grapple():
-	#if is_grappled:
-		#var grapple_point_global_pos = grapple_target.to_global(grapple_point_local_pos)
-		#look_at(grapple_point_global_pos)
-#
-		#var displacement = global_position - grapple_point_global_pos
-		#rope.scale = Vector3(1.0, 1.0, displacement.length())
-#
-		## Apply force using velocity
-		#if player:
-			#var force = displacement.normalized() * acceleration
-			#player.velocity = force  # Apply the force directly to the player's velocity
-		#else:
-			#print("Error: player is null!")
+			### Optional: Apply opposite reaction force to the player (Newton's 3rd law)
+			##player.velocity -= force * 0.5  # Scale down so player isn't thrown too fast
+			#
+			##var displacement = force * delta
+			##initial_dist = max(initial_dist - displacement.length(), 0.0)
+
+		# Update rope length (this controls the visual rope length)
+		rope_2_node.RopeLength = initial_dist * 0.8
+
+# draw the rope
+func update_rope():
+	pass
+	#if !launched:
+		#rope.visible = false
+		#if verlet_rope:
+			#verlet_rope.visible = false
+		#return

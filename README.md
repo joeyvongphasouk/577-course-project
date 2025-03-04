@@ -3,15 +3,21 @@ Course project for the Mines CSCI 577 class.
 
 ## Team and Responsibilties
 - Sovann Sam
-  - 
+  - Game developer
+  - Level designer
+  - Art and Sound director
 - Joey Vongphasouk
-  - 
+  - Game developer
+  - Game designer
+  - Engine/Physics designer
 
 ---
 
 ## Need to Know stuffs
 - Font size for menu is 40 px
-<!-- ## Ideas
+- Player collision layer + mask is 2, grapple coll layer + mask is 1, thus blocks in env should check for both
+- Audio for sound effects: https://www.zapsplat.com/sound-effect-packs/footsteps-on-hollow-wood-floor/?registration_redirect=1&item_id=40163
+
 ### 1 - 3d puzzle grapple hook physics game what
 A 3D platformer game where the player must navigate a level from a designated start and end point. The player can shoot a grappling hook at specific points along the level. The player can use this interaction to swing off of this point to reach parts of a level.
 
@@ -20,26 +26,6 @@ Potent prob:
 2. Edge cases are also shit to debug
 3. Levels themselves must be designed well
 
-### 2 - 3d Scary game lol
-Stalker setting, where person is stalked by a monster or someone. Think holy trinity game, that neighbor jacksept game, or backrooms/scp vibe (stairway to heaven, kieru). Gameplay can include running (unknown env?), hiding (w/ heartbeat management), or noise management (risk objectives that make noise).
-
-Potent prob:
-1. Need to play to all senses (sound), means beeg files
-2. Setting does not need to be detailed, but needs consistency
-3. Multiple aspects needs to be impl, hard to start
-
-### 3 - 2d top down blob-morpher shooter
-Think of hotline miami but no blood cause school. Player plays as rainbow blob that can transform into different forms. These different forms can do different types of atks. Enemies are monotone blobs/hunters that atk the player (maybe line of sight).
-
-Potent prob:
-1. Needs good enemy ai, especially since levels imply mult enemies
-2. No real reward without strong story (thus need npcs?)
-
-### 4 - 
-lorem ipsum
-
-### 5 - 
-dolor sit amet -->
 
 ---
 ## Deadlines
