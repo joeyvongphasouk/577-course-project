@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dkdw4ky2ef0l0"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_rjqoc"]
-[ext_resource type="Script" path="res://scripts/grapply_raycast.gd" id="2_xonsp"]
+[ext_resource type="Script" uid="uid://dtehumcdo2s46" path="res://scripts/player.gd" id="1_rjqoc"]
+[ext_resource type="Script" uid="uid://do1mv416c68xr" path="res://scripts/grapply_raycast.gd" id="2_xonsp"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_xxfed"]
 [ext_resource type="AudioStream" uid="uid://cnhhlash564lr" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_001_23311.mp3" id="4_wq3tc"]
 [ext_resource type="AudioStream" uid="uid://o6y3w6mfiw1a" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_002_23312.mp3" id="5_r5a42"]

@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://materials/testing_color.tres" id="1_j81bk"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="2_37cnx"]
 [ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="3_3i7s3"]
-[ext_resource type="Script" path="res://addons/verlet_rope_4/VerletRope.cs" id="4_w8em7"]
+[ext_resource type="Script" uid="uid://be6yplge860fv" path="res://addons/verlet_rope_4/VerletRope.cs" id="4_w8em7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_stf88"]
 
