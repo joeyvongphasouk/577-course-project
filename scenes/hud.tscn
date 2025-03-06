@@ -23,6 +23,7 @@ offset_left = 19.0
 offset_top = 635.0
 offset_right = 269.0
 offset_bottom = 660.0
+mouse_filter = 1
 theme_override_styles/fill = SubResource("StyleBoxFlat_ahhtf")
 step = 1.0
 value = 72.0

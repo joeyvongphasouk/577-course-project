@@ -3,6 +3,7 @@ extends CharacterBody3D
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
+@onready var gun_tip: Node3D = $Head/Camera3D/WeaponRig/gun/GunTip
 
 @export_group("Player Physics")
 @export var player_mass: float = 80.0
@@ -183,7 +184,7 @@ func launch():
 		if is_instance_valid(rope_2_node):
 			rope_2_node.queue_free()
 		rope_2_node = rope_2_script.new()
-		rope_2_node.position = Vector3(0.7, 0, 0) # set offset to grapple
+		rope_2_node.position = gun_tip.position
 		rope_2_node.RopeLength = rope_dist * 0.8
 		rope_2_node.RopeCollisionBehavior = 1
 		add_child(rope_2_node)

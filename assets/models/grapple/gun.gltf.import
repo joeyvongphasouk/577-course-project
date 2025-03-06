@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://4wqepgfc4jrs"
-path="res://.godot/imported/scene.gltf-643223dc0454474cde05f1a79c35b300.scn"
+uid="uid://yim3tviqwsv0"
+path="res://.godot/imported/gun.gltf-19f464399883356edc6c31c7439aa4c7.scn"
 
 [deps]
 
-source_file="res://assets/models/grapple/scene.gltf"
-dest_files=["res://.godot/imported/scene.gltf-643223dc0454474cde05f1a79c35b300.scn"]
+source_file="res://assets/models/grapple/gun.gltf"
+dest_files=["res://.godot/imported/gun.gltf-19f464399883356edc6c31c7439aa4c7.scn"]
 
 [params]
 
