@@ -1,22 +1,24 @@
 extends CharacterBody3D
 
-#const SPEED = 5.0
-#const JUMP_VELOCITY = 4.5
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
 
 @export_group("Player Physics")
 @export var player_mass: float = 80.0
-@export var acceleration: float = 40.0
 @export var deceleration: float = 10.0
-#@export var gravity: float = 1.0
 @export var jump_force: float = 5
 @export var push_force: float = 2.0
 # desired speed player can go
 # note that this isnt max speed player can go
 # but the speed that the player will lerp to
 @export var rel_max_speed: float = 6
+@export var rel_max_speed_crouch: float = 2.5
+@export var rel_max_speed_sprint: float = 9
+@export var rel_max_accel_air: float = 2.0
+@export var rel_max_accel_ground: float =  40.0
+var player_speed = rel_max_speed
+var player_accel = rel_max_accel_ground
 
 @export_group("Movement Controls")
 @export var sensitivity: float = 0.002
@@ -43,7 +45,15 @@ var rope_2_node: Node3D
 var rope_2_grapple_point_node: Node3D
 var pullable_mass: float = 115
 
+# crouching
+var is_crouching: bool = false
+var crouch_speed: float = 7.0
+@export var TOGGLE_CROUCH: bool = false
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var shape_cast_crouch: ShapeCast3D = $ShapeCastCrouch
+
 func _ready() -> void:
+	shape_cast_crouch.add_exception($".")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	rope_2_script = load("res://addons/verlet_rope_4/VerletRope.cs")
 	
@@ -55,6 +65,17 @@ func _unhandled_input(event) -> void:
 		
 		# dont want to spin all the way
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("crouch") and TOGGLE_CROUCH:
+		toggle_crouch()
+	if event.is_action_pressed("crouch") and !TOGGLE_CROUCH:
+		crouching(true)
+	if event.is_action_released("crouch") and !TOGGLE_CROUCH:
+		if !shape_cast_crouch.is_colliding():
+			crouching(false)
+		else:
+			crouch_check()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -76,21 +97,15 @@ func _physics_process(delta: float) -> void:
 	# instead accel when there is an input, have less accel in the air
 	if input_dir.length() != 0:
 		
-		# this is the movement in the air, can a person move in the air
-		var move_acceleration = acceleration
-		var move_speed = rel_max_speed
+		# set move_speed and move_accel vars based on state of player
 		if is_on_floor():
-			velocity.x = lerpf(velocity.x, direction.x * move_speed, move_acceleration * delta)
-			velocity.z = lerpf(velocity.z, direction.z * move_speed, move_acceleration * delta)
-		
-		# if we are in the air, accel to rel_max_speed, but make move_accel way worse
+			set_accel("ground")
 		else:
-			move_acceleration *= 0.005
-			velocity.x = lerpf(velocity.x, direction.x * move_speed, move_acceleration * delta)
-			velocity.z = lerpf(velocity.z, direction.z * move_speed, move_acceleration * delta)
-			
-			
+			set_accel("air")
 		
+		velocity.x = lerpf(velocity.x, direction.x * player_speed, player_accel * delta)
+		velocity.z = lerpf(velocity.z, direction.z * player_speed, player_accel * delta)
+
 	# instead slow down by friction if player is on a surface
 	elif is_on_floor():
 		velocity.x = lerpf(velocity.x, 0, deceleration * delta)
@@ -110,6 +125,10 @@ func _physics_process(delta: float) -> void:
 			c.get_collider().apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - c.get_collider().global_position)
 	
 	grapple_handle(delta)
+	
+	# make the ground "stickier"; micromovements off ground are removed
+	if (is_on_floor() and velocity.y < 1.0):
+		velocity.y = 0
 	
 	# actually apply movement to char
 	move_and_slide()
@@ -213,7 +232,6 @@ func handle_grapple(delta: float) -> void:
 	# else we have to recalculate the player pos from the grapple spot as its moving
 	# additionally pull on the object with weight in mind
 	elif obj_hit is RigidBody3D:
-		print("hello")
 		if target_dist > rope_dist:
 
 			# Calculate pull force based on object and player mass
@@ -222,16 +240,15 @@ func handle_grapple(delta: float) -> void:
 			var player_ratio = player_mass / total_mass  # How much the player should move
 
 			# Compute pull impulse based on stretch amount
-			var pull_force = -direction_to_grapple * 15.0 * (target_dist - rope_dist)
+			var pull_force = -direction_to_grapple * 30.0 * (target_dist - rope_dist)
 
 			# Apply impulse to both player and object based on their ratios
 			#obj_hit.apply_central_force(pull_force * player_ratio)
-			obj_hit.apply_force(pull_force * player_ratio, obj_hit.to_local(rope_2_grapple_point_node.global_position))
-			velocity -= pull_force * obj_ratio  # Move player in the opposite direction
+			obj_hit.apply_force(pull_force * player_ratio, obj_hit.to_local(rope_2_grapple_point_node.global_position) * 0.5)
+			#velocity -= pull_force * obj_ratio  # Move player in the opposite direction
 			
 		if Input.is_action_pressed("grapple_pull"):
 			pull_to(delta)
-
 
 func pull_to(delta: float) -> void:
 	if launched and obj_hit:
@@ -244,3 +261,50 @@ func pull_to(delta: float) -> void:
 		var max_pull_speed = 2.0
 		rope_dist = max(rope_dist - pull_accel * delta, 0)
 		rope_2_node.RopeLength = rope_dist * 0.8
+
+func toggle_crouch():
+	if is_crouching and !shape_cast_crouch.is_colliding():
+		crouching(false)
+	elif !is_crouching:
+		crouching(true)
+	
+	if shape_cast_crouch.is_colliding():
+		print(shape_cast_crouch.get_collider(0))
+
+func crouching(state: bool):
+	if state:
+		set_speed("crouch")
+		animation_player.play("Crouch", 0, crouch_speed)
+	elif !state:
+		set_speed("walk")
+		animation_player.play("Crouch", 0, -crouch_speed, true)
+
+func crouch_check():
+	if !shape_cast_crouch.is_colliding():
+		crouching(false)
+	if shape_cast_crouch.is_colliding():
+		await get_tree().create_timer(0.1).timeout
+		crouch_check()
+
+# sets 
+func set_speed(speed: String):
+	match speed:
+		"walk":
+			player_speed = rel_max_speed
+		"crouch":
+			player_speed = rel_max_speed_crouch
+		"sprint":
+			player_speed = rel_max_speed_sprint
+	
+func set_accel(accel: String):
+	match accel:
+		"air":
+			player_accel = rel_max_accel_air
+		"ground":
+			player_accel = rel_max_accel_ground
+	
+
+# signals
+func _on_animation_player_animation_started(anim_name: StringName) -> void:
+	if anim_name == "Crouch":
+		is_crouching = !is_crouching

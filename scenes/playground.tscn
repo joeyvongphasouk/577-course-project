@@ -1,9 +1,11 @@
-[gd_scene load_steps=32 format=3 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=38 format=3 uid="uid://dy4fgvyaugnii"]
 
-[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://materials/testing_color.tres" id="1_j81bk"]
+[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="1_j81bk"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="2_37cnx"]
 [ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="3_3i7s3"]
 [ext_resource type="Script" uid="uid://be6yplge860fv" path="res://addons/verlet_rope_4/VerletRope.cs" id="4_w8em7"]
+[ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="5_mm0a5"]
+[ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/pause_menu.tscn" id="6_o6wi6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_stf88"]
 
@@ -73,9 +75,9 @@ size = Vector3(10, 50, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0p1y1"]
 data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, -25, 5, 5, 25, -5, -5, 25, -5, 5, -25, -5, -5, 25, -5, -5, -25, -5, 5, -25, -5, 5, 25, 5, 5, 25, -5, 5, -25, 5, 5, 25, -5, 5, -25, -5, 5, -25, 5, -5, 25, -5, -5, 25, 5, -5, -25, -5, -5, 25, 5, -5, -25, 5, -5, -25, -5, 5, 25, 5, -5, 25, 5, 5, 25, -5, -5, 25, 5, -5, 25, -5, 5, 25, -5, -5, -25, 5, 5, -25, 5, -5, -25, -5, 5, -25, 5, 5, -25, -5, -5, -25, -5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_r842y"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_o6wi6"]
 resource_local_to_scene = true
-metadata/creation_stamp = 23499896845266
+metadata/creation_stamp = 3323633690531
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -83,7 +85,21 @@ metadata/creation_stamp = 23499896845266
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c7npr"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_mm0a5"]
+size = Vector3(3, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q8s1k"]
+size = Vector3(3, 0.5, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o6wi6"]
+size = Vector3(6, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_emj6c"]
+size = Vector3(6, 0.5, 4)
+
 [node name="Tutorial_Level" type="Node3D"]
+
+[node name="HUD" parent="." instance=ExtResource("5_mm0a5")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vl41q")
@@ -106,7 +122,7 @@ shape = SubResource("WorldBoundaryShape3D_ytjev")
 mesh = SubResource("PlaneMesh_mcgwk")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9, 5.6586, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 5.6586, 0)
 collision_layer = 3
 collision_mask = 3
 
@@ -118,7 +134,7 @@ surface_material_override/0 = ExtResource("1_j81bk")
 shape = SubResource("ConcavePolygonShape3D_iux7c")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7, 6.4, 5.6)
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 5.7, 13.1, 5.6)
 collision_layer = 3
 collision_mask = 3
 
@@ -130,7 +146,7 @@ surface_material_override/0 = ExtResource("1_j81bk")
 shape = SubResource("ConcavePolygonShape3D_iux7c")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4, 8.1, -6.3)
+transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 4.4, 11, -6.3)
 collision_layer = 3
 collision_mask = 3
 
@@ -269,7 +285,7 @@ shape = SubResource("ConcavePolygonShape3D_0p1y1")
 [node name="VerletRope" type="MeshInstance3D" parent="." node_paths=PackedStringArray("AttachEnd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71588, -4.4)
 material_override = ExtResource("3_3i7s3")
-mesh = SubResource("ImmediateMesh_r842y")
+mesh = SubResource("ImmediateMesh_o6wi6")
 script = ExtResource("4_w8em7")
 AttachEnd = NodePath("../RigidBody3D")
 RopeLength = 10.0
@@ -300,3 +316,56 @@ mesh = SubResource("BoxMesh_hq3ol")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D3"]
 shape = SubResource("BoxShape3D_c7npr")
+
+[node name="FlatSurface" type="RigidBody3D" parent="."]
+transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, -12.5, 0.9, -3.9)
+collision_layer = 3
+collision_mask = 3
+mass = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FlatSurface"]
+material_override = ExtResource("1_j81bk")
+mesh = SubResource("BoxMesh_mm0a5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlatSurface"]
+shape = SubResource("BoxShape3D_q8s1k")
+
+[node name="HighSurf" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7, 2, 8.6)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HighSurf"]
+material_override = ExtResource("1_j81bk")
+mesh = SubResource("BoxMesh_o6wi6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HighSurf"]
+shape = SubResource("BoxShape3D_emj6c")
+
+[node name="HigherSurf" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7, 2.5, 13.6)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HigherSurf"]
+material_override = ExtResource("1_j81bk")
+mesh = SubResource("BoxMesh_o6wi6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HigherSurf"]
+shape = SubResource("BoxShape3D_emj6c")
+
+[node name="LowSurf" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9, 1.5, 8.6)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LowSurf"]
+material_override = ExtResource("1_j81bk")
+mesh = SubResource("BoxMesh_o6wi6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LowSurf"]
+shape = SubResource("BoxShape3D_emj6c")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_o6wi6")]

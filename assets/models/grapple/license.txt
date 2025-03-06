@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pistola Low Poly
+* source:	https://sketchfab.com/3d-models/pistola-low-poly-853924f544174adf857d6e72fbe20559
+* author:	Limberax (https://sketchfab.com/Limberax)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pistola Low Poly" (https://sketchfab.com/3d-models/pistola-low-poly-853924f544174adf857d6e72fbe20559) by Limberax (https://sketchfab.com/Limberax) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

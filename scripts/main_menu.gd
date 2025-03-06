@@ -1,15 +1,10 @@
 extends Control
+@onready var start: Button = $VBoxContainer/Start
 
-
-#func _ready() -> void:
-	#pass # Replace with function body.
-#
-#func _process(delta: float) -> void:
-	#pass
+func _ready() -> void:
+	start.grab_focus()
 
 func _on_start_pressed() -> void:
-	PauseManager.menus = false
-	PauseManager.SetPaused(false)
 	get_tree().change_scene_to_file("res://scenes/playground.tscn")
 
 func _on_quit_pressed() -> void:
