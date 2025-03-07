@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=19 format=3 uid="uid://dkdw4ky2ef0l0"]
 
 [ext_resource type="Script" uid="uid://dtehumcdo2s46" path="res://scripts/player.gd" id="1_rjqoc"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_xxfed"]
-[ext_resource type="PackedScene" uid="uid://yim3tviqwsv0" path="res://assets/models/grapple/gun.gltf" id="3_smehm"]
+[ext_resource type="PackedScene" uid="uid://bcoo1j0sr8myq" path="res://scenes/grapple_gun.tscn" id="3_smehm"]
 [ext_resource type="AudioStream" uid="uid://cnhhlash564lr" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_001_23311.mp3" id="4_wq3tc"]
 [ext_resource type="AudioStream" uid="uid://o6y3w6mfiw1a" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_002_23312.mp3" id="5_r5a42"]
 [ext_resource type="AudioStream" uid="uid://ck715hqqxth80" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_003_23313.mp3" id="6_y7p1b"]
@@ -17,6 +17,9 @@ albedo_color = Color(0.970914, 0.648139, 0.111778, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5vhxq"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_smehm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ur7pv"]
+radius = 1.985
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hj58k"]
 random_pitch = 1.2
@@ -162,7 +165,6 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_smehm"]
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 collision_mask = 2
 platform_floor_layers = 4294967280
@@ -184,14 +186,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="WeaponRig" type="Node3D" parent="Head/Camera3D"]
 
-[node name="gun" parent="Head/Camera3D/WeaponRig" instance=ExtResource("3_smehm")]
+[node name="grapple_gun" parent="Head/Camera3D/WeaponRig" instance=ExtResource("3_smehm")]
 transform = Transform3D(-0.181262, 0, -0.0845237, 0, 0.2, 0, 0.0845237, 0, -0.181262, 1.56, -1.32, -1.71)
 
-[node name="GunTip" type="Node3D" parent="Head/Camera3D/WeaponRig/gun"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, 2.615, 2.95)
+[node name="GunTip" type="Node3D" parent="Head/Camera3D/WeaponRig/grapple_gun"]
+transform = Transform3D(1, 0, -8.04663e-07, 0, 1, 0, 8.04663e-07, 0, 1, -2.35001, 2.615, 2.95)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/WeaponRig/gun/GunTip"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/WeaponRig/grapple_gun/GunTip"]
 mesh = SubResource("SphereMesh_smehm")
+
+[node name="Node3D" type="Node3D" parent="Head/Camera3D/WeaponRig/grapple_gun"]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/WeaponRig/grapple_gun/Node3D"]
+mesh = SubResource("SphereMesh_ur7pv")
 
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

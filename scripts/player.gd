@@ -3,7 +3,8 @@ extends CharacterBody3D
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
-@onready var gun_tip: Node3D = $Head/Camera3D/WeaponRig/gun/GunTip
+@onready var gun_tip: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip
+@onready var grapple_gun_anim: AnimationPlayer = $Head/Camera3D/WeaponRig/grapple_gun/AnimationPlayer
 
 @export_group("Player Physics")
 @export var player_mass: float = 80.0
@@ -164,6 +165,10 @@ func grapple_handle(delta: float) -> void:
 	# change states of grapple
 	if Input.is_action_just_pressed("grapple_attach"):
 		launch()
+		
+		# animate the rope
+		if !grapple_gun_anim.is_playing():
+			grapple_gun_anim.play("Shoot")
 	if Input.is_action_just_released("grapple_attach"):
 		retract()
 		
@@ -184,8 +189,9 @@ func launch():
 		if is_instance_valid(rope_2_node):
 			rope_2_node.queue_free()
 		rope_2_node = rope_2_script.new()
-		rope_2_node.position = gun_tip.position
-		rope_2_node.RopeLength = rope_dist * 0.8
+		rope_2_node.top_level = true
+		rope_2_node.global_position = gun_tip.global_position
+		rope_2_node.RopeLength = rope_dist * 0.6
 		rope_2_node.RopeCollisionBehavior = 1
 		add_child(rope_2_node)
 		
@@ -250,6 +256,8 @@ func handle_grapple(delta: float) -> void:
 			
 		if Input.is_action_pressed("grapple_pull"):
 			pull_to(delta)
+	# update rope pos as well
+	rope_2_node.position = gun_tip.global_position
 
 func pull_to(delta: float) -> void:
 	if launched and obj_hit:
@@ -261,7 +269,7 @@ func pull_to(delta: float) -> void:
 		var pull_accel = 1.0
 		var max_pull_speed = 2.0
 		rope_dist = max(rope_dist - pull_accel * delta, 0)
-		rope_2_node.RopeLength = rope_dist * 0.8
+		rope_2_node.RopeLength = rope_dist * 0.6
 
 func toggle_crouch():
 	if is_crouching and !shape_cast_crouch.is_colliding():

@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 @onready var start: Button = $VBoxContainer/Start
 
 func _ready() -> void:

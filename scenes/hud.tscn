@@ -26,5 +26,5 @@ offset_bottom = 660.0
 mouse_filter = 1
 theme_override_styles/fill = SubResource("StyleBoxFlat_ahhtf")
 step = 1.0
-value = 72.0
+value = 46.0
 show_percentage = false
