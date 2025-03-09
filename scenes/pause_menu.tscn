@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://blmk5cpncayv"]
+[gd_scene load_steps=9 format=3 uid="uid://blmk5cpncayv"]
 
 [ext_resource type="Script" uid="uid://dpnoyp88qo8ia" path="res://scripts/pause_menu.gd" id="1_hmjlk"]
 [ext_resource type="Shader" uid="uid://coflo6xyp58jq" path="res://assets/shaders/pause_menu.gdshader" id="1_n87rw"]
+[ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/options_menu.tscn" id="3_kukqi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_myx47"]
 shader = ExtResource("1_n87rw")
@@ -129,6 +130,9 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStream_myx47")
+
+[node name="options_menu" parent="." instance=ExtResource("3_kukqi")]
+visible = false
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer2/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer2/Options" to="." method="_on_options_pressed"]

@@ -77,7 +77,7 @@ data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, 
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_o6wi6"]
 resource_local_to_scene = true
-metadata/creation_stamp = 10601204108056
+metadata/creation_stamp = 61682726561251
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -100,6 +100,10 @@ size = Vector3(6, 0.5, 4)
 [node name="Tutorial_Level" type="Node3D"]
 
 [node name="HUD" parent="." instance=ExtResource("5_mm0a5")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_o6wi6")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vl41q")
@@ -365,7 +369,3 @@ mesh = SubResource("BoxMesh_o6wi6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LowSurf"]
 shape = SubResource("BoxShape3D_emj6c")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_o6wi6")]
