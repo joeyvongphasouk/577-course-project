@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://c63jh2aharv7f"]
+[gd_scene load_steps=5 format=3 uid="uid://c63jh2aharv7f"]
 
 [ext_resource type="Script" uid="uid://dw07w2mdmp707" path="res://scripts/reticle.gd" id="1_ahhtf"]
+[ext_resource type="Script" uid="uid://ch6nhha13pbjd" path="res://scripts/hud.gd" id="1_oo0fn"]
+[ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="2_5ysmq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahhtf"]
 bg_color = Color(1, 0.223529, 0.219608, 1)
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_oo0fn")
+player = ExtResource("2_5ysmq")
 
 [node name="Reticle" type="CenterContainer" parent="."]
 anchors_preset = 8

@@ -54,6 +54,11 @@ var crouch_speed: float = 7.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var shape_cast_crouch: ShapeCast3D = $ShapeCastCrouch
 
+# player stats
+@export var max_health: float = 100
+@onready var current_health: float = max_health
+signal health_changed
+
 func _ready() -> void:
 	shape_cast_crouch.add_exception($".")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -113,6 +118,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerpf(velocity.x, 0, deceleration * delta)
 		velocity.z = lerpf(velocity.z, 0, deceleration * delta)
 
+	# check for collision on objects
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody3D:
@@ -125,7 +131,8 @@ func _physics_process(delta: float) -> void:
 			
 			# push relative to the global position of the collider
 			c.get_collider().apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - c.get_collider().global_position)
-	
+		
+		# also need to check for player collision on going too fast
 	grapple_handle(delta)
 	
 	# make the ground "stickier"; micromovements off ground are removed
@@ -171,8 +178,6 @@ func grapple_handle(delta: float) -> void:
 			grapple_gun_anim.play("Shoot")
 	if Input.is_action_just_released("grapple_attach"):
 		retract()
-		
-	## handle grapple vel changes
 
 		#pass
 	if launched:
@@ -227,11 +232,20 @@ func handle_grapple(delta: float) -> void:
 	if obj_hit is StaticBody3D or (obj_hit.mass > pullable_mass):
 		
 		# take away to opposing vel if we strech past the rope distance
-		if (target_dist > rope_dist * 1.01):
+		if (target_dist > rope_dist * 1.01 and velocity.dot(direction_to_grapple) <= 0):
 			velocity -= velocity_along_rope * 0.8
 			
-			# "snap" back to place, increase vel towards the grapple point
-			velocity += direction_to_grapple * 5.0 * (target_dist - rope_dist)
+		# "snap" back to place, increase vel towards the grapple point
+			velocity += direction_to_grapple * 35.0 * (target_dist - rope_dist) ** 3
+		#if (target_dist > rope_dist * 1.01):
+			#var stretch = target_dist - rope_dist  # How much the rope is stretched
+			#var damping = 50.0  # Increase to reduce bouncing
+			#var stiffness = 700.0  # Strength of the pulling force
+#
+			## Apply a force proportional to stretch, with damping to counteract oscillations
+			#var corrective_force = direction_to_grapple * (stiffness * stretch - damping * velocity.dot(direction_to_grapple))
+
+			#velocity += corrective_force * delta
 		
 		if Input.is_action_pressed("grapple_pull"):
 			pull_to(delta)
