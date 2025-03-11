@@ -132,7 +132,12 @@ func _physics_process(delta: float) -> void:
 			# push relative to the global position of the collider
 			c.get_collider().apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - c.get_collider().global_position)
 		
-		# also need to check for player collision on going too fast
+	# also need to check for player collision on going too fast
+	#if coll
+	if velocity.length() > 10:
+		# calc new health and emit health signal change to HUD
+		print("yep dmg")
+		emit_signal("health_changed")
 	grapple_handle(delta)
 	
 	# make the ground "stickier"; micromovements off ground are removed
@@ -235,17 +240,8 @@ func handle_grapple(delta: float) -> void:
 		if (target_dist > rope_dist * 1.01 and velocity.dot(direction_to_grapple) <= 0):
 			velocity -= velocity_along_rope * 0.8
 			
-		# "snap" back to place, increase vel towards the grapple point
+			# "snap" back to place, increase vel towards the grapple point
 			velocity += direction_to_grapple * 35.0 * (target_dist - rope_dist) ** 3
-		#if (target_dist > rope_dist * 1.01):
-			#var stretch = target_dist - rope_dist  # How much the rope is stretched
-			#var damping = 50.0  # Increase to reduce bouncing
-			#var stiffness = 700.0  # Strength of the pulling force
-#
-			## Apply a force proportional to stretch, with damping to counteract oscillations
-			#var corrective_force = direction_to_grapple * (stiffness * stretch - damping * velocity.dot(direction_to_grapple))
-
-			#velocity += corrective_force * delta
 		
 		if Input.is_action_pressed("grapple_pull"):
 			pull_to(delta)
@@ -261,12 +257,13 @@ func handle_grapple(delta: float) -> void:
 			var player_ratio = player_mass / total_mass  # How much the player should move
 
 			# Compute pull impulse based on stretch amount
-			var pull_force = -direction_to_grapple * 30.0 * (target_dist - rope_dist)
+			var pull_force = -direction_to_grapple * 35.0 * (target_dist - rope_dist)
 
 			# Apply impulse to both player and object based on their ratios
 			#obj_hit.apply_central_force(pull_force * player_ratio)
-			obj_hit.apply_force(pull_force * player_ratio, obj_hit.to_local(rope_2_grapple_point_node.global_position) * 0.5)
-			#velocity -= pull_force * obj_ratio  # Move player in the opposite direction
+			obj_hit.apply_force(pull_force * player_ratio * 0.3, obj_hit.to_local(rope_2_grapple_point_node.global_position) * 0.9)
+			obj_hit.apply_force(pull_force * player_ratio * 0.7, obj_hit.to_local(rope_2_grapple_point_node.global_position) * 0.5)
+			velocity -= 0.05 * pull_force * obj_ratio  # Move player in the opposite direction
 			
 		if Input.is_action_pressed("grapple_pull"):
 			pull_to(delta)
