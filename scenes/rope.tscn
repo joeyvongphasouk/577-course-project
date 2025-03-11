@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfvw3wavk4hu1"]
 
 [ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="1_ut0eh"]
-[ext_resource type="Script" path="res://addons/verlet_rope_4/VerletRope.cs" id="2_i6fw4"]
+[ext_resource type="Script" uid="uid://be6yplge860fv" path="res://addons/verlet_rope_4/VerletRope.cs" id="2_i6fw4"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_c271g"]
 top_radius = 0.05

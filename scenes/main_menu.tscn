@@ -1,47 +1,82 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfytv6wnnrufh"]
+[gd_scene load_steps=11 format=3 uid="uid://cfytv6wnnrufh"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_jwwq1"]
+[ext_resource type="Script" uid="uid://dtul1mk8xodr0" path="res://scripts/main_menu.gd" id="1_jwwq1"]
+[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="2_bqqt6"]
+[ext_resource type="Script" uid="uid://chlir5gpjwmsn" path="res://scripts/main_menu_camera.gd" id="2_ekxnf"]
+[ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/options_menu.tscn" id="4_wu84c"]
 
-[node name="Main_Menu" type="Control"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l6cm7"]
+
+[sub_resource type="Sky" id="Sky_8o5xr"]
+sky_material = SubResource("ProceduralSkyMaterial_l6cm7")
+
+[sub_resource type="Environment" id="Environment_ekxnf"]
+background_mode = 2
+sky = SubResource("Sky_8o5xr")
+ambient_light_color = Color(0.76662, 0.76662, 0.76662, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bqqt6"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu84c"]
+albedo_color = Color(0.337255, 0.490196, 0.27451, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ln24"]
+size = Vector3(5, 15, 5)
+
+[node name="Main_Menu" type="CanvasLayer"]
 process_mode = 3
-layout_mode = 3
+script = ExtResource("1_jwwq1")
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="LevelBackground" type="Node3D" parent="Background"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Background/LevelBackground"]
+transform = Transform3D(0.939693, -0.219846, 0.262002, -0.201411, 0.263429, 0.943419, -0.276426, -0.939294, 0.203262, -0.964247, 16.8921, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background/LevelBackground"]
+environment = SubResource("Environment_ekxnf")
+
+[node name="Ground" type="StaticBody3D" parent="Background/LevelBackground"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background/LevelBackground/Ground"]
+mesh = SubResource("PlaneMesh_bqqt6")
+surface_material_override/0 = SubResource("StandardMaterial3D_wu84c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Background/LevelBackground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 7.5, -29.9)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background/LevelBackground/StaticBody3D"]
+material_override = ExtResource("2_bqqt6")
+mesh = SubResource("BoxMesh_8ln24")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jwwq1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = -295.0
-offset_right = 345.0
-offset_bottom = -45.0
-grow_vertical = 0
+[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
 
-[node name="Start" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "Start"
+[node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.179036, 0.303794, -0.935764, -0.00834, 0.95063, 0.310216, 0.983808, 0.0633443, -0.167663, 0, 8.78714, 0)
+script = ExtResource("2_ekxnf")
 
-[node name="Options" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "Options"
+[node name="MenuPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "Quit"
-
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="MenuPanel"]
 layout_mode = 0
 offset_left = 78.0
 offset_top = 159.0
@@ -50,5 +85,38 @@ offset_bottom = 296.0
 theme_override_font_sizes/font_size = 100
 text = "Mandira"
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 385.0
+offset_right = 345.0
+offset_bottom = 635.0
+grow_vertical = 0
+
+[node name="Start" type="Button" parent="MenuPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="Options" type="Button" parent="MenuPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Options"
+
+[node name="Quit" type="Button" parent="MenuPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[node name="options_menu" parent="." instance=ExtResource("4_wu84c")]
+visible = false
+
+[connection signal="pressed" from="MenuPanel/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -1,13 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=19 format=3 uid="uid://dkdw4ky2ef0l0"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_rjqoc"]
-[ext_resource type="Script" path="res://scripts/grapply_raycast.gd" id="2_xonsp"]
+[ext_resource type="Script" uid="uid://dtehumcdo2s46" path="res://scripts/player.gd" id="1_rjqoc"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_xxfed"]
-[ext_resource type="AudioStream" uid="uid://cnhhlash564lr" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_001_23311.mp3" id="4_wq3tc"]
-[ext_resource type="AudioStream" uid="uid://o6y3w6mfiw1a" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_002_23312.mp3" id="5_r5a42"]
-[ext_resource type="AudioStream" uid="uid://ck715hqqxth80" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_003_23313.mp3" id="6_y7p1b"]
-[ext_resource type="AudioStream" uid="uid://bvdwpk5lb7jet" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_004_23314.mp3" id="7_7ftjb"]
-[ext_resource type="AudioStream" uid="uid://c010m7j4rl663" path="res://audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_005_23315.mp3" id="8_ikm8b"]
+[ext_resource type="PackedScene" uid="uid://bcoo1j0sr8myq" path="res://scenes/grapple_gun.tscn" id="3_smehm"]
+[ext_resource type="AudioStream" uid="uid://cnhhlash564lr" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_001_23311.mp3" id="4_wq3tc"]
+[ext_resource type="AudioStream" uid="uid://o6y3w6mfiw1a" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_002_23312.mp3" id="5_r5a42"]
+[ext_resource type="AudioStream" uid="uid://ck715hqqxth80" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_003_23313.mp3" id="6_y7p1b"]
+[ext_resource type="AudioStream" uid="uid://bvdwpk5lb7jet" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_004_23314.mp3" id="7_7ftjb"]
+[ext_resource type="AudioStream" uid="uid://c010m7j4rl663" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_005_23315.mp3" id="8_ikm8b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smimx"]
 
@@ -15,6 +15,11 @@
 albedo_color = Color(0.970914, 0.648139, 0.111778, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5vhxq"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_smehm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ur7pv"]
+radius = 1.985
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hj58k"]
 random_pitch = 1.2
@@ -25,13 +30,147 @@ stream_2/stream = ExtResource("6_y7p1b")
 stream_3/stream = ExtResource("7_7ftjb")
 stream_4/stream = ExtResource("8_ikm8b")
 
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "Crouch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.25, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Head:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.8, 0), Vector3(0, 0.3, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:mesh:height")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.5]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MeshInstance3D:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.25, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ur7pv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Head:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.8, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:mesh:height")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MeshInstance3D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4r1p"]
+_data = {
+&"Crouch": SubResource("Animation_smehm"),
+&"RESET": SubResource("Animation_ur7pv")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_smehm"]
+
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02108, 0)
 collision_layer = 2
 collision_mask = 2
 platform_floor_layers = 4294967280
 script = ExtResource("1_rjqoc")
 rope_scene = ExtResource("2_xxfed")
+TOGGLE_CROUCH = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_smimx")
@@ -45,31 +184,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
-[node name="Crosshair" type="ColorRect" parent="Head/Camera3D"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = -2.5
-offset_right = 2.5
-offset_bottom = 2.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="WeaponRig" type="Node3D" parent="Head/Camera3D"]
 
-[node name="Rope" parent="Head/Camera3D" instance=ExtResource("2_xxfed")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.4, -1.49012e-08)
+[node name="grapple_gun" parent="Head/Camera3D/WeaponRig" instance=ExtResource("3_smehm")]
+transform = Transform3D(-0.181262, 0, -0.0845237, 0, 0.2, 0, 0.0845237, 0, -0.181262, 1.56, -1.32, -1.71)
+
+[node name="GunTip" type="Node3D" parent="Head/Camera3D/WeaponRig/grapple_gun"]
+transform = Transform3D(1, 0, -8.04663e-07, 0, 1, 0, 8.04663e-07, 0, 1, -2.35001, 2.615, 2.95)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/WeaponRig/grapple_gun/GunTip"]
+mesh = SubResource("SphereMesh_smehm")
+
+[node name="Node3D" type="Node3D" parent="Head/Camera3D/WeaponRig/grapple_gun"]
 visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/WeaponRig/grapple_gun/Node3D"]
+mesh = SubResource("SphereMesh_ur7pv")
 
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -30, 0)
-script = ExtResource("2_xonsp")
 
 [node name="FootstepAudio3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 stream = SubResource("AudioStreamRandomizer_hj58k")
 volume_db = -0.5
 max_db = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_y4r1p")
+}
+
+[node name="ShapeCastCrouch" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_smehm")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
