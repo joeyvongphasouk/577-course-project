@@ -77,7 +77,7 @@ data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, 
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_o6wi6"]
 resource_local_to_scene = true
-metadata/creation_stamp = 2223736176244
+metadata/creation_stamp = 6927379677473
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -113,7 +113,7 @@ transform = Transform3D(0.939693, -0.219846, 0.262003, 3.58692e-08, 0.766044, 0.
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_37cnx")]
-transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, -7.8, 0.999998, -1.1)
+transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, -28.283, 55.9057, -37.0214)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 3

@@ -118,6 +118,25 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerpf(velocity.x, 0, deceleration * delta)
 		velocity.z = lerpf(velocity.z, 0, deceleration * delta)
 
+	
+
+
+	#coll.
+	#if velocity.length() > 10:
+		## calc new health and emit health signal change to HUD
+		#print("yep dmg")
+		#emit_signal("health_changed")
+	grapple_handle(delta)
+	
+	# make the ground "stickier"; micromovements off ground are removed
+	if (is_on_floor() and velocity.y < 1.0):
+		velocity.y = 0
+	
+	# actually apply movement to char
+	# move_and_slide() modifies the vel of the player
+	# if the player had collided with an object
+	move_and_slide()
+	
 	# check for collision on objects
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
@@ -132,20 +151,14 @@ func _physics_process(delta: float) -> void:
 			# push relative to the global position of the collider
 			c.get_collider().apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - c.get_collider().global_position)
 		
-	# also need to check for player collision on going too fast
-	#if coll
-	if velocity.length() > 10:
-		# calc new health and emit health signal change to HUD
-		print("yep dmg")
-		emit_signal("health_changed")
-	grapple_handle(delta)
+		# also need to check for player collision on going too fast
+		# get collision normal of the obj hit, and compare according to 
+		#print(c.get_remainder().length())
+		#if (c.get_remainder().length() > 0.15):
+		if (c.get_remainder().length() > 0.05):
+			print("col obj norm:", c.get_normal(), "| col rem vec:", c.get_remainder(), "| play vec:", velocity)
 	
-	# make the ground "stickier"; micromovements off ground are removed
-	if (is_on_floor() and velocity.y < 1.0):
-		velocity.y = 0
 	
-	# actually apply movement to char
-	move_and_slide()
 	
 	# bobbing
 	headbob_time += delta * velocity.length() * float (is_on_floor())
