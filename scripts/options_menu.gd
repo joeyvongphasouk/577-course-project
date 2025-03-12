@@ -11,6 +11,5 @@ func _process(delta: float) -> void:
 		_on_exit_button_pressed()
 
 func _on_exit_button_pressed() -> void:
-	print("hyelllllo")
 	exit_options_menu.emit()
 	set_process(false)

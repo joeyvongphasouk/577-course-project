@@ -6,6 +6,10 @@ extends CanvasLayer
 func _ready() -> void:
 	start.grab_focus()
 	options_menu.exit_options_menu.connect(on_exit_options_menu)
+#
+#func _process(delta: float) -> void:
+	#if !music_player.playing:
+		#music_player.play()
 
 func _on_start_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/playground.tscn")

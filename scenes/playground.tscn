@@ -77,7 +77,7 @@ data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, 
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_o6wi6"]
 resource_local_to_scene = true
-metadata/creation_stamp = 6927379677473
+metadata/creation_stamp = 20798110789354
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -97,7 +97,7 @@ size = Vector3(6, 0.5, 4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_emj6c"]
 size = Vector3(6, 0.5, 4)
 
-[node name="Tutorial_Level" type="Node3D"]
+[node name="Tutorial_Level2" type="Node3D"]
 
 [node name="HUD" parent="." instance=ExtResource("5_mm0a5")]
 
