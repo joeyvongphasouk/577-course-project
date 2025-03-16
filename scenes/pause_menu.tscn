@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://blmk5cpncayv"]
+[gd_scene load_steps=11 format=3 uid="uid://blmk5cpncayv"]
 
 [ext_resource type="Script" uid="uid://dpnoyp88qo8ia" path="res://scripts/pause_menu.gd" id="1_hmjlk"]
 [ext_resource type="Shader" uid="uid://coflo6xyp58jq" path="res://assets/shaders/pause_menu.gdshader" id="1_n87rw"]
+[ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_7l7mv"]
 [ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/options_menu.tscn" id="3_kukqi"]
+[ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_v4r4p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_myx47"]
 shader = ExtResource("1_n87rw")
@@ -81,6 +83,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_hmjlk")
+sfx_hover = ExtResource("2_7l7mv")
+sfx_click = ExtResource("3_v4r4p")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_myx47")
@@ -134,6 +138,9 @@ stream = SubResource("AudioStream_myx47")
 [node name="options_menu" parent="." instance=ExtResource("3_kukqi")]
 visible = false
 
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer2/Resume" to="." method="_on_resume_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer2/Resume" to="." method="_on_resume_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer2/Options" to="." method="_on_options_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer2/Options" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer2/MainMenu" to="." method="_on_main_menu_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer2/MainMenu" to="." method="_on_main_menu_pressed"]

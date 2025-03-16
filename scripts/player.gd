@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
-@onready var ray_cast_3d: RayCast3D = $Head/RayCast3D
+@onready var grapple_raycast: RayCast3D = $Head/GrappleRaycast
 @onready var gun_tip: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip
 @onready var grapple_gun_anim: AnimationPlayer = $Head/Camera3D/WeaponRig/grapple_gun/AnimationPlayer
 
@@ -94,7 +94,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += jump_force
 		
 		# should we have it so that grapple retracts when we jump?
-		#grapple.retract() 
+		# retract() 
 
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -107,11 +107,22 @@ func _physics_process(delta: float) -> void:
 		# set move_speed and move_accel vars based on state of player
 		if is_on_floor():
 			set_accel("ground")
+			
 		else:
 			set_accel("air")
 		
+		
 		velocity.x = lerpf(velocity.x, direction.x * player_speed, player_accel * delta)
 		velocity.z = lerpf(velocity.z, direction.z * player_speed, player_accel * delta)
+		
+	#
+		#
+		#print("curr:", velocity.x, " wanted:", direction.x * player_speed)
+		#if velocity.x > direction.x * player_speed:
+			#velocity.x = lerpf(velocity.x, direction.x * player_speed, player_accel * delta)
+		#
+		#if velocity.z > direction.z * player_speed:
+			#velocity.z = lerpf(velocity.z, direction.z * player_speed, player_accel * delta)
 
 	# instead slow down by friction if player is on a surface
 	elif is_on_floor():
@@ -202,11 +213,11 @@ func grapple_handle(delta: float) -> void:
 		handle_grapple(delta)
 
 func launch():
-	if ray_cast_3d.is_colliding():
-		grapple_point = ray_cast_3d.get_collision_point()
+	if grapple_raycast.is_colliding():
+		grapple_point = grapple_raycast.get_collision_point()
 		rope_dist = global_position.distance_to(grapple_point)
 		launched = true
-		obj_hit = ray_cast_3d.get_collider()
+		obj_hit = grapple_raycast.get_collider()
 		
 		# instantiate rope
 		if is_instance_valid(rope_2_node):

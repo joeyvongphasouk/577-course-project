@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=39 format=3 uid="uid://dy4fgvyaugnii"]
 
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="1_j81bk"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="2_37cnx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://be6yplge860fv" path="res://addons/verlet_rope_4/VerletRope.cs" id="4_w8em7"]
 [ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="5_mm0a5"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/pause_menu.tscn" id="6_o6wi6"]
+[ext_resource type="PackedScene" uid="uid://drohybeoxrexw" path="res://scenes/pressure_plate.tscn" id="7_emj6c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_stf88"]
 
@@ -75,9 +76,9 @@ size = Vector3(10, 50, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0p1y1"]
 data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, -25, 5, 5, 25, -5, -5, 25, -5, 5, -25, -5, -5, 25, -5, -5, -25, -5, 5, -25, -5, 5, 25, 5, 5, 25, -5, 5, -25, 5, 5, 25, -5, 5, -25, -5, 5, -25, 5, -5, 25, -5, -5, 25, 5, -5, -25, -5, -5, 25, 5, -5, -25, 5, -5, -25, -5, 5, 25, 5, -5, 25, 5, 5, 25, -5, -5, 25, 5, -5, 25, -5, 5, 25, -5, -5, -25, 5, 5, -25, 5, -5, -25, -5, 5, -25, 5, 5, -25, -5, -5, -25, -5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_o6wi6"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_emj6c"]
 resource_local_to_scene = true
-metadata/creation_stamp = 20798110789354
+metadata/creation_stamp = 15664752455964
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -113,7 +114,7 @@ transform = Transform3D(0.939693, -0.219846, 0.262003, 3.58692e-08, 0.766044, 0.
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_37cnx")]
-transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, -28.283, 55.9057, -37.0214)
+transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, 11.517, 2.3057, -3.0214)
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 3
@@ -289,7 +290,7 @@ shape = SubResource("ConcavePolygonShape3D_0p1y1")
 [node name="VerletRope" type="MeshInstance3D" parent="." node_paths=PackedStringArray("AttachEnd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71588, -4.4)
 material_override = ExtResource("3_3i7s3")
-mesh = SubResource("ImmediateMesh_o6wi6")
+mesh = SubResource("ImmediateMesh_emj6c")
 script = ExtResource("4_w8em7")
 AttachEnd = NodePath("../RigidBody3D")
 RopeLength = 10.0
@@ -369,3 +370,6 @@ mesh = SubResource("BoxMesh_o6wi6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LowSurf"]
 shape = SubResource("BoxShape3D_emj6c")
+
+[node name="pressure_plate" parent="." instance=ExtResource("7_emj6c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0, -6.5)

@@ -201,7 +201,7 @@ visible = false
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/WeaponRig/grapple_gun/Node3D"]
 mesh = SubResource("SphereMesh_ur7pv")
 
-[node name="RayCast3D" type="RayCast3D" parent="Head"]
+[node name="GrappleRaycast" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -30, 0)
 

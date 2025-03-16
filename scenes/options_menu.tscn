@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://di8twtyc507sv"]
+[gd_scene load_steps=5 format=3 uid="uid://di8twtyc507sv"]
 
 [ext_resource type="Script" uid="uid://b1vo430hvlfnn" path="res://scripts/options_menu.gd" id="1_liyum"]
 [ext_resource type="PackedScene" uid="uid://cgvf3lbv4bigi" path="res://scenes/volume_slider.tscn" id="2_ijpji"]
+[ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_lfjc7"]
+[ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_3xsyx"]
 
 [node name="options_menu" type="CanvasLayer"]
 script = ExtResource("1_liyum")
+sfx_hover = ExtResource("2_lfjc7")
+sfx_click = ExtResource("3_3xsyx")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -37,66 +41,124 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 40
 text = "Settings"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 45
+theme_override_constants/margin_top = 20
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_constants/separation = 110
+alignment = 1
+
+[node name="AudioButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Audio"
+
+[node name="GraphicsButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Graphics"
+
+[node name="GameplayButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Gameplay"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="AudioContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
 theme_override_constants/h_separation = 70
 columns = 2
 
-[node name="MusicLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer"]
+[node name="MusicLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "Music"
 horizontal_alignment = 2
 
-[node name="MusicSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_ijpji")]
+[node name="MusicSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer" node_paths=PackedStringArray("audio_player") instance=ExtResource("2_ijpji")]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 bus_name = "Music"
+audio_player = NodePath("../../../../../../AudioStreamPlayer")
 
-[node name="SFXLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer"]
+[node name="SFXLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "SFX"
 horizontal_alignment = 2
 
-[node name="SFXSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_ijpji")]
+[node name="SFXSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer" node_paths=PackedStringArray("audio_player") instance=ExtResource("2_ijpji")]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 bus_name = "SFX"
+audio_player = NodePath("../../../../../../AudioStreamPlayer")
 
-[node name="SubtitlesLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer"]
+[node name="SubtitlesLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "Subtitles"
 horizontal_alignment = 2
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 
-[node name="BrightnessLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer"]
+[node name="GraphicsContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/h_separation = 70
+columns = 2
+
+[node name="BrightnessLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "Brightness"
 horizontal_alignment = 2
 
-[node name="BrightnessSlider" type="HScrollBar" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GridContainer"]
+[node name="BrightnessSlider" type="HSlider" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+
+[node name="GameplayContainer" type="Container" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer"]
+layout_mode = 2
+text = "Test Lol"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_font_sizes/font_size = 24
 text = "Done"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="mouse_entered" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AudioButton" to="." method="_on_audio_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GraphicsButton" to="." method="_on_graphics_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GraphicsButton" to="." method="_on_graphics_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GameplayButton" to="." method="_on_gameplay_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GameplayButton" to="." method="_on_gameplay_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/Panel/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
