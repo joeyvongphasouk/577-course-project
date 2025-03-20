@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://di8twtyc507sv"]
 
-[ext_resource type="Script" uid="uid://b1vo430hvlfnn" path="res://scripts/options_menu.gd" id="1_liyum"]
+[ext_resource type="Script" uid="uid://b1vo430hvlfnn" path="res://scripts/menus/options_menu.gd" id="1_liyum"]
 [ext_resource type="PackedScene" uid="uid://cgvf3lbv4bigi" path="res://scenes/volume_slider.tscn" id="2_ijpji"]
 [ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_lfjc7"]
 [ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_3xsyx"]

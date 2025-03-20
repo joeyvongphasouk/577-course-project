@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgvf3lbv4bigi"]
 
-[ext_resource type="Script" uid="uid://4se5fw6otuc7" path="res://scripts/volume_slider.gd" id="1_ynsfn"]
+[ext_resource type="Script" uid="uid://4se5fw6otuc7" path="res://scripts/menus/volume_slider.gd" id="1_ynsfn"]
 [ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_1snrh"]
 
 [node name="volume_slider" type="HSlider"]
