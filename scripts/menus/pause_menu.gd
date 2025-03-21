@@ -9,6 +9,8 @@ extends Control
 @onready var options_button: Button = $PanelContainer/VBoxContainer2/Options
 @onready var main_menu_button: Button = $PanelContainer/VBoxContainer2/MainMenu
 
+var main_menu_path: String = "res://scenes/menus/main_menu.tscn"
+
 @export_group("Menu Sound Effects")
 @export var sfx_hover: AudioStream
 @export var sfx_click: AudioStream
@@ -61,7 +63,7 @@ func _on_options_pressed() -> void:
 func _on_main_menu_pressed() -> void:
 	play_sound(sfx_click)
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	get_tree().change_scene_to_file(main_menu_path)
 
 func on_exit_options_menu() -> void:
 	panel_container.visible = true

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://drohybeoxrexw"]
 
-[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="1_ct5vs"]
-[ext_resource type="Script" uid="uid://wrgi2u06gdin" path="res://scripts/pressure_plate.gd" id="1_xtofl"]
+[ext_resource type="Script" uid="uid://wrgi2u06gdin" path="res://scripts/pressure_plate.gd" id="1_3w2wm"]
+[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="2_sc0nw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8vubt"]
 size = Vector3(1, 0.01, 1)
@@ -52,12 +52,12 @@ _data = {
 }
 
 [node name="pressure_plate" type="Node3D"]
-script = ExtResource("1_xtofl")
+script = ExtResource("1_3w2wm")
 
 [node name="StaticBody3D" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-material_override = ExtResource("1_ct5vs")
+material_override = ExtResource("2_sc0nw")
 mesh = SubResource("BoxMesh_8vubt")
 
 [node name="plate" type="StaticBody3D" parent="StaticBody3D"]

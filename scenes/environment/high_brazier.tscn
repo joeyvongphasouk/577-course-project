@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxbn6bo62gnom"]
+
+[ext_resource type="PackedScene" uid="uid://cp8y1hupd6clk" path="res://assets/models/high_brazier/brazier.glb" id="1_i1bet"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/fire_node.tscn" id="2_cfk35"]
+
+[node name="high_brazier" instance=ExtResource("1_i1bet")]
+
+[node name="Sketchfab_model" parent="." index="0"]
+transform = Transform3D(0.015, 0, 0, 0, -6.55671e-10, 0.015, 0, -0.015, -6.55671e-10, 0, 0, 0)
+
+[node name="fire_node" parent="." index="1" instance=ExtResource("2_cfk35")]
+transform = Transform3D(0.42, 0, 0, 0, 0.42, 0, 0, 0, 0.42, 0, 2.505, 0)

@@ -6,6 +6,8 @@ extends CanvasLayer
 @onready var options_menu: CanvasLayer = $options_menu
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
+@export var current_level_path: String = "res://scenes/levels/playground.tscn"
+
 @export_group("Menu Sound Effects")
 @export var sfx_hover: AudioStream
 @export var sfx_click: AudioStream
@@ -18,11 +20,11 @@ func _ready() -> void:
 	quit_button.connect("focus_entered", _on_button_entered)
 	audio_stream_player.set_bus("SFX")
 	options_menu.exit_options_menu.connect(on_exit_options_menu)
-
+	
 # signals for pressing a button
 func _on_start_pressed() -> void:
 	play_sound(sfx_click)
-	get_tree().change_scene_to_file("res://scenes/playground.tscn")
+	get_tree().change_scene_to_file(current_level_path)
 
 func _on_options_pressed() -> void:
 	play_sound(sfx_click)

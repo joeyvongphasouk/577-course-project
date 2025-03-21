@@ -224,7 +224,8 @@ func launch():
 			rope_2_node.queue_free()
 		rope_2_node = rope_2_script.new()
 		rope_2_node.top_level = true
-		rope_2_node.global_position = gun_tip.global_position
+		if is_instance_valid(gun_tip) and gun_tip.is_inside_tree():
+			rope_2_node.global_position = gun_tip.global_position
 		rope_2_node.RopeLength = rope_dist * 0.6
 		rope_2_node.RopeCollisionBehavior = 1
 		add_child(rope_2_node)

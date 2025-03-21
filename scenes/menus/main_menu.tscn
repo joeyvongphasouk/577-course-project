@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://cfytv6wnnrufh"]
 
-[ext_resource type="Script" uid="uid://dtul1mk8xodr0" path="res://scripts/menus/main_menu.gd" id="1_jwwq1"]
-[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="2_bqqt6"]
-[ext_resource type="Script" uid="uid://chlir5gpjwmsn" path="res://scripts/main_menu_camera.gd" id="2_ekxnf"]
-[ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_rtw2f"]
-[ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_oa1go"]
-[ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/options_menu.tscn" id="4_wu84c"]
+[ext_resource type="Script" uid="uid://dtul1mk8xodr0" path="res://scripts/menus/main_menu.gd" id="1_ng0o5"]
+[ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_8r73w"]
+[ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_1hnlc"]
+[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="4_50h1w"]
+[ext_resource type="Script" uid="uid://chlir5gpjwmsn" path="res://scripts/main_menu_camera.gd" id="5_euy4r"]
+[ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/menus/options_menu.tscn" id="6_bre17"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l6cm7"]
 
@@ -28,9 +28,9 @@ size = Vector3(5, 15, 5)
 
 [node name="Main_Menu" type="CanvasLayer"]
 process_mode = 3
-script = ExtResource("1_jwwq1")
-sfx_hover = ExtResource("2_rtw2f")
-sfx_click = ExtResource("3_oa1go")
+script = ExtResource("1_ng0o5")
+sfx_hover = ExtResource("2_8r73w")
+sfx_click = ExtResource("3_1hnlc")
 
 [node name="Background" type="Node3D" parent="."]
 
@@ -55,7 +55,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wu84c")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 7.5, -29.9)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Background/LevelBackground/StaticBody3D"]
-material_override = ExtResource("2_bqqt6")
+material_override = ExtResource("4_50h1w")
 mesh = SubResource("BoxMesh_8ln24")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
@@ -72,7 +72,7 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
 transform = Transform3D(-0.179036, 0.303794, -0.935764, -0.00834, 0.95063, 0.310216, 0.983808, 0.0633443, -0.167663, 0, 8.78714, 0)
-script = ExtResource("2_ekxnf")
+script = ExtResource("5_euy4r")
 
 [node name="MenuPanel" type="Control" parent="."]
 layout_mode = 3
@@ -118,7 +118,7 @@ size_flags_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit"
 
-[node name="options_menu" parent="." instance=ExtResource("4_wu84c")]
+[node name="options_menu" parent="." instance=ExtResource("6_bre17")]
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

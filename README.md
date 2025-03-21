@@ -27,6 +27,7 @@ Course project for the Mines CSCI 577 class.
 # Characters
 - 
 
+
 # Music/Sounds
 - Main menu
 	- bg: https://alkakrab.itch.io/free-fantasy-exploration-ambient-music-pack
@@ -36,6 +37,9 @@ Course project for the Mines CSCI 577 class.
 	- https://www.zapsplat.com
 
 # Environment
+- Braziers
+	- high brazier: "Brazier" (https://skfb.ly/OqVs) by Jochon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+	- low brazier: "Primitive Brazier (Free)" (https://skfb.ly/6XP6B) by wolfgar74 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 # Grapple
 
