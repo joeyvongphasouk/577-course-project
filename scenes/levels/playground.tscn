@@ -1,17 +1,18 @@
-[gd_scene load_steps=47 format=4 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=48 format=4 uid="uid://dy4fgvyaugnii"]
 
 [ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="1_kgnh5"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_x0rm7"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="3_rc1m4"]
 [ext_resource type="PackedScene" uid="uid://drohybeoxrexw" path="res://scenes/environment/pressure_plate.tscn" id="4_dlivn"]
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="5_p5pig"]
-[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/fire_node.tscn" id="6_0qlaq"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="6_0qlaq"]
 [ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="7_vmfr1"]
 [ext_resource type="Script" uid="uid://be6yplge860fv" path="res://addons/verlet_rope_4/VerletRope.cs" id="8_2li26"]
 [ext_resource type="PackedScene" uid="uid://bxbn6bo62gnom" path="res://scenes/environment/high_brazier.tscn" id="9_x0rm7"]
 [ext_resource type="PackedScene" uid="uid://prq6xj5j5kj2" path="res://scenes/environment/low_brazier.tscn" id="10_rc1m4"]
 [ext_resource type="PackedScene" uid="uid://csrij4v6knwf2" path="res://scenes/test_collide.tscn" id="11_dlivn"]
 [ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/door_gate.tscn" id="12_p5pig"]
+[ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/torch.tscn" id="13_0qlaq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rlvb3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -87,9 +88,9 @@ size = Vector3(10, 50, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0p1y1"]
 data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, -25, 5, 5, 25, -5, -5, 25, -5, 5, -25, -5, -5, 25, -5, -5, -25, -5, 5, -25, -5, 5, 25, 5, 5, 25, -5, 5, -25, 5, 5, 25, -5, 5, -25, -5, 5, -25, 5, -5, 25, -5, -5, 25, 5, -5, -25, -5, -5, 25, 5, -5, -25, 5, -5, -25, -5, 5, 25, 5, -5, 25, 5, 5, 25, -5, -5, 25, 5, -5, 25, -5, 5, 25, -5, -5, -25, 5, 5, -25, 5, -5, -25, -5, 5, -25, 5, 5, -25, -5, -5, -25, -5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_p5pig"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_0qlaq"]
 resource_local_to_scene = true
-metadata/creation_stamp = 185945978674098
+metadata/creation_stamp = 347655725228911
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -152,9 +153,6 @@ shape = SubResource("WorldBoundaryShape3D_ytjev")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("PlaneMesh_mcgwk")
-
-[node name="pressure_plate" parent="." instance=ExtResource("4_dlivn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0, -6.5)
 
 [node name="Torch" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.4708, 0.5, -23.2047)
@@ -332,7 +330,7 @@ shape = SubResource("ConcavePolygonShape3D_0p1y1")
 [node name="VerletRope" type="MeshInstance3D" parent="Objects" node_paths=PackedStringArray("AttachEnd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71588, -4.4)
 material_override = ExtResource("7_vmfr1")
-mesh = SubResource("ImmediateMesh_p5pig")
+mesh = SubResource("ImmediateMesh_0qlaq")
 skeleton = NodePath("../..")
 script = ExtResource("8_2li26")
 AttachEnd = NodePath("../RigidBody3D")
@@ -366,7 +364,7 @@ mesh = SubResource("BoxMesh_hq3ol")
 shape = SubResource("BoxShape3D_c7npr")
 
 [node name="FlatSurface" type="RigidBody3D" parent="Objects"]
-transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 9.9, 0.9, -9.9)
+transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 10.3, 0.6, -9.9)
 collision_layer = 7
 collision_mask = 7
 mass = 10.0
@@ -376,6 +374,19 @@ material_override = ExtResource("5_p5pig")
 mesh = SubResource("BoxMesh_mm0a5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/FlatSurface"]
+shape = SubResource("BoxShape3D_q8s1k")
+
+[node name="FlatSurface2" type="RigidBody3D" parent="Objects"]
+transform = Transform3D(0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 13.6, 0.6, -35.3)
+collision_layer = 7
+collision_mask = 7
+mass = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/FlatSurface2"]
+material_override = ExtResource("5_p5pig")
+mesh = SubResource("BoxMesh_mm0a5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/FlatSurface2"]
 shape = SubResource("BoxShape3D_q8s1k")
 
 [node name="HighSurf" type="StaticBody3D" parent="Objects"]
@@ -436,24 +447,49 @@ shape = SubResource("ConcavePolygonShape3D_emj6c")
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Objects/Cave2"]
 mesh = SubResource("ArrayMesh_mrac1")
 
-[node name="low_brazier" parent="." instance=ExtResource("10_rc1m4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.8771, 0.00582607, -20.0236)
-
-[node name="low_brazier2" parent="." instance=ExtResource("10_rc1m4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9771, 0.00582607, -29.3236)
-
-[node name="high_brazier" parent="." instance=ExtResource("9_x0rm7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4959, 0.061341, -19.2821)
-
-[node name="high_brazier2" parent="." instance=ExtResource("9_x0rm7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8959, 0.061341, -16.5821)
-
-[node name="high_brazier3" parent="." instance=ExtResource("9_x0rm7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5959, 0.061341, -11.4821)
-lit = false
-
 [node name="test_collide" parent="." instance=ExtResource("11_dlivn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8563, 0.5, -16.5144)
 
-[node name="door_gate" parent="." instance=ExtResource("12_p5pig")]
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="low_brazier" parent="Interactables" instance=ExtResource("10_rc1m4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9771, 0.00582607, -26.6236)
+
+[node name="low_brazier2" parent="Interactables" instance=ExtResource("10_rc1m4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9771, 0.00582607, -29.3236)
+
+[node name="high_brazier" parent="Interactables" instance=ExtResource("9_x0rm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4959, 0.061341, -19.2821)
+lit = false
+
+[node name="high_brazier2" parent="Interactables" instance=ExtResource("9_x0rm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6913, 0.061342, -23.5502)
+lit = false
+
+[node name="high_brazier3" parent="Interactables" instance=ExtResource("9_x0rm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8731, 0.061341, -21.9671)
+lit = false
+
+[node name="torch" parent="Interactables" instance=ExtResource("13_0qlaq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 24.8, 3.7, -12)
+initial_lit = false
+
+[node name="torch2" parent="Interactables" instance=ExtResource("13_0qlaq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 24.8, 3.7, -16)
+initial_lit = false
+
+[node name="door_gate" parent="Interactables" node_paths=PackedStringArray("open_conditions") instance=ExtResource("12_p5pig")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.0527, 0, -13.1401)
+open_conditions = [NodePath("../pressure_plate"), NodePath("../pressure_plate2")]
+
+[node name="door_gate2" parent="Interactables" node_paths=PackedStringArray("open_conditions") instance=ExtResource("12_p5pig")]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, 17.7527, 0, -24.1401)
+open_conditions = [NodePath("../high_brazier2"), NodePath("../high_brazier3")]
+
+[node name="pressure_plate" parent="Interactables" node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 0, -6.5)
+indicators = [NodePath("../torch")]
+
+[node name="pressure_plate2" parent="Interactables" node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9, 0, -34.1)
+indicators = [NodePath("../torch2")]

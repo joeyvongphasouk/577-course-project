@@ -91,7 +91,7 @@ func _input(event: InputEvent) -> void:
 	# add option to extinguish fire from gun
 	if event.is_action_pressed("extinguish"):
 		fire_node.visible = false
-		print("exting")
+		print("extinguish")
 	
 	# toggle crouch
 	if event.is_action_pressed("crouch") and TOGGLE_CROUCH:
@@ -265,7 +265,6 @@ func launch():
 		rope_2_grapple_point_node.position = obj_hit.to_local(grapple_point)
 		
 		# attach the rope to the created node3D
-		print(rope_2_grapple_point_node.get_parent())
 		rope_2_node.SetAttachEnd(rope_2_grapple_point_node)
 		
 		rope_2_node.show()
@@ -288,7 +287,6 @@ func retract():
 			rope_2_node.queue_free()
 		#if is_instance_valid(rope_2_grapple_point_node):
 			#rope_2_grapple_point_node.queue_free()
-	print(rope_2_grapple_point_node.get_parent())
 
 func handle_grapple(delta: float) -> void:
 	var target_dist = global_position.distance_to(rope_2_grapple_point_node.global_position)
@@ -352,8 +350,8 @@ func toggle_crouch():
 	elif !is_crouching:
 		crouching(true)
 	
-	if shape_cast_crouch.is_colliding():
-		print(shape_cast_crouch.get_collider(0))
+	#if shape_cast_crouch.is_colliding():
+		#print(shape_cast_crouch.get_collider(0))
 
 func crouching(state: bool):
 	if state:

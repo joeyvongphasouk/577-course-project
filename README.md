@@ -37,9 +37,10 @@ Course project for the Mines CSCI 577 class.
 	- https://www.zapsplat.com
 
 # Environment
-- Braziers
+- fire stuff
 	- high brazier: "Brazier" (https://skfb.ly/OqVs) by Jochon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 	- low brazier: "Primitive Brazier (Free)" (https://skfb.ly/6XP6B) by wolfgar74 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+	- torch: "Low poly stylized Torch" (https://skfb.ly/6TXPC) by MMandali is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - Gates
 	- castle gate: "Castle Portcullis" (https://skfb.ly/6YnEp) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 	- door

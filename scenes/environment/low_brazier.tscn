@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://prq6xj5j5kj2"]
 
 [ext_resource type="PackedScene" uid="uid://dsvwq7r8caua6" path="res://assets/models/low_brazier/primitive_brazier_free.glb" id="1_kkbn6"]
-[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/fire_node.tscn" id="2_3ilow"]
-[ext_resource type="Script" uid="uid://cykxr6j3w5hdx" path="res://scripts/low_brazier.gd" id="2_t44qe"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="2_3ilow"]
+[ext_resource type="Script" uid="uid://cykxr6j3w5hdx" path="res://scripts/environment/low_brazier.gd" id="2_t44qe"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3ilow"]
 height = 1.55469

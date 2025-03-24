@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://drohybeoxrexw"]
 
-[ext_resource type="Script" uid="uid://wrgi2u06gdin" path="res://scripts/pressure_plate.gd" id="1_3w2wm"]
+[ext_resource type="Script" uid="uid://wrgi2u06gdin" path="res://scripts/environment/pressure_plate.gd" id="1_3w2wm"]
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="2_sc0nw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8vubt"]
@@ -51,3 +51,4 @@ libraries = {
 }
 
 [connection signal="body_entered" from="StaticBody3D/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="StaticBody3D/Area3D" to="." method="_on_area_3d_body_exited"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxbn6bo62gnom"]
 
 [ext_resource type="PackedScene" uid="uid://cp8y1hupd6clk" path="res://assets/models/high_brazier/brazier.glb" id="1_i1bet"]
-[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/fire_node.tscn" id="2_cfk35"]
-[ext_resource type="Script" uid="uid://d1q72igvuhbve" path="res://scripts/high_brazier.gd" id="2_ysdwu"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="2_cfk35"]
+[ext_resource type="Script" uid="uid://d1q72igvuhbve" path="res://scripts/environment/high_brazier.gd" id="2_ysdwu"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cfk35"]
 radius = 0.4
