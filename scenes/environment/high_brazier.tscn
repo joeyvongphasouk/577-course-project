@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxbn6bo62gnom"]
+
+[ext_resource type="PackedScene" uid="uid://cp8y1hupd6clk" path="res://assets/models/high_brazier/brazier.glb" id="1_i1bet"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/fire_node.tscn" id="2_cfk35"]
+[ext_resource type="Script" uid="uid://d1q72igvuhbve" path="res://scripts/high_brazier.gd" id="2_ysdwu"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cfk35"]
+radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ysdwu"]
+radius = 0.25
+
+[node name="high_brazier" instance=ExtResource("1_i1bet")]
+script = ExtResource("2_ysdwu")
+
+[node name="Sketchfab_model" parent="." index="0"]
+transform = Transform3D(0.015, 0, 0, 0, -6.55671e-10, 0.015, 0, -0.015, -6.55671e-10, 0, 0, 0)
+
+[node name="fire_node" parent="." index="1" instance=ExtResource("2_cfk35")]
+transform = Transform3D(0.42, 0, 0, 0, 0.42, 0, 0, 0, 0.42, 0, 2.605, 0)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="fire_node" index="5"]
+transform = Transform3D(2.38095, 0, 0, 0, 2.38095, 0, 0, 0, 2.38095, 0, 2.63795, 0)
+light_color = Color(4, 1.25, 0.6, 0.996)
+light_energy = 0.2
+light_indirect_energy = 0.6
+shadow_enabled = true
+shadow_blur = 4.5
+omni_range = 25.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="player_collision" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("CylinderShape3D_cfk35")
+
+[node name="fire_area" type="Area3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40944, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="fire_area" index="0"]
+shape = SubResource("SphereShape3D_ysdwu")

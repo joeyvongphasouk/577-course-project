@@ -18,14 +18,33 @@ Course project for the Mines CSCI 577 class.
 - Player collision layer + mask is 2, grapple coll layer + mask is 1, thus blocks in env should check for both
 - Audio for sound effects: https://www.zapsplat.com/sound-effect-packs/footsteps-on-hollow-wood-floor/?registration_redirect=1&item_id=40163
 
-### 1 - 3d puzzle grapple hook physics game what
-A 3D platformer game where the player must navigate a level from a designated start and end point. The player can shoot a grappling hook at specific points along the level. The player can use this interaction to swing off of this point to reach parts of a level.
+## Bug list
+- Player will slow down in the air if they move towards the direction they want
+	- This is due to the lerpf in the player move, they are lerping to a speed that is lower than intial vel
+- Going from pause/main menu to options menu plays two sounds at the same time
 
-Potent prob:
-1. Momentum and physics is shit to debug
-2. Edge cases are also shit to debug
-3. Levels themselves must be designed well
+## Current Assets List
+# Characters
+- 
 
+
+# Music/Sounds
+- Main menu
+	- bg: https://alkakrab.itch.io/free-fantasy-exploration-ambient-music-pack
+	- menu hover/slide: https://freesound.org/people/NenadSimic/sounds/157539/
+	- menu click: https://freesound.org/people/NenadSimic/sounds/268108/
+- Walking sounds
+	- https://www.zapsplat.com
+
+# Environment
+- Braziers
+	- high brazier: "Brazier" (https://skfb.ly/OqVs) by Jochon is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+	- low brazier: "Primitive Brazier (Free)" (https://skfb.ly/6XP6B) by wolfgar74 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- Gates
+	- castle gate: "Castle Portcullis" (https://skfb.ly/6YnEp) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+	- door
+
+# Grapple
 
 ---
 ## Deadlines
