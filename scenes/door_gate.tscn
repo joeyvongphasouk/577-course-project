@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b225r0t05jmp7"]
+
+[ext_resource type="PackedScene" uid="uid://dplgqudx0kfe3" path="res://assets/models/castle_gate/castle_portcullis.glb" id="1_5yqa7"]
+
+[node name="door_gate" instance=ExtResource("1_5yqa7")]
+
+[node name="Portcullis_obj_cleaner_materialmerger_gles" parent="Sketchfab_model" index="0"]
+transform = Transform3D(0.037, 0, 0, 0, 0.037, 0, 0, 0, 0.037, 0, 4.44089e-17, 0.2)

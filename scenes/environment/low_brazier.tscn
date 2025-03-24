@@ -1,12 +1,47 @@
-[gd_scene load_steps=3 format=3 uid="uid://prq6xj5j5kj2"]
+[gd_scene load_steps=6 format=3 uid="uid://prq6xj5j5kj2"]
 
 [ext_resource type="PackedScene" uid="uid://dsvwq7r8caua6" path="res://assets/models/low_brazier/primitive_brazier_free.glb" id="1_kkbn6"]
 [ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/fire_node.tscn" id="2_3ilow"]
+[ext_resource type="Script" uid="uid://cykxr6j3w5hdx" path="res://scripts/low_brazier.gd" id="2_t44qe"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3ilow"]
+height = 1.55469
+radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4b518"]
+radius = 0.37
 
 [node name="low_brazier" instance=ExtResource("1_kkbn6")]
+script = ExtResource("2_t44qe")
 
 [node name="Sketchfab_model" parent="." index="0"]
 transform = Transform3D(0.015, 0, 0, 0, -6.55671e-10, 0.015, 0, -0.015, -6.55671e-10, 0, 0, 0)
 
 [node name="fire_node" parent="." index="1" instance=ExtResource("2_3ilow")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 1.78, 0.11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 1.88, 0.11)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="fire_node" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.133, 0)
+light_color = Color(4, 1.25, 0.6, 0.996)
+light_energy = 0.2
+light_indirect_energy = 0.6
+shadow_enabled = true
+shadow_blur = 4.5
+omni_range = 25.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.891, 0.1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="player_collision" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.132031, 0)
+shape = SubResource("CylinderShape3D_3ilow")
+
+[node name="fire_area" type="Area3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, 1.691, 0.1)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="fire_area" index="0"]
+shape = SubResource("SphereShape3D_4b518")

@@ -5,6 +5,8 @@ extends CharacterBody3D
 @onready var grapple_raycast: RayCast3D = $Head/GrappleRaycast
 @onready var gun_tip: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip
 @onready var grapple_gun_anim: AnimationPlayer = $Head/Camera3D/WeaponRig/grapple_gun/AnimationPlayer
+@onready var fire_node: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip/fire_node
+@onready var static_flame: GPUParticles3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip/fire_node/static_flame
 
 @export_group("Player Physics")
 @export var player_mass: float = 80.0
@@ -62,7 +64,19 @@ signal health_changed
 func _ready() -> void:
 	shape_cast_crouch.add_exception($".")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# spawn in rope
+	# use always use this rope instead of deleting and spawning back in ropes
+	# nvm, rope glitches from previous place
 	rope_2_script = load("res://addons/verlet_rope_4/VerletRope.cs")
+	rope_2_grapple_point_node = Node3D.new()
+	
+	#rope_2_node.hide()
+	rope_2_grapple_point_node.hide()
+	
+	# handle fire instantiation
+	static_flame.visible = false
+	fire_node.visible = false
 	
 func _unhandled_input(event) -> void:
 	# Look around
@@ -74,6 +88,12 @@ func _unhandled_input(event) -> void:
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _input(event: InputEvent) -> void:
+	# add option to extinguish fire from gun
+	if event.is_action_pressed("extinguish"):
+		fire_node.visible = false
+		print("exting")
+	
+	# toggle crouch
 	if event.is_action_pressed("crouch") and TOGGLE_CROUCH:
 		toggle_crouch()
 	if event.is_action_pressed("crouch") and !TOGGLE_CROUCH:
@@ -107,15 +127,13 @@ func _physics_process(delta: float) -> void:
 		# set move_speed and move_accel vars based on state of player
 		if is_on_floor():
 			set_accel("ground")
-			
 		else:
 			set_accel("air")
 		
 		
 		velocity.x = lerpf(velocity.x, direction.x * player_speed, player_accel * delta)
 		velocity.z = lerpf(velocity.z, direction.z * player_speed, player_accel * delta)
-		
-	#
+
 		#
 		#print("curr:", velocity.x, " wanted:", direction.x * player_speed)
 		#if velocity.x > direction.x * player_speed:
@@ -128,9 +146,6 @@ func _physics_process(delta: float) -> void:
 	elif is_on_floor():
 		velocity.x = lerpf(velocity.x, 0, deceleration * delta)
 		velocity.z = lerpf(velocity.z, 0, deceleration * delta)
-
-	
-
 
 	#coll.
 	#if velocity.length() > 10:
@@ -168,8 +183,6 @@ func _physics_process(delta: float) -> void:
 		#if (c.get_remainder().length() > 0.15):
 		if (c.get_remainder().length() > 0.05):
 			print("col obj norm:", c.get_normal(), "| col rem vec:", c.get_remainder(), "| play vec:", velocity)
-	
-	
 	
 	# bobbing
 	headbob_time += delta * velocity.length() * float (is_on_floor())
@@ -214,52 +227,78 @@ func grapple_handle(delta: float) -> void:
 
 func launch():
 	if grapple_raycast.is_colliding():
+		
+		# check to see if the collider is colliding with valid objects
+		# ie. pass if the collider detects invalid area3d spaces
+		obj_hit = grapple_raycast.get_collider()
+		if obj_hit is Area3D:
+			if obj_hit.is_in_group("fire_source"):
+				
+				# light the grapple on fire
+				if obj_hit.get_parent().lit:
+					fire_node.visible = true
+					print("fire")
+				
+				# light the brazier on fire
+				elif !obj_hit.get_parent().lit and fire_node.visible:
+					obj_hit.get_parent().light()
+					
+			else:
+				return
+		
 		grapple_point = grapple_raycast.get_collision_point()
 		rope_dist = global_position.distance_to(grapple_point)
 		launched = true
-		obj_hit = grapple_raycast.get_collider()
 		
-		# instantiate rope
+		# unhide and update rope
 		if is_instance_valid(rope_2_node):
 			rope_2_node.queue_free()
 		rope_2_node = rope_2_script.new()
 		rope_2_node.top_level = true
-		if is_instance_valid(gun_tip) and gun_tip.is_inside_tree():
+		if is_instance_valid(gun_tip):
 			rope_2_node.global_position = gun_tip.global_position
-		rope_2_node.RopeLength = rope_dist * 0.6
 		rope_2_node.RopeCollisionBehavior = 1
+		rope_2_node.RopeLength = rope_dist * 0.6
 		add_child(rope_2_node)
+
+		obj_hit.add_child(rope_2_grapple_point_node)
+		rope_2_grapple_point_node.position = obj_hit.to_local(grapple_point)
 		
-		# instantiate the grapple point node rope is hooked onto
-		if is_instance_valid(rope_2_grapple_point_node):
-			rope_2_grapple_point_node.queue_free()
-		rope_2_grapple_point_node = Node3D.new()
-		
-		if obj_hit is RigidBody3D:
-			obj_hit.add_child(rope_2_grapple_point_node)
-			rope_2_grapple_point_node.position = obj_hit.to_local(grapple_point)
-		else:
-			#rope_2_grapple_point_node.global_position
-			get_tree().current_scene.add_child(rope_2_grapple_point_node)
-			rope_2_grapple_point_node.global_position = grapple_point + (grapple_point - global_position).normalized() * 0.02
-			
 		# attach the rope to the created node3D
+		print(rope_2_grapple_point_node.get_parent())
 		rope_2_node.SetAttachEnd(rope_2_grapple_point_node)
+		
+		rope_2_node.show()
+		rope_2_grapple_point_node.show()
+		
+		# move the guntip to the global point where rope_2_grapple_point_node exists
+
 
 func retract():
-	launched = false
-	if is_instance_valid(rope_2_node):
-		rope_2_node.queue_free()
-	if is_instance_valid(rope_2_grapple_point_node):
-		rope_2_grapple_point_node.queue_free()
+	if launched:
+		launched = false
+		
+		# instead of deleting which takes up computation
+		# just hide the rope
+		rope_2_grapple_point_node.global_position = gun_tip.global_position
+		obj_hit.remove_child(rope_2_grapple_point_node)
+		rope_2_grapple_point_node.hide()
+		
+		if is_instance_valid(rope_2_node):
+			rope_2_node.queue_free()
+		#if is_instance_valid(rope_2_grapple_point_node):
+			#rope_2_grapple_point_node.queue_free()
+	print(rope_2_grapple_point_node.get_parent())
 
 func handle_grapple(delta: float) -> void:
 	var target_dist = global_position.distance_to(rope_2_grapple_point_node.global_position)
 	var direction_to_grapple = (rope_2_grapple_point_node.global_position - global_position).normalized()
 	var velocity_along_rope = velocity.project(direction_to_grapple)
 	
-	# if its a staticbody, then only pull player velocity
-	if obj_hit is StaticBody3D or (obj_hit.mass > pullable_mass):
+	
+	# if its a staticbody or mass is heavy or an area3d,
+	# then only pull player velocity
+	if obj_hit is Area3D or obj_hit is StaticBody3D or (obj_hit.mass > pullable_mass):
 		
 		# take away to opposing vel if we strech past the rope distance
 		if (target_dist > rope_dist * 1.01 and velocity.dot(direction_to_grapple) <= 0):
