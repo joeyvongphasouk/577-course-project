@@ -22,6 +22,7 @@ Course project for the Mines CSCI 577 class.
 - Player will slow down in the air if they move towards the direction they want
 	- This is due to the lerpf in the player move, they are lerping to a speed that is lower than intial vel
 - Going from pause/main menu to options menu plays two sounds at the same time
+- Pull onject mechanic can cause player to fly off into space if object is too light or small
 
 ## Current Assets List
 # Characters
@@ -43,7 +44,8 @@ Course project for the Mines CSCI 577 class.
 	- torch: "Low poly stylized Torch" (https://skfb.ly/6TXPC) by MMandali is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - Gates
 	- castle gate: "Castle Portcullis" (https://skfb.ly/6YnEp) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-	- door
+	- door: "Door" (https://mrscientist.itch.io/3d-low-poly-modular-dungeon) by Mr. Scientist. License is CC0.
+  - doorway: "Door Way" (https://mrscientist.itch.io/3d-low-poly-modular-dungeon) by Mr. Scientist. License is CC0.
 
 # Grapple
 
@@ -59,3 +61,5 @@ Course project for the Mines CSCI 577 class.
 | Apr 13 | Beta Delivery |
 | Apr 28 | Final Delivery |
 | Apr 28 - 30 | Final Presentation |
+
+I hope this works
