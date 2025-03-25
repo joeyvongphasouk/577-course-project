@@ -3,6 +3,33 @@
 [ext_resource type="PackedScene" uid="uid://dplgqudx0kfe3" path="res://assets/models/castle_gate/castle_portcullis.glb" id="1_5yqa7"]
 [ext_resource type="Script" uid="uid://d4dqtewek7hkd" path="res://scripts/environment/door_gate.gd" id="2_wmn63"]
 
+[sub_resource type="Animation" id="Animation_5dbv2"]
+resource_name = "Close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/Portcullis_obj_cleaner_materialmerger_gles/Object_3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 87.3), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sketchfab_model/Portcullis_obj_cleaner_materialmerger_gles/Object_2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 87.3), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_5yqa7"]
 resource_name = "Open"
 tracks/0/type = "value"
@@ -55,33 +82,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5dbv2"]
-resource_name = "Close"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sketchfab_model/Portcullis_obj_cleaner_materialmerger_gles/Object_3:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 87.3), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sketchfab_model/Portcullis_obj_cleaner_materialmerger_gles/Object_2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 87.3), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5dbv2"]
