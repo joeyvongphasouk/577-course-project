@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://jgqrsd1asrvr"]
+[gd_scene load_steps=51 format=4 uid="uid://jgqrsd1asrvr"]
 
 [ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="1_1r3rq"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_u4f7j"]
@@ -9,6 +9,19 @@
 [ext_resource type="PackedScene" uid="uid://d4dq7clrb5rb4" path="res://assets/models/Door Stuff/Doorway.glb" id="6_g7bfq"]
 [ext_resource type="PackedScene" uid="uid://bs5gw7k4u4k34" path="res://assets/models/Door Stuff/Door.glb" id="7_4a02d"]
 [ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/door_gate.tscn" id="7_iig34"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g7bfq"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_4a02d"]
+sky_material = SubResource("ProceduralSkyMaterial_g7bfq")
+
+[sub_resource type="Environment" id="Environment_uu0hj"]
+background_mode = 2
+sky = SubResource("Sky_4a02d")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_7ac3l"]
 
@@ -146,6 +159,7 @@ _surfaces = [{
 [node name="Tutorial" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uu0hj")
 
 [node name="HUD" parent="." instance=ExtResource("1_1r3rq")]
 
