@@ -19,7 +19,7 @@ func _ready() -> void:
 	options_button.connect("focus_entered", _on_button_entered)
 	quit_button.connect("focus_entered", _on_button_entered)
 	audio_stream_player.set_bus("SFX")
-	options_menu.exit_options_menu.connect(on_exit_options_menu)
+	options_menu.exit_options_menu.connect(on_exit_menu)
 	
 # signals for pressing a button
 func _on_start_pressed() -> void:
@@ -37,7 +37,7 @@ func _on_quit_pressed() -> void:
 	play_sound(sfx_click)
 	get_tree().quit()
 
-func on_exit_options_menu() -> void:
+func on_exit_menu() -> void:
 	menu_panel.visible = true
 	options_menu.visible = false
 	options_button.grab_focus()

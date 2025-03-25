@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://bpk810blerxw6"]
 
 [ext_resource type="Shader" uid="uid://j6s6a71lb6af" path="res://assets/shaders/fire_shader.tres" id="1_etgmn"]
-[ext_resource type="Script" uid="uid://dgjs5jbhap1rr" path="res://scripts/fire_node.gd" id="1_nb4dh"]
+[ext_resource type="Script" path="res://scripts/fire_node.gd" id="1_nb4dh"]
 [ext_resource type="Texture2D" uid="uid://c8e102v8b2lea" path="res://assets/textures/Voronoi01.png" id="2_nb4dh"]
 [ext_resource type="Texture2D" uid="uid://p7iop6wxof7x" path="res://assets/textures/Flame01.png" id="3_3kkuu"]
 [ext_resource type="Texture2D" uid="uid://p1c14nfu5t8b" path="res://assets/textures/Flame02.png" id="4_xjfkd"]
