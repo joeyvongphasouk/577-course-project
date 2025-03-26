@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://wpp6wo12e4fn"
 path.s3tc="res://.godot/imported/twistedtree2_Leaves_TwistedTree_C.png-a93251b987e11bd867557fc29523c1a3.s3tc.ctex"
+path.etc2="res://.godot/imported/twistedtree2_Leaves_TwistedTree_C.png-a93251b987e11bd867557fc29523c1a3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/trees/twistedtree2_Leaves_TwistedTree_C.png"
-dest_files=["res://.godot/imported/twistedtree2_Leaves_TwistedTree_C.png-a93251b987e11bd867557fc29523c1a3.s3tc.ctex"]
+dest_files=["res://.godot/imported/twistedtree2_Leaves_TwistedTree_C.png-a93251b987e11bd867557fc29523c1a3.s3tc.ctex", "res://.godot/imported/twistedtree2_Leaves_TwistedTree_C.png-a93251b987e11bd867557fc29523c1a3.etc2.ctex"]
 
 [params]
 
