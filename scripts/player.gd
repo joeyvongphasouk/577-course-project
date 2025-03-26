@@ -129,10 +129,14 @@ func _physics_process(delta: float) -> void:
 			set_accel("ground")
 		else:
 			set_accel("air")
+			
+		var horizontal_speed := Vector2(velocity.x, velocity.z).length()
+		var speed_threshold = player_speed * 1.2  # Tune this factor
+		var control_factor = clamp(1.0 - (horizontal_speed / speed_threshold), 0.2, 1.0)
+
 		
-		
-		velocity.x = lerpf(velocity.x, direction.x * player_speed, player_accel * delta)
-		velocity.z = lerpf(velocity.z, direction.z * player_speed, player_accel * delta)
+		velocity.x = lerpf(velocity.x, direction.x * player_speed, player_accel * delta * control_factor)
+		velocity.z = lerpf(velocity.z, direction.z * player_speed, player_accel * delta * control_factor)
 
 		#
 		#print("curr:", velocity.x, " wanted:", direction.x * player_speed)

@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+
 [application]
 
 config/name="Mandira"
@@ -23,6 +27,7 @@ MusicPlayer="*res://scripts/music_player.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=3
 window/size/resizable=false
 
 [dotnet]

@@ -1,6 +1,6 @@
 @tool
 extends EditorPlugin
-#class_name Terrain3DEditorPlugin Cannot be named until Godot #75388
+class_name Terrain3DEditorPlugin #Cannot be named until Godot #75388
 
 
 # Includes

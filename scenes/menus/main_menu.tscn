@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_8r73w"]
 [ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_1hnlc"]
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="4_50h1w"]
-[ext_resource type="Script" uid="uid://chlir5gpjwmsn" path="res://scripts/menus/main_menu_camera.gd" id="5_euy4r"]
+[ext_resource type="Script" path="res://scripts/menus/main_menu_camera.gd" id="5_euy4r"]
 [ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/menus/options_menu.tscn" id="6_bre17"]
 [ext_resource type="PackedScene" uid="uid://d16myeekw8e2" path="res://scenes/menus/level_selector.tscn" id="7_8r73w"]
 
@@ -65,6 +65,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
 handle_input_locally = false
@@ -77,43 +78,53 @@ script = ExtResource("5_euy4r")
 
 [node name="MenuPanel" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="MenuPanel"]
-layout_mode = 0
-offset_left = 78.0
-offset_top = 159.0
-offset_right = 483.0
-offset_bottom = 296.0
+[node name="MarginContainer" type="MarginContainer" parent="MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 165
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 100
 text = "Mandira"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = 385.0
-offset_right = 345.0
-offset_bottom = 635.0
-grow_vertical = 0
+[node name="VBoxContainer2" type="VBoxContainer" parent="MenuPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_constants/separation = 25
 
-[node name="Start" type="Button" parent="MenuPanel/VBoxContainer"]
+[node name="Start" type="Button" parent="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Start"
 
-[node name="Options" type="Button" parent="MenuPanel/VBoxContainer"]
+[node name="Options" type="Button" parent="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Options"
 
-[node name="Quit" type="Button" parent="MenuPanel/VBoxContainer"]
+[node name="Quit" type="Button" parent="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_font_sizes/font_size = 40
@@ -127,9 +138,9 @@ visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[connection signal="mouse_entered" from="MenuPanel/VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
-[connection signal="pressed" from="MenuPanel/VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="mouse_entered" from="MenuPanel/VBoxContainer/Options" to="." method="_on_options_mouse_entered"]
-[connection signal="pressed" from="MenuPanel/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="mouse_entered" from="MenuPanel/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
-[connection signal="pressed" from="MenuPanel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="mouse_entered" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Start" to="." method="_on_start_mouse_entered"]
+[connection signal="pressed" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Start" to="." method="_on_start_pressed"]
+[connection signal="mouse_entered" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Options" to="." method="_on_options_mouse_entered"]
+[connection signal="pressed" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Options" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Quit" to="." method="_on_quit_mouse_entered"]
+[connection signal="pressed" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]

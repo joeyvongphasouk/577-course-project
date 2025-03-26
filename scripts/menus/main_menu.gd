@@ -1,7 +1,7 @@
 extends CanvasLayer
-@onready var start_button: Button = $MenuPanel/VBoxContainer/Start
-@onready var options_button: Button = $MenuPanel/VBoxContainer/Options
-@onready var quit_button: Button = $MenuPanel/VBoxContainer/Quit
+@onready var start_button: Button = $MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Start
+@onready var options_button: Button = $MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Options
+@onready var quit_button: Button = $MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Quit
 @onready var menu_panel: Control = $MenuPanel
 @onready var options_menu: CanvasLayer = $options_menu
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer

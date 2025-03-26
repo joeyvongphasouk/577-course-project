@@ -2,12 +2,12 @@ extends Control
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var options_menu: CanvasLayer = $options_menu
-@onready var panel_container: PanelContainer = $PanelContainer
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var panel_container: PanelContainer = $MarginContainer/PanelContainer
 
-@onready var resume_button: Button = $PanelContainer/VBoxContainer2/Resume
-@onready var options_button: Button = $PanelContainer/VBoxContainer2/Options
-@onready var main_menu_button: Button = $PanelContainer/VBoxContainer2/MainMenu
+@onready var resume_button: Button = $MarginContainer/PanelContainer/VBoxContainer/Resume
+@onready var options_button: Button = $MarginContainer/PanelContainer/VBoxContainer/Options
+@onready var main_menu_button: Button = $MarginContainer/PanelContainer/VBoxContainer/MainMenu
 
 var main_menu_path: String = "res://scenes/menus/main_menu.tscn"
 
