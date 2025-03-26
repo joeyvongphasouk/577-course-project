@@ -1,0 +1,152 @@
+[gd_scene load_steps=10 format=3 uid="uid://d16myeekw8e2"]
+
+[ext_resource type="Script" uid="uid://cjay47m2tg0oh" path="res://scripts/level_selector.gd" id="1_02ad3"]
+[ext_resource type="Texture2D" uid="uid://cdddrsv37j8ns" path="res://icon.svg" id="1_pwo67"]
+[ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_5gl1m"]
+[ext_resource type="Script" uid="uid://b58dm6civ1y5n" path="res://scripts/menus/selection_window.gd" id="2_wwwuq"]
+[ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_l67p2"]
+[ext_resource type="Texture2D" uid="uid://sd6qxj58k2lq" path="res://assets/textures/Screenshots/JoeyImage.jpg" id="3_wwwuq"]
+[ext_resource type="Texture2D" uid="uid://cn2e1x35inxjn" path="res://assets/textures/Screenshots/SovannImage.jpg" id="4_02ad3"]
+[ext_resource type="Texture2D" uid="uid://4u67o7h3ued8" path="res://assets/textures/Screenshots/Screenshot 2025-03-25 at 8.35.03 PM.png" id="4_lj41a"]
+[ext_resource type="Texture2D" uid="uid://d3p7p7v6dbubj" path="res://assets/textures/Screenshots/mines.jpg" id="5_lj41a"]
+
+[node name="level_selector" type="CanvasLayer"]
+script = ExtResource("1_02ad3")
+sfx_hover = ExtResource("2_5gl1m")
+sfx_click = ExtResource("3_l67p2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="level_one" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+
+[node name="l1_button" type="TextureButton" parent="MarginContainer/HBoxContainer/level_one"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_pwo67")
+stretch_mode = 5
+script = ExtResource("2_wwwuq")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/level_one/l1_button"]
+layout_mode = 2
+offset_top = 597.0
+offset_right = 212.0
+offset_bottom = 620.0
+text = "1 Outside"
+
+[node name="level_two" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+
+[node name="l2_button" type="TextureButton" parent="MarginContainer/HBoxContainer/level_two"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("3_wwwuq")
+stretch_mode = 5
+script = ExtResource("2_wwwuq")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/level_two/l2_button"]
+layout_mode = 2
+offset_top = 597.0
+offset_right = 213.0
+offset_bottom = 620.0
+text = "2 Temple"
+
+[node name="level_three" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+
+[node name="l3_button" type="TextureButton" parent="MarginContainer/HBoxContainer/level_three"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("4_02ad3")
+stretch_mode = 5
+script = ExtResource("2_wwwuq")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/level_three/l3_button"]
+layout_mode = 2
+offset_top = 597.0
+offset_right = 213.0
+offset_bottom = 620.0
+text = "3 Shrine"
+
+[node name="level_four" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 7
+
+[node name="l4_button" type="TextureButton" parent="MarginContainer/HBoxContainer/level_four"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("5_lj41a")
+stretch_mode = 5
+script = ExtResource("2_wwwuq")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/level_four/l4_button"]
+layout_mode = 2
+offset_top = 597.0
+offset_right = 213.0
+offset_bottom = 620.0
+text = "4 Escape"
+
+[node name="playground" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="p_button" type="TextureButton" parent="MarginContainer/HBoxContainer/playground"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("4_lj41a")
+stretch_mode = 5
+script = ExtResource("2_wwwuq")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/playground/p_button"]
+layout_mode = 2
+offset_top = 597.0
+offset_right = 213.0
+offset_bottom = 620.0
+text = "Playground"
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_lj41a")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/level_one/l1_button" to="." method="_on_l_1_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/level_two/l2_button" to="." method="_on_l_2_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/level_three/l3_button" to="." method="_on_l_3_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/level_four/l4_button" to="." method="_on_l_4_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/playground/p_button" to="." method="_on_p_button_pressed"]

@@ -5,8 +5,10 @@ extends CanvasLayer
 @onready var menu_panel: Control = $MenuPanel
 @onready var options_menu: CanvasLayer = $options_menu
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var level_selector: CanvasLayer = $level_selector
 
 @export var current_level_path: String = "res://scenes/levels/playground.tscn"
+
 
 @export_group("Menu Sound Effects")
 @export var sfx_hover: AudioStream
@@ -24,7 +26,12 @@ func _ready() -> void:
 # signals for pressing a button
 func _on_start_pressed() -> void:
 	play_sound(sfx_click)
-	get_tree().change_scene_to_file(current_level_path)
+	menu_panel.visible = false
+	level_selector.visible = true
+	level_selector.set_process(true)
+	
+	
+	# get_tree().change_scene_to_file(current_level_path)
 
 func _on_options_pressed() -> void:
 	play_sound(sfx_click)
