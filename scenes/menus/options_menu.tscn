@@ -77,7 +77,6 @@ layout_mode = 2
 theme_override_constants/margin_top = 25
 
 [node name="AudioContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_constants/h_separation = 70
@@ -120,6 +119,7 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="GraphicsContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_constants/h_separation = 70

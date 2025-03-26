@@ -114,7 +114,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += jump_force
 		
 		# should we have it so that grapple retracts when we jump?
-		# retract() 
+		retract() 
 
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
