@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfytv6wnnrufh"]
+[gd_scene load_steps=14 format=3 uid="uid://cfytv6wnnrufh"]
 
 [ext_resource type="Script" uid="uid://dtul1mk8xodr0" path="res://scripts/menus/main_menu.gd" id="1_ng0o5"]
 [ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_8r73w"]
 [ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_1hnlc"]
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="4_50h1w"]
-[ext_resource type="Script" path="res://scripts/menus/main_menu_camera.gd" id="5_euy4r"]
+[ext_resource type="Script" uid="uid://chlir5gpjwmsn" path="res://scripts/menus/main_menu_camera.gd" id="5_euy4r"]
 [ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/menus/options_menu.tscn" id="6_bre17"]
+[ext_resource type="PackedScene" uid="uid://d16myeekw8e2" path="res://scenes/menus/level_selector.tscn" id="7_8r73w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l6cm7"]
 
@@ -119,6 +120,9 @@ theme_override_font_sizes/font_size = 40
 text = "Quit"
 
 [node name="options_menu" parent="." instance=ExtResource("6_bre17")]
+visible = false
+
+[node name="level_selector" parent="." instance=ExtResource("7_8r73w")]
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

@@ -77,6 +77,7 @@ layout_mode = 2
 theme_override_constants/margin_top = 25
 
 [node name="AudioContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_constants/h_separation = 70
@@ -119,7 +120,6 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="GraphicsContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_constants/h_separation = 70
@@ -135,6 +135,24 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+
+[node name="Resolution" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Resolution"
+horizontal_alignment = 2
+
+[node name="ResolutionDropButton" type="OptionButton" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer"]
+layout_mode = 2
+
+[node name="Fullscreen" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Fullscreen"
+horizontal_alignment = 2
+
+[node name="FullscreenCheckbox" type="CheckBox" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer"]
+layout_mode = 2
 
 [node name="GameplayContainer" type="Container" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 visible = false
@@ -160,5 +178,7 @@ text = "Done"
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GraphicsButton" to="." method="_on_graphics_button_pressed"]
 [connection signal="mouse_entered" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GameplayButton" to="." method="_on_gameplay_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GameplayButton" to="." method="_on_gameplay_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer/ResolutionDropButton" to="." method="_on_resolution_drop_button_item_selected"]
+[connection signal="toggled" from="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer/FullscreenCheckbox" to="." method="_on_fullscreen_checkbox_toggled"]
 [connection signal="mouse_entered" from="MarginContainer/Panel/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
