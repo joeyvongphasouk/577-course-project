@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://n3ghrrsh6itw"
 path.s3tc="res://.godot/imported/primitive_brazier_free_0.png-4091c00bf6adf2c442f687f13318f237.s3tc.ctex"
+path.etc2="res://.godot/imported/primitive_brazier_free_0.png-4091c00bf6adf2c442f687f13318f237.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/low_brazier/primitive_brazier_free_0.png"
-dest_files=["res://.godot/imported/primitive_brazier_free_0.png-4091c00bf6adf2c442f687f13318f237.s3tc.ctex"]
+dest_files=["res://.godot/imported/primitive_brazier_free_0.png-4091c00bf6adf2c442f687f13318f237.s3tc.ctex", "res://.godot/imported/primitive_brazier_free_0.png-4091c00bf6adf2c442f687f13318f237.etc2.ctex"]
 
 [params]
 

@@ -95,6 +95,8 @@ func check_variables() -> void:
 	
 	if mode == Window.MODE_FULLSCREEN:
 		fullscreen_checkbox.set_pressed_no_signal(true)
+		resolution_drop_button.set_disabled(true)
+		print("yeppers")
 
 func center_window() -> void:
 	var center_screen = DisplayServer.screen_get_position()+DisplayServer.screen_get_size()/2
