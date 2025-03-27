@@ -3,7 +3,7 @@ extends CanvasLayer
 
 @onready var audio_container: GridContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer
 @onready var graphics_container: GridContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer
-@onready var gameplay_container: Container = $MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer
+@onready var gameplay_container: VBoxContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer
 
 @onready var audio_button: Button = $MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AudioButton
 @onready var graphics_button: Button = $MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GraphicsButton

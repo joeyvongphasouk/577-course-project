@@ -90,7 +90,7 @@ data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, 
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_0qlaq"]
 resource_local_to_scene = true
-metadata/creation_stamp = 2408117784235
+metadata/creation_stamp = 2433971474973
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
