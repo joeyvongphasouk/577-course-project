@@ -23,6 +23,7 @@ Course project for the Mines CSCI 577 class.
 	- This is due to the lerpf in the player move, they are lerping to a speed that is lower than intial vel
 - Going from pause/main menu to options menu plays two sounds at the same time
 - Pull onject mechanic can cause player to fly off into space if object is too light or small
+- Pressing space bar removes the grapple entirely (I think the player should be able to jump while the grapple is extended)
 
 ## Current Assets List
 # Characters
