@@ -56,6 +56,8 @@ var crouch_speed: float = 7.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var shape_cast_crouch: ShapeCast3D = $ShapeCastCrouch
 
+# running
+
 # player stats
 @export var max_health: float = 100
 @onready var current_health: float = max_health

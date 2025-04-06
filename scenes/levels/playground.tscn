@@ -1,6 +1,6 @@
 [gd_scene load_steps=48 format=4 uid="uid://dy4fgvyaugnii"]
 
-[ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="1_kgnh5"]
+[ext_resource type="PackedScene" uid="uid://b7aipi1vf1vj2" path="res://scenes/menus/hud.tscn" id="1_kgnh5"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_x0rm7"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="3_rc1m4"]
 [ext_resource type="PackedScene" uid="uid://drohybeoxrexw" path="res://scenes/environment/pressure_plate.tscn" id="4_dlivn"]
@@ -90,7 +90,7 @@ data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, 
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_0qlaq"]
 resource_local_to_scene = true
-metadata/creation_stamp = 2433971474973
+metadata/creation_stamp = 8886488742798
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
