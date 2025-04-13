@@ -22,12 +22,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 MusicPlayer="*res://scripts/music_player.gd"
+GlobalPlayer="*res://scripts/global_player.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="viewport"
 
@@ -38,6 +38,10 @@ project/assembly_name="Mandira"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg", "res://addons/verlet_rope_4/plugin.cfg")
+
+[global_group]
+
+Sticky="Sticky object, slows the player if touching it"
 
 [input]
 

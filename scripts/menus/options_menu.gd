@@ -3,7 +3,7 @@ extends CanvasLayer
 
 @onready var audio_container: GridContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/AudioContainer
 @onready var graphics_container: GridContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer
-@onready var gameplay_container: VBoxContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer
+@onready var gameplay_container: ScrollContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer
 
 @onready var audio_button: Button = $MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AudioButton
 @onready var graphics_button: Button = $MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/GraphicsButton
@@ -33,6 +33,26 @@ var Resolutions: Dictionary = {"3840x2160":Vector2i(3840,2160),
 
 signal exit_options_menu
 
+# input remapping
+var is_remapping = false
+var action_to_remap = null
+var remapping_button = null
+
+@onready var input_button_scene = preload("res://scenes/menus/input_button.tscn")
+@onready var action_list: VBoxContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer/ActionList
+
+var input_actions = {
+	"move_forward" : "Move Forwards",
+	"move_back" : "Move Backwards",
+	"move_left" : "Move Left",
+	"move_right" : "Move Right",
+	"jump" : "Jump",
+	"grapple_attach" : "Shoot Grapple",
+	"grapple_pull" : "Retract Grapple",
+	"crouch" : "Crouch",
+	"extinguish" : "Extinguish Fire"
+}
+
 # helpers
 func hide_all_con() -> void:
 	audio_container.hide()
@@ -58,6 +78,30 @@ func _ready() -> void:
 	add_resolution()
 	check_variables()
 	
+	# add to the input key remapping def
+	create_actions()
+
+func create_actions():
+	InputMap.load_from_project_settings()
+	for item in action_list.get_children():
+		item.queue_free()
+	
+	for action in input_actions:
+		var button = input_button_scene.instantiate()
+		var action_label = button.find_child("LabelAction")
+		var input_label = button.find_child("LabelInput")
+		
+		action_label.text = input_actions[action]
+		
+		var events = InputMap.action_get_events(action)
+		if events.size() > 0:
+			input_label.text = events[0].as_text().trim_suffix(" (Physical)")
+		else:
+			input_label.text = ""
+		
+		action_list.add_child(button)
+		
+	
 
 func start() -> void:
 	audio_button.grab_focus()
@@ -67,7 +111,15 @@ func _process(delta: float) -> void:
 		_on_exit_button_pressed()
 
 
-
+# input remapping actions
+func _create_action_list():
+	#InputMap.load_from_project_settings()
+	#for item in remapping_container.get_children():
+		#item.queue_free()
+	#
+	#for action in InputMap.get_actions()
+	#var button = int
+	pass
 
 # resolution functions
 func add_resolution() -> void:

@@ -17,6 +17,8 @@ Course project for the Mines CSCI 577 class.
 - Font size for menu is 40 px
 - Player collision layer + mask is 2, grapple coll layer + mask is 1, thus blocks in env should check for both
 - Audio for sound effects: https://www.zapsplat.com/sound-effect-packs/footsteps-on-hollow-wood-floor/?registration_redirect=1&item_id=40163
+- To apply sticky to a wall, select the STATICBODY3D node and apply group to it
+- To connect a trigger to a trap, go to trap and drag in trigger to its var
 
 ## Bug list
 - Player will slow down in the air if they move towards the direction they want
@@ -46,7 +48,9 @@ Course project for the Mines CSCI 577 class.
 	- castle gate: "Castle Portcullis" (https://skfb.ly/6YnEp) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 	- door: "Door" (https://mrscientist.itch.io/3d-low-poly-modular-dungeon) by Mr. Scientist. License is CC0.
   - doorway: "Door Way" (https://mrscientist.itch.io/3d-low-poly-modular-dungeon) by Mr. Scientist. License is CC0.
-
+- Traps
+	- Arrow: "Arrow" (https://skfb.ly/6WouA) by Boy Best is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+	- spike trap: "Wooden Spike Trap" (https://skfb.ly/6TP9H) by Ananda Yokesh is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 # Grapple
 
 ---

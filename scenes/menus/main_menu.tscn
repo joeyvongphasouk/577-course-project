@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_8r73w"]
 [ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_1hnlc"]
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="4_50h1w"]
-[ext_resource type="Script" uid="uid://chlir5gpjwmsn" path="res://scripts/menus/main_menu_camera.gd" id="5_euy4r"]
+[ext_resource type="Script" path="res://scripts/menus/main_menu_camera.gd" id="5_euy4r"]
 [ext_resource type="PackedScene" uid="uid://di8twtyc507sv" path="res://scenes/menus/options_menu.tscn" id="6_bre17"]
 [ext_resource type="PackedScene" uid="uid://d16myeekw8e2" path="res://scenes/menus/level_selector.tscn" id="7_8r73w"]
 
