@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c4tg88ncv7wnr"]
+
+[ext_resource type="Texture2D" uid="uid://riu737upnwfk" path="res://assets/Pathing/PathRocks_Diffuse.png" id="1_t1rhd"]
+
+[resource]
+albedo_texture = ExtResource("1_t1rhd")

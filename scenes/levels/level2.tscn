@@ -1,7 +1,7 @@
 [gd_scene load_steps=55 format=4 uid="uid://bjxda1jshfo0y"]
 
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="1_e0cvd"]
-[ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="2_71baw"]
+[ext_resource type="PackedScene" path="res://scenes/menus/hud.tscn" id="1_k0mew"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="3_niitk"]
 [ext_resource type="PackedScene" uid="uid://prq6xj5j5kj2" path="res://scenes/environment/low_brazier.tscn" id="4_niitk"]
 [ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/torch.tscn" id="5_ok6xr"]
@@ -180,7 +180,7 @@ size = Vector3(1, 5, 10)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ok6xr")
 
-[node name="HUD" parent="." instance=ExtResource("2_71baw")]
+[node name="HUD" parent="." instance=ExtResource("1_k0mew")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
