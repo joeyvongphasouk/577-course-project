@@ -38,6 +38,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.605, 0)
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="fire_node" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10794, 0)
+visible = false
 light_color = Color(4, 1.25, 0.6, 0.996)
 light_energy = 0.2
 light_indirect_energy = 0.6

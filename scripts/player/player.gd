@@ -76,6 +76,10 @@ signal health_changed
 # respawn death areas
 @export var respawn_trigger: Array [Node]
 
+# interaction stuff
+@onready var interaction_raycast: RayCast3D = $Head/InteractionRaycast
+var interact_cast_result
+
 func _ready() -> void:
 	GlobalPlayer.player = self
 	shape_cast_crouch.add_exception($".")
@@ -429,3 +433,9 @@ func _on_animation_player_animation_started(anim_name: StringName) -> void:
 
 func _respawn() -> void:
 	get_tree().reload_current_scene()
+
+func interact() -> void:
+	
+	if interaction_raycast.is_colliding():
+		obj_hit = interaction_raycast.get_collider()
+		

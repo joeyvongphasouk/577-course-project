@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=25 format=3 uid="uid://dkdw4ky2ef0l0"]
 
 [ext_resource type="Script" uid="uid://dtehumcdo2s46" path="res://scripts/player/player.gd" id="1_fm80t"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_gx1jg"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://b0b7mmp52bsdf" path="res://scripts/player/player_state_machine.gd" id="10_3j4b4"]
 [ext_resource type="Script" uid="uid://bwcswohn8boig" path="res://scripts/player/idle_player_state.gd" id="11_yj68g"]
 [ext_resource type="Script" uid="uid://wiyext8p84fo" path="res://scripts/player/walking_player_state.gd" id="12_ioxgp"]
+[ext_resource type="Script" uid="uid://14rvlor7niov" path="res://scripts/player/crouching_move_player_state.gd" id="14_fcs02"]
 [ext_resource type="Script" uid="uid://dlc1aaugkdog2" path="res://scripts/player/jump_player_state.gd" id="14_ugbui"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smimx"]
@@ -205,7 +206,8 @@ script = ExtResource("11_yj68g")
 [node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("12_ioxgp")
 
-[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="CrouchingMovePlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("14_fcs02")
 
 [node name="RunningPlayerState" type="Node" parent="PlayerStateMachine"]
 
@@ -218,4 +220,5 @@ mesh = SubResource("CapsuleMesh_gx1jg")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 
+[editable path="RaiderPlayerModel"]
 [editable path="WeaponRig/grapple_gun/GunTip/fire_node"]

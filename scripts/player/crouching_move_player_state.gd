@@ -1,15 +1,15 @@
-class_name WalkingPlayerState
+class_name CrouchingMovePlayerState
 
 extends PlayerState
 @onready var raider_player_model: PlayerModel = $"../../RaiderPlayerModel"
-var current_anim: String = "wf"
+var current_anim: String = "cf"
 
 func enter():
 	raider_player_model.play_animation(current_anim)
 	
 func update(delta):
-	if GlobalPlayer.player.is_crouching:
-		transition.emit("IdlePlayerState")
+	if !GlobalPlayer.player.is_crouching:
+		transition.emit("WalkingPlayerState")
 		return
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -24,22 +24,22 @@ func update(delta):
 	var d: bool = Input.is_action_pressed("move_right")
 	if w:
 		if a:
-			new_anim = "wfl"
+			new_anim = "cfl"
 		elif s:
-			new_anim = "wfr"
+			new_anim = "cfr"
 		else:
-			new_anim = "wf"
+			new_anim = "cf"
 	elif s:
 		if a:
-			new_anim = "wbl"
+			new_anim = "cbl"
 		elif s:
-			new_anim = "wbr"
+			new_anim = "cbr"
 		else:
-			new_anim = "wb"
+			new_anim = "cb"
 	elif a:
-		new_anim = "wl"
+		new_anim = "cl"
 	elif d:
-		new_anim = "wr"
+		new_anim = "cr"
 	
 	if current_anim == new_anim:
 		return
