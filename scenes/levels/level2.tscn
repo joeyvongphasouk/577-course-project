@@ -1,11 +1,7 @@
-[gd_scene load_steps=55 format=4 uid="uid://bjxda1jshfo0y"]
+[gd_scene load_steps=57 format=4 uid="uid://bjxda1jshfo0y"]
 
-[ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="1_e0cvd"]
-<<<<<<< HEAD
-[ext_resource type="PackedScene" path="res://scenes/menus/hud.tscn" id="1_k0mew"]
-=======
-[ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="2_71baw"]
->>>>>>> refs/remotes/origin/sovann_dev2
+[ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player/player.tscn" id="1_e0cvd"]
+[ext_resource type="PackedScene" uid="uid://b7aipi1vf1vj2" path="res://scenes/menus/hud.tscn" id="1_k0mew"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="3_niitk"]
 [ext_resource type="PackedScene" uid="uid://prq6xj5j5kj2" path="res://scenes/environment/low_brazier.tscn" id="4_niitk"]
 [ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/torch.tscn" id="5_ok6xr"]
@@ -179,16 +175,18 @@ _surfaces = [{
 [sub_resource type="BoxMesh" id="BoxMesh_8kpy5"]
 size = Vector3(1, 5, 10)
 
+[sub_resource type="BoxMesh" id="BoxMesh_ycs18"]
+size = Vector3(5, 2, 5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ydw67"]
+points = PackedVector3Array(-2.5, -1, -2.5, -2.5, 1, -2.5, 2.5, -1, -2.5, -2.5, -1, 2.5, -2.5, 1, 2.5, 2.5, 1, -2.5, 2.5, -1, 2.5, 2.5, 1, 2.5)
+
 [node name="Level2" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ok6xr")
 
-<<<<<<< HEAD
 [node name="HUD" parent="." instance=ExtResource("1_k0mew")]
-=======
-[node name="HUD" parent="." instance=ExtResource("2_71baw")]
->>>>>>> refs/remotes/origin/sovann_dev2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -655,3 +653,23 @@ mesh = SubResource("BoxMesh_8kpy5")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D17"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.42, 2.5, -40.17)
 mesh = SubResource("BoxMesh_8kpy5")
+
+[node name="Key of Some Sort2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.725, 0)
+collision_layer = 7
+collision_mask = 7
+mass = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Key of Some Sort2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.3616, 2.6, -16.69)
+mesh = SubResource("BoxMesh_k0mew")
+
+[node name="StaticBody3D18" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D18"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.342, 0.6, -16.69)
+mesh = SubResource("BoxMesh_ycs18")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D18"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.342, 0.6, -16.69)
+shape = SubResource("ConvexPolygonShape3D_ydw67")
