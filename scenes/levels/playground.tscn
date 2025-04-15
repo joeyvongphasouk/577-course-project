@@ -1,8 +1,8 @@
-[gd_scene load_steps=53 format=4 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=56 format=4 uid="uid://dy4fgvyaugnii"]
 
 [ext_resource type="PackedScene" uid="uid://b7aipi1vf1vj2" path="res://scenes/menus/hud.tscn" id="1_kgnh5"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_x0rm7"]
-[ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="3_rc1m4"]
+[ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player/player.tscn" id="3_rc1m4"]
 [ext_resource type="PackedScene" uid="uid://drohybeoxrexw" path="res://scenes/environment/pressure_plate.tscn" id="4_dlivn"]
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="5_p5pig"]
 [ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="6_0qlaq"]
@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://ben1yki8sainn" path="res://scenes/environment/traps/trap_trigger.tscn" id="13_vmfr1"]
 [ext_resource type="PackedScene" uid="uid://j4bspxx7fojm" path="res://scenes/environment/traps/arrow_trap.tscn" id="14_2li26"]
 [ext_resource type="PackedScene" uid="uid://ck48ulv1hoy6e" path="res://scenes/environment/traps/spike_trap.tscn" id="16_5gmqu"]
+[ext_resource type="PackedScene" uid="uid://gnddjphyepwf" path="res://assets/models/player/raider_tpose.glb" id="17_kgokd"]
+[ext_resource type="PackedScene" uid="uid://2uncxe3nuipx" path="res://scenes/environment/death_trigger.tscn" id="18_b3j4y"]
+[ext_resource type="PackedScene" uid="uid://4klcp2rhxlg3" path="res://scenes/environment/next_level_trigger.tscn" id="19_0lbta"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rlvb3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -91,9 +94,9 @@ size = Vector3(10, 50, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0p1y1"]
 data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, -25, 5, 5, 25, -5, -5, 25, -5, 5, -25, -5, -5, 25, -5, -5, -25, -5, 5, -25, -5, 5, 25, 5, 5, 25, -5, 5, -25, 5, 5, 25, -5, 5, -25, -5, 5, -25, 5, -5, 25, -5, -5, 25, 5, -5, -25, -5, -5, 25, 5, -5, -25, 5, -5, -25, -5, 5, 25, 5, -5, 25, 5, 5, 25, -5, -5, 25, 5, -5, 25, -5, 5, 25, -5, -5, -25, 5, 5, -25, 5, -5, -25, -5, 5, -25, 5, 5, -25, -5, -5, -25, -5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_5gmqu"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_wlfxu"]
 resource_local_to_scene = true
-metadata/creation_stamp = 176382831345818
+metadata/creation_stamp = 211247949801784
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -152,8 +155,9 @@ shadow_enabled = true
 shadow_blur = 2.0
 directional_shadow_max_distance = 150.0
 
-[node name="Player" parent="." instance=ExtResource("3_rc1m4")]
+[node name="Player" parent="." node_paths=PackedStringArray("respawn_trigger") instance=ExtResource("3_rc1m4")]
 transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, 11.517, 2.3057, -3.0214)
+respawn_trigger = [NodePath("../DeathTrigger")]
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_mask = 3
@@ -340,7 +344,7 @@ shape = SubResource("ConcavePolygonShape3D_0p1y1")
 [node name="VerletRope" type="MeshInstance3D" parent="Objects" node_paths=PackedStringArray("AttachEnd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71588, -4.4)
 material_override = ExtResource("7_vmfr1")
-mesh = SubResource("ImmediateMesh_5gmqu")
+mesh = SubResource("ImmediateMesh_wlfxu")
 skeleton = NodePath("../..")
 script = ExtResource("8_2li26")
 AttachEnd = NodePath("../RigidBody3D")
@@ -513,19 +517,29 @@ indicators = [NodePath("../torch2")]
 
 [node name="Traps" type="Node3D" parent="."]
 
-[node name="Trap1" type="Node3D" parent="Traps"]
-
-[node name="TrapTrigger" parent="Traps/Trap1" instance=ExtResource("13_vmfr1")]
+[node name="TrapTrigger" parent="Traps" instance=ExtResource("13_vmfr1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83637, 2, -30.9245)
+
+[node name="Trap1" type="Node3D" parent="Traps"]
 
 [node name="ArrowTrap" parent="Traps/Trap1" node_paths=PackedStringArray("trap_trigger") instance=ExtResource("14_2li26")]
 transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 0.819926, 1.7, -32.9621)
-trap_trigger = NodePath("../TrapTrigger")
+trap_trigger = NodePath("../../TrapTrigger")
 
 [node name="SpikeTrap" parent="Traps/Trap1" node_paths=PackedStringArray("trap_trigger") instance=ExtResource("16_5gmqu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7, 0, -36.8)
-trap_trigger = NodePath("../TrapTrigger")
+trap_trigger = NodePath("../../TrapTrigger")
 
 [node name="SpikeTrap2" parent="Traps/Trap1" node_paths=PackedStringArray("trap_trigger") instance=ExtResource("16_5gmqu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 1.1, -37)
-trap_trigger = NodePath("../TrapTrigger")
+trap_trigger = NodePath("../../TrapTrigger")
+
+[node name="raider_tpose" parent="." instance=ExtResource("17_kgokd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6, 0, -22.8)
+
+[node name="DeathTrigger" parent="." instance=ExtResource("18_b3j4y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3, 2, -18.5)
+
+[node name="NextLevelTrigger" parent="." instance=ExtResource("19_0lbta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -9.4)
+next_level_path = "res://scenes/levels/tutorial.tscn"
