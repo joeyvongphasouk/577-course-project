@@ -1,6 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=23 format=3 uid="uid://dkdw4ky2ef0l0"]
 
-[ext_resource type="Script" uid="uid://dtehumcdo2s46" path="res://scripts/player.gd" id="1_rjqoc"]
+[ext_resource type="Script" uid="uid://dtehumcdo2s46" path="res://scripts/player/player.gd" id="1_rjqoc"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_xxfed"]
 [ext_resource type="PackedScene" uid="uid://bcoo1j0sr8myq" path="res://scenes/grapple_gun.tscn" id="3_smehm"]
 [ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="4_ur7pv"]
@@ -9,6 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://ck715hqqxth80" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_003_23313.mp3" id="6_y7p1b"]
 [ext_resource type="AudioStream" uid="uid://bvdwpk5lb7jet" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_004_23314.mp3" id="7_7ftjb"]
 [ext_resource type="AudioStream" uid="uid://c010m7j4rl663" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_005_23315.mp3" id="8_ikm8b"]
+[ext_resource type="Script" uid="uid://b0b7mmp52bsdf" path="res://scripts/player/player_state_machine.gd" id="10_y4r1p"]
+[ext_resource type="Script" uid="uid://bwcswohn8boig" path="res://scripts/player/idle_player_state.gd" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://wiyext8p84fo" path="res://scripts/player/walking_player_state.gd" id="12_3v2ag"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smimx"]
 
@@ -227,6 +230,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_smehm")
 target_position = Vector3(0, 0, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("10_y4r1p")
+current_state = NodePath("IdlePlayerState")
+
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("11_d2wvv")
+
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("12_3v2ag")
+
+[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
+
+[node name="RunningPlayerState" type="Node" parent="PlayerStateMachine"]
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 

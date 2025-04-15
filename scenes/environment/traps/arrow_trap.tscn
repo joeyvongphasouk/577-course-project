@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://j4bspxx7fojm"]
+
+[ext_resource type="Script" uid="uid://dqncc85uuioor" path="res://scripts/environment/traps/arrow_trap.gd" id="1_11ne5"]
+[ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="2_01yjn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ht3eu"]
+size = Vector3(0.25, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_se0ab"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="ArrowTrap" type="Node3D"]
+script = ExtResource("1_11ne5")
+arrow_speed = 16
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ht3eu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+material_override = ExtResource("2_01yjn")
+mesh = SubResource("BoxMesh_se0ab")

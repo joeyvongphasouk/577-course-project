@@ -1,6 +1,6 @@
-[gd_scene load_steps=48 format=4 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=53 format=4 uid="uid://dy4fgvyaugnii"]
 
-[ext_resource type="PackedScene" uid="uid://c63jh2aharv7f" path="res://scenes/hud.tscn" id="1_kgnh5"]
+[ext_resource type="PackedScene" uid="uid://b7aipi1vf1vj2" path="res://scenes/menus/hud.tscn" id="1_kgnh5"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_x0rm7"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player.tscn" id="3_rc1m4"]
 [ext_resource type="PackedScene" uid="uid://drohybeoxrexw" path="res://scenes/environment/pressure_plate.tscn" id="4_dlivn"]
@@ -8,11 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="6_0qlaq"]
 [ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="7_vmfr1"]
 [ext_resource type="Script" uid="uid://be6yplge860fv" path="res://addons/verlet_rope_4/VerletRope.cs" id="8_2li26"]
+[ext_resource type="Material" uid="uid://cy0daab0ows5k" path="res://assets/materials/testing_color_sticky.tres" id="8_5gmqu"]
 [ext_resource type="PackedScene" uid="uid://bxbn6bo62gnom" path="res://scenes/environment/high_brazier.tscn" id="9_x0rm7"]
 [ext_resource type="PackedScene" uid="uid://prq6xj5j5kj2" path="res://scenes/environment/low_brazier.tscn" id="10_rc1m4"]
-[ext_resource type="PackedScene" uid="uid://csrij4v6knwf2" path="res://scenes/test_collide.tscn" id="11_dlivn"]
 [ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/door_gate.tscn" id="12_p5pig"]
 [ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/torch.tscn" id="13_0qlaq"]
+[ext_resource type="PackedScene" uid="uid://ben1yki8sainn" path="res://scenes/environment/traps/trap_trigger.tscn" id="13_vmfr1"]
+[ext_resource type="PackedScene" uid="uid://j4bspxx7fojm" path="res://scenes/environment/traps/arrow_trap.tscn" id="14_2li26"]
+[ext_resource type="PackedScene" uid="uid://ck48ulv1hoy6e" path="res://scenes/environment/traps/spike_trap.tscn" id="16_5gmqu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rlvb3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -88,9 +91,9 @@ size = Vector3(10, 50, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0p1y1"]
 data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, -25, 5, 5, 25, -5, -5, 25, -5, 5, -25, -5, -5, 25, -5, -5, -25, -5, 5, -25, -5, 5, 25, 5, 5, 25, -5, 5, -25, 5, 5, 25, -5, 5, -25, -5, 5, -25, 5, -5, 25, -5, -5, 25, 5, -5, -25, -5, -5, 25, 5, -5, -25, 5, -5, -25, -5, 5, 25, 5, -5, 25, 5, 5, 25, -5, -5, 25, 5, -5, 25, -5, 5, 25, -5, -5, -25, 5, 5, -25, 5, -5, -25, -5, 5, -25, 5, 5, -25, -5, -5, -25, -5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_0qlaq"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_5gmqu"]
 resource_local_to_scene = true
-metadata/creation_stamp = 2408117784235
+metadata/creation_stamp = 176382831345818
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -123,6 +126,13 @@ _surfaces = [{
 "vertex_count": 132,
 "vertex_data": PackedByteArray("AADgwAAAoMAAAODAAADwwAAAoMCcmTlAAADgwAAAoMCcmTlAAADwQAAAoEAAAPBAAADwQAAAoEAAAPDAAADwQAAAoMAAAPDAAADwQAAAoEAAAPDAAADwQAAAoEAAAPBAAADwwAAAoEAAAPDAAADwQAAAoMAAAPDAAADwQAAAoEAAAPDAAADwwAAAoEAAAPDAAADwQAAAoMAAAPBAAADwQAAAoEAAAPBAAADwQAAAoMAAAPDAAADgQAAAoMAAAOBAAADwQAAAoMAAAPBAAADgQAAAoMAAAODAAADwQAAAoEAAAPBAAADwQAAAoMAAAPBAAADwwAAAoMAAAPBAAADwQAAAoMAAAPBAAADgQAAAoMAAAOBAAADgwAAAoMAAAOBAAADgQAAAoMAAAODAAADwQAAAoMAAAPBAAADwQAAAoMAAAPDAAADwwAAAoMAAAPDAAADgQAAAoMAAAODAAADwQAAAoMAAAPDAAADwwAAAoEAAAPDAAADwQAAAoEAAAPBAAADwwAAAoEAAAPBAAADwwAAAoEAAAPBAAADwQAAAoEAAAPBAAADwwAAAoMAAAPBAAADwwAAAoEAAAPBAAADwwAAAgL+cmTlAAADwwAAAoEAAAPDAAADwwAAAoEAAAPBAAADwwAAAgL/OzLxAAADwwAAAgL+cmTlAAADwQAAAoMAAAPBAAADgwAAAoMAAAOBAAADwwAAAoMAAAPBAAADwwAAAgL/OzLxAAADwwAAAoEAAAPBAAADwwAAAoMAAAPBAAADgwAAAoMAAAODAAADwwAAAoMAAAPDAAADwwAAAoMCcmTlAAADwwAAAgL+cmTlAAADwwAAAoMAAAPDAAADwwAAAoEAAAPDAAADwwAAAoMAAAPDAAADgwAAAoMAAAODAAADgQAAAoMAAAODAAADwQAAAoMAAAPDAAADwwAAAoEAAAPDAAADwwAAAoMAAAPDAAADwwAAAoMDOzLxAAADgwAAAoMAAAOBAAADgwAAAoMDOzLxAAADwwAAAoMAAAPBAAADgwAAAoMAAAOBAAADwwAAAoMDOzLxAAADwwAAAgL/OzLxAAADwwAAAoMAAAPBAAADwwAAAoMDOzLxAAADwwAAAoMAAAPDAAADwwAAAgL+cmTlAAADwwAAAoMCcmTlAAADgwAAAgL+cmTlAAADgwAAAgEAAAOBAAADgwAAAgEAAAODAAADgwAAAgL/OzLxAAADgwAAAgEAAAOBAAADgwAAAgL+cmTlAAADgwAAAgEAAAODAAADgQAAAgEAAAOBAAADgQAAAgEAAAODAAADgQAAAgEAAAOBAAADgwAAAgEAAAOBAAADgwAAAoMAAAOBAAADgwAAAgL/OzLxAAADgwAAAoMDOzLxAAADgwAAAoMAAAOBAAADgwAAAgEAAAOBAAADgQAAAgEAAAOBAAADgwAAAgEAAAODAAADgwAAAgL+cmTlAAADgwAAAoMAAAODAAADgwAAAoMCcmTlAAADgwAAAgEAAAOBAAADgwAAAgL/OzLxAAADgwAAAoMAAAOBAAADgwAAAgEAAAODAAADgQAAAoMAAAODAAADgwAAAoMAAAODAAADgwAAAoMAAAOBAAADgQAAAoMAAAOBAAADgQAAAgEAAAOBAAADgQAAAoMAAAODAAADgQAAAgEAAAODAAADgQAAAgEAAAOBAAADgwAAAgL+cmTlAAADgwAAAgEAAAODAAADgwAAAoMAAAODAAADgQAAAoMAAAOBAAADgQAAAoMAAAODAAADgQAAAgEAAAOBAAADgwAAAgEAAAODAAADgQAAAgEAAAODAAADgQAAAoMAAAODAAADwwAAAgL+cmTlAAADgwAAAoMCcmTlAAADwwAAAoMCcmTlAAADwwAAAoMDOzLxAAADgwAAAgL/OzLxAAADwwAAAgL/OzLxAAADwwAAAoMDOzLxAAADgwAAAoMDOzLxAAADgwAAAgL/OzLxAAADgwAAAoMCcmTlAAADwwAAAgL+cmTlAAADgwAAAgL+cmTlAAADgwAAAgL/OzLxAAADgwAAAgL+cmTlAAADwwAAAgL/OzLxAAADwwAAAgL+cmTlAAADwwAAAgL/OzLxAAADgwAAAgL+cmTlA/38AAP//AAD/fwAA//8AAP9/AAD//wAA////f/9//n////9//3/+f////3//f/5//3//////AAD/f/////8AAP9//////wAA/////wAA/z//////AAD/P/////8AAP8/////f/9//n////9//3/+f////3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8//38AAP//AAD/fwAA//8AAP9/AAD//wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//////AAD/f/////8AAP9//////wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAAAAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAAAAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8//38AAP//AAD/fwAA//8AAP9/AAD//wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAAAAD/f/9//n8AAP9//3/+fwAA/3//f/5/AAD/f/9//n8AAP9//3/+fwAA/3//f/5/////f/9/AID///9//38AgP///3//fwCA////f/9/AID///9//38AgP///3//fwCA/38AAP//////fwAA//////9/AAD//////////wAA/7//////AAD/v/////8AAP+/////f/9/AID///9//38AgP///3//fwCA/38AAP//////fwAA//////9/AAD/////////f/9/AID///9//38AgP///3//fwCA////f/9/AID///9//38AgP///3//fwCA/3//fwAA/7//f/9/AAD/v/9//38AAP+//////wAA/7//////AAD/v/////8AAP+/AAD/f/9/AIAAAP9//38AgAAA/3//fwCA////f/9/AID///9//38AgP///3//fwCAAAD/f/9/AIAAAP9//38AgAAA/3//fwCA/3//fwAA/7//f/9/AAD/v/9//38AAP+//3//fwAA/7//f/9/AAD/v/9//38AAP+//////wAA/7//////AAD/v/////8AAP+//////wAA/7//////AAD/v/////8AAP+//3//fwAA/7//f/9/AAD/v/9//38AAP+//38AAP//////fwAA//////9/AAD//////38AAP//////fwAA//////9/AAD/////")
 }]
+
+[sub_resource type="PrismMesh" id="PrismMesh_2li26"]
+left_to_right = 1.0
+size = Vector3(1, 8, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2li26"]
+data = PackedVector3Array(0.5, 4, 0.5, 0.5, -4, 0.5, -0.5, -4, 0.5, 0.5, 4, -0.5, -0.5, -4, -0.5, 0.5, -4, -0.5, 0.5, 4, 0.5, 0.5, 4, -0.5, 0.5, -4, 0.5, 0.5, 4, -0.5, 0.5, -4, -0.5, 0.5, -4, 0.5, 0.5, 4, -0.5, 0.5, 4, 0.5, -0.5, -4, -0.5, 0.5, 4, 0.5, -0.5, -4, 0.5, -0.5, -4, -0.5, -0.5, -4, 0.5, 0.5, -4, 0.5, -0.5, -4, -0.5, 0.5, -4, 0.5, 0.5, -4, -0.5, -0.5, -4, -0.5)
 
 [node name="Playground" type="Node3D"]
 
@@ -330,7 +340,7 @@ shape = SubResource("ConcavePolygonShape3D_0p1y1")
 [node name="VerletRope" type="MeshInstance3D" parent="Objects" node_paths=PackedStringArray("AttachEnd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71588, -4.4)
 material_override = ExtResource("7_vmfr1")
-mesh = SubResource("ImmediateMesh_0qlaq")
+mesh = SubResource("ImmediateMesh_5gmqu")
 skeleton = NodePath("../..")
 script = ExtResource("8_2li26")
 AttachEnd = NodePath("../RigidBody3D")
@@ -447,8 +457,15 @@ shape = SubResource("ConcavePolygonShape3D_emj6c")
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Objects/Cave2"]
 mesh = SubResource("ArrayMesh_mrac1")
 
-[node name="test_collide" parent="." instance=ExtResource("11_dlivn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8563, 0.5, -16.5144)
+[node name="StickyWall" type="StaticBody3D" parent="Objects" groups=["Sticky"]]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -4.78856, 4, -18.464)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects/StickyWall"]
+material_override = ExtResource("8_5gmqu")
+mesh = SubResource("PrismMesh_2li26")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/StickyWall"]
+shape = SubResource("ConcavePolygonShape3D_2li26")
 
 [node name="Interactables" type="Node3D" parent="."]
 
@@ -493,3 +510,22 @@ indicators = [NodePath("../torch")]
 [node name="pressure_plate2" parent="Interactables" node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9, 0, -34.1)
 indicators = [NodePath("../torch2")]
+
+[node name="Traps" type="Node3D" parent="."]
+
+[node name="Trap1" type="Node3D" parent="Traps"]
+
+[node name="TrapTrigger" parent="Traps/Trap1" instance=ExtResource("13_vmfr1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83637, 2, -30.9245)
+
+[node name="ArrowTrap" parent="Traps/Trap1" node_paths=PackedStringArray("trap_trigger") instance=ExtResource("14_2li26")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 0.819926, 1.7, -32.9621)
+trap_trigger = NodePath("../TrapTrigger")
+
+[node name="SpikeTrap" parent="Traps/Trap1" node_paths=PackedStringArray("trap_trigger") instance=ExtResource("16_5gmqu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7, 0, -36.8)
+trap_trigger = NodePath("../TrapTrigger")
+
+[node name="SpikeTrap2" parent="Traps/Trap1" node_paths=PackedStringArray("trap_trigger") instance=ExtResource("16_5gmqu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2, 1.1, -37)
+trap_trigger = NodePath("../TrapTrigger")

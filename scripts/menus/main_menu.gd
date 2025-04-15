@@ -7,9 +7,6 @@ extends CanvasLayer
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var level_selector: CanvasLayer = $level_selector
 
-@export var current_level_path: String = "res://scenes/levels/playground.tscn"
-
-
 @export_group("Menu Sound Effects")
 @export var sfx_hover: AudioStream
 @export var sfx_click: AudioStream

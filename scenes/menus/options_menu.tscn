@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://di8twtyc507sv"]
+[gd_scene load_steps=6 format=3 uid="uid://di8twtyc507sv"]
 
 [ext_resource type="Script" uid="uid://b1vo430hvlfnn" path="res://scripts/menus/options_menu.gd" id="1_liyum"]
 [ext_resource type="PackedScene" uid="uid://cgvf3lbv4bigi" path="res://scenes/menus/volume_slider.tscn" id="2_ijpji"]
 [ext_resource type="AudioStream" uid="uid://57fqemeq825r" path="res://assets/audio/sfx/157539__nenadsimic__click.wav" id="2_lfjc7"]
 [ext_resource type="AudioStream" uid="uid://by2jd1ly47ywq" path="res://assets/audio/sfx/268108__nenadsimic__button-tick.wav" id="3_3xsyx"]
+[ext_resource type="PackedScene" uid="uid://bqetj7iwwiloq" path="res://scenes/menus/input_button.tscn" id="5_7rumi"]
 
 [node name="options_menu" type="CanvasLayer"]
 script = ExtResource("1_liyum")
@@ -77,6 +78,7 @@ layout_mode = 2
 theme_override_constants/margin_top = 25
 
 [node name="AudioContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_constants/h_separation = 70
@@ -154,13 +156,19 @@ horizontal_alignment = 2
 [node name="FullscreenCheckbox" type="CheckBox" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GraphicsContainer"]
 layout_mode = 2
 
-[node name="GameplayContainer" type="Container" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-visible = false
+[node name="GameplayContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 339.44)
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer"]
+[node name="ActionList" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-text = "Test Lol"
+size_flags_horizontal = 6
+theme_override_constants/separation = 20
+
+[node name="InputButton" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/GameplayContainer/ActionList" instance=ExtResource("5_7rumi")]
+layout_mode = 2
 
 [node name="ExitButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
