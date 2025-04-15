@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://4klcp2rhxlg3"]
+
+[ext_resource type="Script" uid="uid://bso72gqoxiupr" path="res://scripts/environment/next_level_trigger.gd" id="1_mpgpl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_duugh"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mpgpl"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qwxy"]
+transparency = 1
+albedo_color = Color(0, 1, 1, 0.278431)
+
+[node name="NextLevelTrigger" type="Node3D"]
+script = ExtResource("1_mpgpl")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_duugh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("BoxMesh_mpgpl")
+surface_material_override/0 = SubResource("StandardMaterial3D_8qwxy")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

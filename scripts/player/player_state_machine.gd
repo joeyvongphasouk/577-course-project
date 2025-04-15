@@ -1,7 +1,6 @@
 class_name StateMachine
 
 extends Node
-
 @export var current_state: PlayerState
 var states: Dictionary = {}
 

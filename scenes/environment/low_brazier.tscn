@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://prq6xj5j5kj2"]
+[gd_scene load_steps=7 format=3 uid="uid://prq6xj5j5kj2"]
 
 [ext_resource type="PackedScene" uid="uid://dsvwq7r8caua6" path="res://assets/models/low_brazier/primitive_brazier_free.glb" id="1_kkbn6"]
 [ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="2_3ilow"]
 [ext_resource type="Script" uid="uid://cykxr6j3w5hdx" path="res://scripts/environment/low_brazier.gd" id="2_t44qe"]
+[ext_resource type="PackedScene" uid="uid://d1ps7ghp4b13y" path="res://scenes/environment/fire_node_vague_lit.tscn" id="4_4b518"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3ilow"]
 height = 1.55469
@@ -45,3 +46,7 @@ collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fire_area" index="0"]
 shape = SubResource("SphereShape3D_4b518")
+
+[node name="fire_node_vague" parent="." index="4" instance=ExtResource("4_4b518")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 1.88, 0.11)
+visible = false

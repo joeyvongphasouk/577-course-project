@@ -4,10 +4,16 @@ extends CharacterBody3D
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var grapple_raycast: RayCast3D = $Head/GrappleRaycast
-@onready var gun_tip: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip
-@onready var grapple_gun_anim: AnimationPlayer = $Head/Camera3D/WeaponRig/grapple_gun/AnimationPlayer
-@onready var fire_node: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip/fire_node
-@onready var static_flame: GPUParticles3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip/fire_node/static_flame
+
+#@onready var grapple_gun_anim: AnimationPlayer = $Head/Camera3D/WeaponRig/grapple_gun/AnimationPlayer
+#@onready var fire_node: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip/fire_node
+#@onready var static_flame: GPUParticles3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip/fire_node/static_flame
+#@onready var gun_tip: Node3D = $Head/Camera3D/WeaponRig/grapple_gun/GunTip
+
+@onready var grapple_gun_anim: AnimationPlayer = $WeaponRig/grapple_gun/AnimationPlayer
+@onready var fire_node: Node3D = $WeaponRig/grapple_gun/GunTip/fire_node
+@onready var static_flame: GPUParticles3D = $WeaponRig/grapple_gun/GunTip/fire_node/static_flame
+@onready var gun_tip: Node3D = $WeaponRig/grapple_gun/GunTip
 
 @export_group("Player Physics")
 @export var player_mass: float = 80.0
@@ -23,6 +29,7 @@ extends CharacterBody3D
 @export var rel_max_speed_sprint: float = 9
 @export var rel_max_accel_air: float = 2.0
 @export var rel_max_accel_ground: float =  40.0
+@export var rel_max_accel_sprint: float =  200.0
 var player_speed = rel_max_speed
 var player_accel = rel_max_accel_ground
 
@@ -58,17 +65,19 @@ var crouch_speed: float = 7.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var shape_cast_crouch: ShapeCast3D = $ShapeCastCrouch
 
-# running
-
 # player stats
 @export var max_health: float = 100
 @onready var current_health: float = max_health
 signal health_changed
 
+# character model
+@onready var raider_player_model: Node3D = $RaiderPlayerModel
+
+# respawn death areas
+@export var respawn_trigger: Array [Node]
+
 func _ready() -> void:
-	
 	GlobalPlayer.player = self
-	
 	shape_cast_crouch.add_exception($".")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -84,6 +93,10 @@ func _ready() -> void:
 	# handle fire instantiation
 	static_flame.visible = false
 	fire_node.visible = false
+	
+	# handle respawn instantiation
+	for elem in respawn_trigger:
+		elem.respawn_signal.connect(_respawn)
 	
 func _unhandled_input(event) -> void:
 	# Look around
@@ -118,11 +131,8 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept"):
-		if (is_on_floor() or launched):
+		if is_on_floor():
 			velocity.y += jump_force
-		
-		# should we have it so that grapple retracts when we jump?
-		#retract() 
 
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -135,6 +145,10 @@ func _physics_process(delta: float) -> void:
 		# set move_speed and move_accel vars based on state of player
 		if is_on_floor():
 			set_accel("ground")
+			if Input.is_action_pressed("sprint"):
+				set_speed("sprint")
+			else:
+				set_speed("walk")
 		else:
 			set_accel("air")
 			
@@ -412,3 +426,6 @@ func set_accel(accel: String):
 func _on_animation_player_animation_started(anim_name: StringName) -> void:
 	if anim_name == "Crouch":
 		is_crouching = !is_crouching
+
+func _respawn() -> void:
+	get_tree().reload_current_scene()
