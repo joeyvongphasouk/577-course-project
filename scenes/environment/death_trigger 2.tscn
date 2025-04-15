@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://2uncxe3nuipx"]
+
+[ext_resource type="Script" uid="uid://gfpmc5qjo1tx" path="res://scripts/environment/death_trigger.gd" id="1_fe1av"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06y70"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fe1av"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ucsl6"]
+transparency = 1
+albedo_color = Color(0.909804, 0, 0, 0.278431)
+
+[node name="DeathTrigger" type="Node3D"]
+script = ExtResource("1_fe1av")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_06y70")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("BoxMesh_fe1av")
+surface_material_override/0 = SubResource("StandardMaterial3D_ucsl6")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
