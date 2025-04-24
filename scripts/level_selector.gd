@@ -21,7 +21,7 @@ signal exit_level_selector_menu
 								"p": p_button,
 									}
 
-var locked_levels = ["l_2", "l_3", "l_4"]
+var locked_levels = ["l_3", "l_4"]
 
 func play_sound(sfx: AudioStream) -> void:
 	audio_stream_player.set_stream(sfx)
@@ -66,6 +66,8 @@ func _on_l_1_button_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_l_2_button_pressed() -> void:
+	play_sound(sfx_click)
+	button_to_scene("res://scenes/levels/level2.tscn")
 	pass # Replace with function body.
 
 func _on_l_3_button_pressed() -> void:

@@ -5,7 +5,8 @@ extends PlayerState
 var current_anim: String = "wf"
 
 func enter():
-	raider_player_model.play_animation(current_anim)
+	#print("idle state entered")
+	raider_player_model.play_animation("i")
 
 func update(delta):
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -22,3 +23,5 @@ func update(delta):
 		current_anim = "i"
 		raider_player_model.play_animation(current_anim)
 	
+		#print("yee start walking")
+		transition.emit("WalkingPlayerState")

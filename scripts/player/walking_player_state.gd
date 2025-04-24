@@ -14,6 +14,7 @@ func update(delta):
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	if input_dir.length() == 0:
+		#print("enter idle")
 		transition.emit("IdlePlayerState")
 		return
 	

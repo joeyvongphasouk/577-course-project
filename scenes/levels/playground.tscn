@@ -96,7 +96,7 @@ data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, 
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_0lbta"]
 resource_local_to_scene = true
-metadata/creation_stamp = 26552226125911
+metadata/creation_stamp = 2483481041707
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -543,3 +543,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3, 2, -18.5)
 [node name="NextLevelTrigger" parent="." instance=ExtResource("19_0lbta")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -9.4)
 next_level_path = "res://scenes/levels/tutorial.tscn"
+
+[node name="torch2" parent="." instance=ExtResource("13_0qlaq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 32.4482, 3.7, 0.0647717)
+initial_lit = false
+
+[node name="torch3" parent="." instance=ExtResource("13_0qlaq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 32.4482, 3.7, 2.48145)
+initial_lit = false
+
+[node name="torch4" parent="." instance=ExtResource("13_0qlaq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 32.4482, 3.7, 4.87908)
+initial_lit = false
+
+[node name="torch5" parent="." instance=ExtResource("13_0qlaq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 32.4482, 3.7, 9.55913)
+initial_lit = false
+
+[node name="torch6" parent="." instance=ExtResource("13_0qlaq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 32.4482, 3.7, 12.126)
+initial_lit = false
+
+[node name="pressure_plate" parent="." node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.2761, 0, 1.81523)
+indicators = [NodePath("../torch2"), NodePath("../torch3"), NodePath("../torch4")]
+
+[node name="pressure_plate2" parent="." node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.2761, 0, 5.06318)
+indicators = [NodePath("../torch2"), NodePath("../torch3"), NodePath("../torch6")]
+
+[node name="pressure_plate3" parent="." node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.2761, 0, 8.2106)
+indicators = [NodePath("../torch3"), NodePath("../torch5"), NodePath("../torch6")]
+
+[node name="pressure_plate4" parent="." node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.2761, 0, 10.6627)
+indicators = [NodePath("../torch2"), NodePath("../torch3"), NodePath("../torch5")]
