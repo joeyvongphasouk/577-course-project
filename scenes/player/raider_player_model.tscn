@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bcxme0anknhjf"]
 
 [ext_resource type="PackedScene" uid="uid://gnddjphyepwf" path="res://assets/models/player/raider_tpose.glb" id="1_mdrjp"]
-[ext_resource type="Script" path="res://scripts/player/raider_player_model.gd" id="2_g2d4j"]
+[ext_resource type="Script" uid="uid://c7ya4s1lm6sj3" path="res://scripts/player/raider_player_model.gd" id="2_g2d4j"]
 [ext_resource type="AnimationLibrary" uid="uid://c1nl48p7b2b0g" path="res://assets/models/player/raider_inplace_anim_lib_set.glb" id="2_mdrjp"]
 
 [sub_resource type="Animation" id="Animation_fapb0"]

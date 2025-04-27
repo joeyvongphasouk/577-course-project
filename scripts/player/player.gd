@@ -79,6 +79,8 @@ signal health_changed
 # interaction stuff
 @onready var interaction_raycast: RayCast3D = $Head/InteractionRaycast
 var interact_cast_result
+var sticky_jump: bool
+var sticky_norm: Vector3
 
 func _ready() -> void:
 	GlobalPlayer.player = self
@@ -97,6 +99,7 @@ func _ready() -> void:
 	# handle fire instantiation
 	static_flame.visible = false
 	fire_node.visible = false
+	sticky_jump = false
 	
 	# handle respawn instantiation
 	for elem in respawn_trigger:
@@ -135,9 +138,15 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept"):
-		if is_on_floor():
+		if sticky_jump:
+			velocity.y += 0.6 * jump_force
+			velocity += 0.5 * jump_force * sticky_norm
+			sticky_norm = Vector3.ZERO
+			
+		elif is_on_floor():
 			velocity.y += jump_force
-
+	
+	sticky_jump = false
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -212,10 +221,14 @@ func _physics_process(delta: float) -> void:
 		#print(c.get_remainder().length())
 		#if (c.get_remainder().length() > 0.15):
 		if (c.get_remainder().length() > 0.05):
-			print("col obj norm:", c.get_normal(), "| col rem vec:", c.get_remainder(), "| play vec:", velocity)
+			pass
+			#print("col obj norm:", c.get_normal(), "| col rem vec:", c.get_remainder(), "| play vec:", velocity)
 		
 		if c.get_collider().is_in_group("Sticky"):
+			sticky_jump = true
 			var collision_normal = c.get_normal()
+			sticky_norm += collision_normal
+			sticky_norm = sticky_norm.normalized()
 
 			# Cancel velocity in the direction of the sticky wall
 			var vel_into_wall = velocity.project(collision_normal)
@@ -223,7 +236,7 @@ func _physics_process(delta: float) -> void:
 
 			# Optional: slow down sliding along the wall
 			velocity *= 0.8  # You can adjust this factor (between 0.0 and 1.0)
-	
+
 	# bobbing
 	headbob_time += delta * velocity.length() * float (is_on_floor())
 	camera_3d.transform.origin = headbob(headbob_time)

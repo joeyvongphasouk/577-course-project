@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bs5gw7k4u4k34" path="res://assets/models/Door Stuff/Door.glb" id="7_4a02d"]
 [ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/door_gate.tscn" id="7_iig34"]
 [ext_resource type="Terrain3DMaterial" uid="uid://124es2hu11u1" path="res://new_terrain_3d_material.tres" id="11_irnc0"]
-[ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://demo/data/assets.tres" id="12_irnc0"]
+[ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://assets/assets.tres" id="12_irnc0"]
 [ext_resource type="PackedScene" uid="uid://s6e8jnhi784u" path="res://assets/models/trees/commontree1.glb" id="13_84vya"]
 [ext_resource type="PackedScene" uid="uid://pw36mkevvbgt" path="res://assets/models/trees/commontree2.glb" id="14_l8ohl"]
 [ext_resource type="PackedScene" uid="uid://c5xoouadnj7no" path="res://assets/models/trees/commontree3.glb" id="15_wr5d5"]
