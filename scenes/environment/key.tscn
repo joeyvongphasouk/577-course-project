@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk11plefqrenb"]
+
+[ext_resource type="PackedScene" uid="uid://bbd3y707xmjfv" path="res://scenes/environment/key_model.tscn" id="1_hjyta"]
+[ext_resource type="Script" uid="uid://dnkuqdu443hjc" path="res://scripts/environment/key.gd" id="1_l6ubx"]
+[ext_resource type="Shader" uid="uid://cetv5woff2dv5" path="res://assets/shaders/outline.gdshader" id="3_b80jm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fwy1"]
+render_priority = 0
+shader = ExtResource("3_b80jm")
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l6ubx"]
+size = Vector3(0.4, 0.12, 1)
+
+[node name="Key" type="RigidBody3D"]
+script = ExtResource("1_l6ubx")
+
+[node name="KeyModel" parent="." instance=ExtResource("1_hjyta")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+outline_material = SubResource("ShaderMaterial_7fwy1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007, 0.011, 0.02)
+shape = SubResource("BoxShape3D_l6ubx")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbd3y707xmjfv"]
+
+[ext_resource type="PackedScene" uid="uid://b4mdpmg0d5nt7" path="res://assets/models/keys/key.glb" id="1_2wxf1"]
+[ext_resource type="Script" uid="uid://yee8smxl07r" path="res://scripts/environment/keys/key_model.gd" id="2_gy54o"]
+[ext_resource type="Shader" uid="uid://cetv5woff2dv5" path="res://assets/shaders/outline.gdshader" id="2_hx0n3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gy54o"]
+render_priority = 0
+shader = ExtResource("2_hx0n3")
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+
+[node name="KeyModel" instance=ExtResource("1_2wxf1")]
+script = ExtResource("2_gy54o")
+outline_material = SubResource("ShaderMaterial_gy54o")
+
+[node name="Sketchfab_model" parent="." index="0"]
+transform = Transform3D(0.00433013, -0.0025, -1.09278e-10, 0, -2.18557e-10, 0.005, -0.0025, -0.00433013, -1.89276e-10, 0, 0, 0)
