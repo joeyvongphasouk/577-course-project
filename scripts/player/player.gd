@@ -14,6 +14,7 @@ extends CharacterBody3D
 @onready var fire_node: Node3D = $WeaponRig/grapple_gun/GunTip/fire_node
 @onready var static_flame: GPUParticles3D = $WeaponRig/grapple_gun/GunTip/fire_node/static_flame
 @onready var gun_tip: Node3D = $WeaponRig/grapple_gun/GunTip
+@onready var weapon_rig: Node3D = $WeaponRig
 
 @export_group("Player Physics")
 @export var player_mass: float = 80.0
@@ -58,6 +59,7 @@ var rope_2_node: Node3D
 var rope_2_grapple_point_node: Node3D
 var pullable_mass: float = 115
 
+@export_group("Other various things")
 # crouching
 var is_crouching: bool = false
 var crouch_speed: float = 7.0
@@ -76,6 +78,17 @@ signal health_changed
 # respawn death areas
 @export var respawn_trigger: Array [Node]
 
+var sticky_jump: bool
+var sticky_norm: Vector3
+
+# interaction stuff
+@onready var interaction_raycast: RayCast3D = $Head/InteractionRaycast
+var interact_cast_result: Node = null
+var last_highlighted: Node = null
+@export var pickups: Array [Node]
+var item_exists: Array = [true, false, false]
+var current_item = 1
+
 func _ready() -> void:
 	GlobalPlayer.player = self
 	shape_cast_crouch.add_exception($".")
@@ -93,10 +106,15 @@ func _ready() -> void:
 	# handle fire instantiation
 	static_flame.visible = false
 	fire_node.visible = false
+	sticky_jump = false
 	
-	# handle respawn instantiation
-	for elem in respawn_trigger:
-		elem.respawn_signal.connect(_respawn)
+	## handle respawn instantiation
+	#for elem in respawn_trigger:
+		#elem.respawn_signal.connect(_respawn)
+		
+	# handle pickup instantiation
+	for elem in pickups:
+		elem.key_pickup_signal.connect(_add_key)
 	
 func _unhandled_input(event) -> void:
 	# Look around
@@ -131,9 +149,15 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept"):
-		if is_on_floor():
+		if sticky_jump:
+			velocity.y += 0.6 * jump_force
+			velocity += 0.5 * jump_force * sticky_norm
+			sticky_norm = Vector3.ZERO
+			
+		elif is_on_floor():
 			velocity.y += jump_force
-
+	
+	sticky_jump = false
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -178,7 +202,13 @@ func _physics_process(delta: float) -> void:
 		## calc new health and emit health signal change to HUD
 		#print("yep dmg")
 		#emit_signal("health_changed")
-	grapple_handle(delta)
+	
+	interaction_handle(delta)
+	
+	item_swap_handle()
+	
+	if current_item == 1:
+		grapple_handle(delta)
 	
 	# make the ground "stickier"; micromovements off ground are removed
 	if (is_on_floor() and velocity.y < 1.0):
@@ -208,18 +238,20 @@ func _physics_process(delta: float) -> void:
 		#print(c.get_remainder().length())
 		#if (c.get_remainder().length() > 0.15):
 		if (c.get_remainder().length() > 0.05):
-			print("col obj norm:", c.get_normal(), "| col rem vec:", c.get_remainder(), "| play vec:", velocity)
+			pass
+			#print("col obj norm:", c.get_normal(), "| col rem vec:", c.get_remainder(), "| play vec:", velocity)
 		
 		if c.get_collider().is_in_group("Sticky"):
+			sticky_jump = true
 			var collision_normal = c.get_normal()
+			sticky_norm += collision_normal
+			sticky_norm = sticky_norm.normalized()
 
-			# Cancel velocity in the direction of the sticky wall
 			var vel_into_wall = velocity.project(collision_normal)
 			velocity -= vel_into_wall
 
-			# Optional: slow down sliding along the wall
-			velocity *= 0.8  # You can adjust this factor (between 0.0 and 1.0)
-	
+			velocity *= 0.8
+
 	# bobbing
 	headbob_time += delta * velocity.length() * float (is_on_floor())
 	camera_3d.transform.origin = headbob(headbob_time)
@@ -329,15 +361,15 @@ func handle_grapple(delta: float) -> void:
 	var direction_to_grapple = (rope_2_grapple_point_node.global_position - global_position).normalized()
 	var velocity_along_rope = velocity.project(direction_to_grapple)
 	
-	
 	# if its a staticbody or mass is heavy or an area3d,
 	# then only pull player velocity
 	if obj_hit is Area3D or obj_hit is StaticBody3D or (obj_hit.mass > pullable_mass):
 		
 		# take away to opposing vel if we strech past the rope distance
-		if (target_dist > rope_dist * 1.01 and velocity.dot(direction_to_grapple) <= 0):
-			velocity -= velocity_along_rope * 0.8
-			
+		if (target_dist > rope_dist * 1.01 and (velocity.dot(direction_to_grapple) <= 0 or velocity.length() < 0.5)):
+			#velocity -= velocity_along_rope * 0.8
+			velocity -= velocity_along_rope
+			#print(direction_to_grapple * 35.0 * (target_dist - rope_dist) ** 3)
 			# "snap" back to place, increase vel towards the grapple point
 			velocity += direction_to_grapple * 35.0 * (target_dist - rope_dist) ** 3
 		
@@ -375,19 +407,48 @@ func pull_to(delta: float) -> void:
 		if (abs((rope_2_grapple_point_node.global_position - global_position).length()) < 2):
 			return
 			
-		var pull_accel = 1.0
-		var max_pull_speed = 2.0
+		var pull_accel = 1.5
+		var max_pull_speed = 6.0
 		rope_dist = max(rope_dist - pull_accel * delta, 0)
 		rope_2_node.RopeLength = rope_dist * 0.6
+		
+		# slightly increase the player's vel towards the object
+		velocity += 0.001 * (grapple_point - global_position)
+
+func interaction_handle(delta: float) -> void:
+	if interaction_raycast.is_colliding():
+		interact_cast_result = interaction_raycast.get_collider()
+
+		if interact_cast_result != last_highlighted:
+			if last_highlighted != null and last_highlighted.has_method("highlight"):
+				last_highlighted.highlight(false)
+
+			if interact_cast_result.has_method("highlight"):
+				interact_cast_result.highlight(true)
+
+			last_highlighted = interact_cast_result
+
+		# Handle interact
+		if Input.is_action_just_pressed("interact"):
+			if interact_cast_result.has_method("pickup"):
+				interact_cast_result.pickup()
+				_add_key()
+			elif interact_cast_result.has_method("open_door") and (current_item == 2 or current_item == 3):
+				if interact_cast_result.open_door():
+					_remove_key()
+
+	else:
+		# No collision, unhighlight if needed
+		if last_highlighted != null and last_highlighted.has_method("highlight"):
+			last_highlighted.highlight(false)
+			last_highlighted = null
+			interact_cast_result = null
 
 func toggle_crouch():
 	if is_crouching and !shape_cast_crouch.is_colliding():
 		crouching(false)
 	elif !is_crouching:
 		crouching(true)
-	
-	#if shape_cast_crouch.is_colliding():
-		#print(shape_cast_crouch.get_collider(0))
 
 func crouching(state: bool):
 	if state:
@@ -421,11 +482,61 @@ func set_accel(accel: String):
 		"ground":
 			player_accel = rel_max_accel_ground
 	
-
 # signals
 func _on_animation_player_animation_started(anim_name: StringName) -> void:
 	if anim_name == "Crouch":
 		is_crouching = !is_crouching
 
 func _respawn() -> void:
+	TransitionScreen.transition()
+	await TransitionScreen.on_transition_finished
 	get_tree().reload_current_scene()
+
+@onready var key: Node3D = $WeaponRig/key
+@onready var grapple_gun: Node3D = $WeaponRig/grapple_gun
+signal update_hud
+
+# adds a key to the player inventory in ascending order
+func _add_key() -> void:
+	var next = -1
+	for i in len(item_exists):
+		if !item_exists[i]:
+			next = i
+			break
+			
+	if next == -1:
+		print("error, can no longer add keys")
+	else:
+		item_exists[next] = true
+		update_hud.emit()
+
+# removes the current selected key from the player inventory
+func _remove_key() -> void:
+	item_exists[current_item - 1] = false
+	update_hud.emit()
+	current_item = 1
+	key.hide()
+	grapple_gun.show()
+	item_swap_handle()
+
+func get_inventory_list() -> Array:
+	return item_exists
+
+func item_swap_handle() -> void:
+	
+	if Input.is_action_just_pressed("item_1") and item_exists[0]:
+		current_item = 1
+		key.hide()
+		grapple_gun.show()
+	elif Input.is_action_just_pressed("item_2") and item_exists[1]:
+		if current_item == 1:
+			retract()
+		current_item = 2
+		key.show()
+		grapple_gun.hide()
+	elif Input.is_action_just_pressed("item_3") and item_exists[2]:
+		if current_item == 1:
+			retract()
+		current_item = 3
+		key.show()
+		grapple_gun.hide()

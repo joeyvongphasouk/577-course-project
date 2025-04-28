@@ -77,14 +77,15 @@ script = ExtResource("2_wwwuq")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/level_one/l1_button"]
 layout_mode = 2
-offset_top = 597.0
-offset_right = 212.0
-offset_bottom = 620.0
+offset_top = 250.0
+offset_right = 213.0
+offset_bottom = 405.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 32
 text = "Level 1:
 Outside"
+horizontal_alignment = 1
 
 [node name="level_two" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -99,14 +100,15 @@ script = ExtResource("2_wwwuq")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/level_two/l2_button"]
 layout_mode = 2
-offset_top = 597.0
+offset_top = 250.0
 offset_right = 213.0
-offset_bottom = 620.0
+offset_bottom = 405.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 32
 text = "Level 2:
 Temple"
+horizontal_alignment = 1
 
 [node name="level_three" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -121,14 +123,15 @@ script = ExtResource("2_wwwuq")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/level_three/l3_button"]
 layout_mode = 2
-offset_top = 597.0
+offset_top = 250.0
 offset_right = 213.0
-offset_bottom = 620.0
+offset_bottom = 405.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 32
 text = "Level 3:
 Shrine"
+horizontal_alignment = 1
 
 [node name="level_four" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -143,14 +146,15 @@ script = ExtResource("2_wwwuq")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/level_four/l4_button"]
 layout_mode = 2
-offset_top = 597.0
+offset_top = 250.0
 offset_right = 213.0
-offset_bottom = 620.0
+offset_bottom = 405.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 32
 text = "Level 4:
 Escape"
+horizontal_alignment = 1
 
 [node name="playground" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -165,13 +169,14 @@ script = ExtResource("2_wwwuq")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/playground/p_button"]
 layout_mode = 2
-offset_top = 597.0
-offset_right = 213.0
-offset_bottom = 620.0
+offset_top = 250.0
+offset_right = 189.67
+offset_bottom = 405.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 32
 text = "Playground"
+horizontal_alignment = 1
 
 [node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)

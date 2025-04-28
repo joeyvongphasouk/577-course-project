@@ -78,7 +78,6 @@ layout_mode = 2
 theme_override_constants/margin_top = 25
 
 [node name="AudioContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_constants/h_separation = 70
@@ -157,6 +156,7 @@ horizontal_alignment = 2
 layout_mode = 2
 
 [node name="GameplayContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 339.44)
 layout_mode = 2
 size_flags_vertical = 3
@@ -179,6 +179,12 @@ theme_override_font_sizes/font_size = 24
 text = "Done"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AcceptNode" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="mouse_entered" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AudioButton" to="." method="_on_audio_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AudioButton" to="." method="_on_audio_button_pressed"]

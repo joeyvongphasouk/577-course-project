@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://brg56ccfu4gpc"]
 
 [ext_resource type="PackedScene" uid="uid://dt0w2cewoafs6" path="res://assets/models/torch/low_poly_stylized_torch.glb" id="1_my26j"]
-[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="2_o2tjn"]
-[ext_resource type="Script" path="res://scripts/torch.gd" id="2_r3k50"]
+[ext_resource type="Script" uid="uid://b1mdnwe2d8cao" path="res://scripts/torch.gd" id="2_r3k50"]
+[ext_resource type="PackedScene" uid="uid://d1ps7ghp4b13y" path="res://scenes/environment/fire_node_vague_lit.tscn" id="3_o2tjn"]
 
 [node name="torch" instance=ExtResource("1_my26j")]
 script = ExtResource("2_r3k50")
@@ -10,5 +10,5 @@ script = ExtResource("2_r3k50")
 [node name="Sketchfab_model" parent="." index="0"]
 transform = Transform3D(0.723834, -4.88094e-10, 0.127631, -0.127631, -5.57894e-09, 0.723834, 4.88094e-10, -0.735, -5.57894e-09, 0, 0, 0)
 
-[node name="fire_node" parent="." index="1" instance=ExtResource("2_o2tjn")]
+[node name="fire_node" parent="." index="1" instance=ExtResource("3_o2tjn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.9, 0)

@@ -32,6 +32,7 @@ var anim_dict = {
 }
 
 func _ready() -> void:
+	# comment
 	pass
 
 func play_animation(anim : String):

@@ -52,6 +52,11 @@ Course project for the Mines CSCI 577 class.
 - Traps
 	- Arrow: "Arrow" (https://skfb.ly/6WouA) by Boy Best is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 	- spike trap: "Wooden Spike Trap" (https://skfb.ly/6TP9H) by Ananda Yokesh is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- Grapple gun
+	- Gun: "Pistola Low Poly" (https://skfb.ly/oCvu7) by Limberax is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
+- Key
+	- "Key" (https://skfb.ly/6zWTC) by Mr NISHKE is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 # Grapple
 
 ---

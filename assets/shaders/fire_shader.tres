@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=19 format=3 uid="uid://j6s6a71lb6af"]
+[gd_resource type="VisualShader" load_steps=19 format=3 uid="uid://ctovq1gfdcki1"]
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_ht3dq"]
 default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(1, 1, 1, 1), 2, 0.5]

@@ -1,18 +1,20 @@
-[gd_scene load_steps=24 format=3 uid="uid://dkdw4ky2ef0l0"]
+[gd_scene load_steps=26 format=3 uid="uid://dkdw4ky2ef0l0"]
 
 [ext_resource type="Script" uid="uid://dtehumcdo2s46" path="res://scripts/player/player.gd" id="1_fm80t"]
 [ext_resource type="PackedScene" uid="uid://bfvw3wavk4hu1" path="res://scenes/rope.tscn" id="2_gx1jg"]
 [ext_resource type="PackedScene" uid="uid://bcxme0anknhjf" path="res://scenes/player/raider_player_model.tscn" id="3_gx1jg"]
 [ext_resource type="PackedScene" uid="uid://bcoo1j0sr8myq" path="res://scenes/grapple_gun.tscn" id="3_ugbui"]
-[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="4_fcs02"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/lighting/fire_node.tscn" id="4_fcs02"]
 [ext_resource type="AudioStream" uid="uid://cnhhlash564lr" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_001_23311.mp3" id="5_myrg7"]
 [ext_resource type="AudioStream" uid="uid://o6y3w6mfiw1a" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_002_23312.mp3" id="6_kvlxm"]
+[ext_resource type="PackedScene" uid="uid://bbd3y707xmjfv" path="res://scenes/environment/key_model.tscn" id="6_myrg7"]
 [ext_resource type="AudioStream" uid="uid://ck715hqqxth80" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_003_23313.mp3" id="7_uf5tr"]
 [ext_resource type="AudioStream" uid="uid://bvdwpk5lb7jet" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_004_23314.mp3" id="8_lgqa7"]
 [ext_resource type="AudioStream" uid="uid://c010m7j4rl663" path="res://assets/audio/sfx/zapsplat_foley_footstep_single_wooden_hollow_floor_005_23315.mp3" id="9_8ydkj"]
 [ext_resource type="Script" uid="uid://b0b7mmp52bsdf" path="res://scripts/player/player_state_machine.gd" id="10_3j4b4"]
 [ext_resource type="Script" uid="uid://bwcswohn8boig" path="res://scripts/player/idle_player_state.gd" id="11_yj68g"]
 [ext_resource type="Script" uid="uid://wiyext8p84fo" path="res://scripts/player/walking_player_state.gd" id="12_ioxgp"]
+[ext_resource type="Script" uid="uid://14rvlor7niov" path="res://scripts/player/crouching_move_player_state.gd" id="14_fcs02"]
 [ext_resource type="Script" uid="uid://dlc1aaugkdog2" path="res://scripts/player/jump_player_state.gd" id="14_ugbui"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smimx"]
@@ -69,7 +71,19 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0.65, 0), Vector3(0, 0.3, 0)]
+"values": [Vector3(0, 0.8, 0), Vector3(0, 0.3, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponRig:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.9, 0), Vector3(0, 0.5, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ur7pv"]
@@ -105,6 +119,18 @@ tracks/2/path = NodePath("Head:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.8, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponRig:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -164,6 +190,13 @@ visible = false
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponRig/grapple_gun/Node3D"]
 mesh = SubResource("SphereMesh_ur7pv")
 
+[node name="key" type="Node3D" parent="WeaponRig"]
+transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0.27, -0.5, -0.2)
+visible = false
+
+[node name="KeyModel" parent="WeaponRig/key" instance=ExtResource("6_myrg7")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
@@ -176,7 +209,10 @@ target_position = Vector3(0, -30, 0)
 collide_with_areas = true
 
 [node name="InteractionRaycast" type="RayCast3D" parent="Head"]
-target_position = Vector3(0, -2, 0)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -3.5, 0)
+collision_mask = 19
 
 [node name="FootstepAudio3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -205,7 +241,8 @@ script = ExtResource("11_yj68g")
 [node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("12_ioxgp")
 
-[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="CrouchingMovePlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("14_fcs02")
 
 [node name="RunningPlayerState" type="Node" parent="PlayerStateMachine"]
 
@@ -218,4 +255,5 @@ mesh = SubResource("CapsuleMesh_gx1jg")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 
+[editable path="RaiderPlayerModel"]
 [editable path="WeaponRig/grapple_gun/GunTip/fire_node"]
