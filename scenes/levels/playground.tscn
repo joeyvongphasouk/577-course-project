@@ -1,18 +1,18 @@
-[gd_scene load_steps=57 format=4 uid="uid://dy4fgvyaugnii"]
+[gd_scene load_steps=58 format=4 uid="uid://dy4fgvyaugnii"]
 
 [ext_resource type="PackedScene" uid="uid://b7aipi1vf1vj2" path="res://scenes/menus/hud.tscn" id="1_kgnh5"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_x0rm7"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player/player.tscn" id="3_rc1m4"]
 [ext_resource type="PackedScene" uid="uid://drohybeoxrexw" path="res://scenes/environment/pressure_plate.tscn" id="4_dlivn"]
 [ext_resource type="Material" uid="uid://cf2g5d07kmao" path="res://assets/materials/testing_color.tres" id="5_p5pig"]
-[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="6_0qlaq"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/lighting/fire_node.tscn" id="6_0qlaq"]
 [ext_resource type="Material" uid="uid://o7na8drc2je2" path="res://addons/verlet_rope_4/materials/rope_default.material" id="7_vmfr1"]
 [ext_resource type="Script" uid="uid://be6yplge860fv" path="res://addons/verlet_rope_4/VerletRope.cs" id="8_2li26"]
 [ext_resource type="Material" uid="uid://cy0daab0ows5k" path="res://assets/materials/testing_color_sticky.tres" id="8_5gmqu"]
-[ext_resource type="PackedScene" uid="uid://bxbn6bo62gnom" path="res://scenes/environment/high_brazier.tscn" id="9_x0rm7"]
-[ext_resource type="PackedScene" uid="uid://prq6xj5j5kj2" path="res://scenes/environment/low_brazier.tscn" id="10_rc1m4"]
-[ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/door_gate.tscn" id="12_p5pig"]
-[ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/torch.tscn" id="13_0qlaq"]
+[ext_resource type="PackedScene" uid="uid://bxbn6bo62gnom" path="res://scenes/environment/lighting/high_brazier.tscn" id="9_x0rm7"]
+[ext_resource type="PackedScene" uid="uid://prq6xj5j5kj2" path="res://scenes/environment/lighting/low_brazier.tscn" id="10_rc1m4"]
+[ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/environment/door_gate.tscn" id="12_p5pig"]
+[ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/environment/lighting/torch.tscn" id="13_0qlaq"]
 [ext_resource type="PackedScene" uid="uid://ben1yki8sainn" path="res://scenes/environment/traps/trap_trigger.tscn" id="13_vmfr1"]
 [ext_resource type="PackedScene" uid="uid://j4bspxx7fojm" path="res://scenes/environment/traps/arrow_trap.tscn" id="14_2li26"]
 [ext_resource type="PackedScene" uid="uid://dk11plefqrenb" path="res://scenes/environment/key.tscn" id="14_wlfxu"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://gnddjphyepwf" path="res://assets/models/player/raider_tpose.glb" id="17_kgokd"]
 [ext_resource type="PackedScene" uid="uid://2uncxe3nuipx" path="res://scenes/environment/death_trigger.tscn" id="18_b3j4y"]
 [ext_resource type="PackedScene" uid="uid://4klcp2rhxlg3" path="res://scenes/environment/next_level_trigger.tscn" id="19_0lbta"]
+[ext_resource type="PackedScene" uid="uid://wia1o0trrivg" path="res://scenes/environment/key_door.tscn" id="21_fi4vy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rlvb3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -95,9 +96,9 @@ size = Vector3(10, 50, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0p1y1"]
 data = PackedVector3Array(-5, 25, 5, 5, 25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, -25, 5, 5, 25, -5, -5, 25, -5, 5, -25, -5, -5, 25, -5, -5, -25, -5, 5, -25, -5, 5, 25, 5, 5, 25, -5, 5, -25, 5, 5, 25, -5, 5, -25, -5, 5, -25, 5, -5, 25, -5, -5, 25, 5, -5, -25, -5, -5, 25, 5, -5, -25, 5, -5, -25, -5, 5, 25, 5, -5, 25, 5, 5, 25, -5, -5, 25, 5, -5, 25, -5, 5, 25, -5, -5, -25, 5, 5, -25, 5, -5, -25, -5, 5, -25, 5, 5, -25, -5, -5, -25, -5)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_wlfxu"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_fi4vy"]
 resource_local_to_scene = true
-metadata/creation_stamp = 121851359626829
+metadata/creation_stamp = 202592030431655
 
 [sub_resource type="BoxMesh" id="BoxMesh_hq3ol"]
 
@@ -143,7 +144,8 @@ data = PackedVector3Array(0.5, 4, 0.5, 0.5, -4, 0.5, -0.5, -4, 0.5, 0.5, 4, -0.5
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fn4oh")
 
-[node name="HUD" parent="." instance=ExtResource("1_kgnh5")]
+[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_kgnh5")]
+player = NodePath("../Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -156,9 +158,8 @@ shadow_enabled = true
 shadow_blur = 2.0
 directional_shadow_max_distance = 150.0
 
-[node name="Player" parent="." node_paths=PackedStringArray("respawn_trigger") instance=ExtResource("3_rc1m4")]
+[node name="Player" parent="." instance=ExtResource("3_rc1m4")]
 transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, 11.517, 2.3057, -3.0214)
-respawn_trigger = [NodePath("../DeathTrigger")]
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_mask = 3
@@ -345,7 +346,7 @@ shape = SubResource("ConcavePolygonShape3D_0p1y1")
 [node name="VerletRope" type="MeshInstance3D" parent="Objects" node_paths=PackedStringArray("AttachEnd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71588, -4.4)
 material_override = ExtResource("7_vmfr1")
-mesh = SubResource("ImmediateMesh_wlfxu")
+mesh = SubResource("ImmediateMesh_fi4vy")
 skeleton = NodePath("../..")
 script = ExtResource("8_2li26")
 AttachEnd = NodePath("../RigidBody3D")
@@ -451,17 +452,6 @@ shape = SubResource("ConcavePolygonShape3D_emj6c")
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Objects/Cave"]
 mesh = SubResource("ArrayMesh_mrac1")
 
-[node name="Cave3" type="StaticBody3D" parent="Objects"]
-transform = Transform3D(0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, 0.173648, 18.6, 5, 35)
-collision_layer = 3
-collision_mask = 3
-
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Objects/Cave3"]
-shape = SubResource("ConcavePolygonShape3D_emj6c")
-
-[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Objects/Cave3"]
-mesh = SubResource("ArrayMesh_mrac1")
-
 [node name="Cave2" type="StaticBody3D" parent="Objects"]
 transform = Transform3D(0.34202, 0, 0.939693, 0, 1, 0, -0.939693, 0, 0.34202, 15.4, 5, -32.7)
 collision_layer = 3
@@ -511,15 +501,8 @@ initial_lit = false
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 24.8, 3.7, -16)
 initial_lit = false
 
-[node name="torch3" parent="Interactables" instance=ExtResource("13_0qlaq")]
-transform = Transform3D(-0.173648, 0, 0.984808, 0, 1, 0, -0.984808, 0, -0.173648, 15.3, 3.7, 27.9)
-
 [node name="door_gate" parent="Interactables" node_paths=PackedStringArray("open_conditions") instance=ExtResource("12_p5pig")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 25.0527, 0, -13.1401)
-open_conditions = [NodePath("../pressure_plate"), NodePath("../pressure_plate2")]
-
-[node name="door_gate3" parent="Interactables" node_paths=PackedStringArray("open_conditions") instance=ExtResource("12_p5pig")]
-transform = Transform3D(0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, 12.2527, 0, 28.7599)
 open_conditions = [NodePath("../pressure_plate"), NodePath("../pressure_plate2")]
 
 [node name="door_gate2" parent="Interactables" node_paths=PackedStringArray("open_conditions") instance=ExtResource("12_p5pig")]
@@ -601,3 +584,6 @@ indicators = [NodePath("../torch3"), NodePath("../torch5"), NodePath("../torch6"
 [node name="pressure_plate4" parent="." node_paths=PackedStringArray("indicators") instance=ExtResource("4_dlivn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.2761, 0, 10.6627)
 indicators = [NodePath("../torch2"), NodePath("../torch3"), NodePath("../torch5")]
+
+[node name="KeyDoor" parent="." instance=ExtResource("21_fi4vy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2897, 0, 29.3213)

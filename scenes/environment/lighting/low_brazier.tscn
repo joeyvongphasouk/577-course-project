@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://prq6xj5j5kj2"]
 
 [ext_resource type="PackedScene" uid="uid://dsvwq7r8caua6" path="res://assets/models/low_brazier/primitive_brazier_free.glb" id="1_kkbn6"]
-[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/fire_node.tscn" id="2_3ilow"]
+[ext_resource type="PackedScene" uid="uid://bpk810blerxw6" path="res://scenes/environment/lighting/fire_node.tscn" id="2_3ilow"]
 [ext_resource type="Script" uid="uid://cykxr6j3w5hdx" path="res://scripts/environment/low_brazier.gd" id="2_t44qe"]
 [ext_resource type="PackedScene" uid="uid://d1ps7ghp4b13y" path="res://scenes/environment/fire_node_vague_lit.tscn" id="4_4b518"]
 

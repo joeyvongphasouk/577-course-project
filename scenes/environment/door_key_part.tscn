@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://du82tsd3tmwim"]
+
+[ext_resource type="PackedScene" uid="uid://bs5gw7k4u4k34" path="res://assets/models/Door Stuff/Door.glb" id="1_1qxq5"]
+[ext_resource type="Script" uid="uid://b6erd0h5x4vio" path="res://scripts/environment/door_key_part.gd" id="2_83jlc"]
+
+[node name="DoorKeyPart" instance=ExtResource("1_1qxq5")]
+script = ExtResource("2_83jlc")

@@ -78,7 +78,6 @@ layout_mode = 2
 theme_override_constants/margin_top = 25
 
 [node name="AudioContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_constants/h_separation = 70
@@ -157,6 +156,7 @@ horizontal_alignment = 2
 layout_mode = 2
 
 [node name="GameplayContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 339.44)
 layout_mode = 2
 size_flags_vertical = 3

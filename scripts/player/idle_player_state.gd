@@ -6,7 +6,10 @@ var current_anim: String = "wf"
 
 func enter():
 	#print("idle state entered")
-	raider_player_model.play_animation("i")
+	if GlobalPlayer.player != null and GlobalPlayer.player.is_crouching:
+		raider_player_model.play_animation("ci")
+	else:
+		raider_player_model.play_animation("i")
 
 func update(delta):
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")

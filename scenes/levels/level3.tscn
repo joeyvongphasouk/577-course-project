@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_f5jb5"]
 [ext_resource type="PackedScene" uid="uid://dkdw4ky2ef0l0" path="res://scenes/player/player.tscn" id="3_frjko"]
 [ext_resource type="Material" uid="uid://cy0daab0ows5k" path="res://assets/materials/testing_color_sticky.tres" id="4_f7rt6"]
-[ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/door_gate.tscn" id="7_8w0pe"]
+[ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/environment/door_gate.tscn" id="7_8w0pe"]
 [ext_resource type="PackedScene" uid="uid://dvsbor15llaee" path="res://assets/Inside Temple/Walls/Wall.glb" id="7_f7rt6"]
-[ext_resource type="PackedScene" uid="uid://bxbn6bo62gnom" path="res://scenes/environment/high_brazier.tscn" id="8_7eb4w"]
+[ext_resource type="PackedScene" uid="uid://bxbn6bo62gnom" path="res://scenes/environment/lighting/high_brazier.tscn" id="8_7eb4w"]
 [ext_resource type="Texture2D" uid="uid://7au7rg0nm37g" path="res://assets/models/traps/spikes/wooden_spike_trap_3.png" id="8_522sc"]
 [ext_resource type="Texture2D" uid="uid://d4l6sk2f5jrpu" path="res://assets/models/traps/spikes/wooden_spike_trap_4.png" id="9_a82vw"]
 [ext_resource type="Texture2D" uid="uid://dtvr5hpigougl" path="res://assets/models/traps/spikes/wooden_spike_trap_5.png" id="10_t14x3"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://2uncxe3nuipx" path="res://scenes/environment/death_trigger.tscn" id="14_edoqj"]
 [ext_resource type="PackedScene" uid="uid://ben1yki8sainn" path="res://scenes/environment/traps/trap_trigger.tscn" id="15_t14x3"]
 [ext_resource type="PackedScene" uid="uid://ck48ulv1hoy6e" path="res://scenes/environment/traps/spike_trap.tscn" id="16_ahaer"]
-[ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/torch.tscn" id="17_ahaer"]
+[ext_resource type="PackedScene" uid="uid://brg56ccfu4gpc" path="res://scenes/environment/lighting/torch.tscn" id="17_ahaer"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8w0pe"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

@@ -14,6 +14,7 @@ extends CharacterBody3D
 @onready var fire_node: Node3D = $WeaponRig/grapple_gun/GunTip/fire_node
 @onready var static_flame: GPUParticles3D = $WeaponRig/grapple_gun/GunTip/fire_node/static_flame
 @onready var gun_tip: Node3D = $WeaponRig/grapple_gun/GunTip
+@onready var weapon_rig: Node3D = $WeaponRig
 
 @export_group("Player Physics")
 @export var player_mass: float = 80.0
@@ -84,6 +85,9 @@ var sticky_norm: Vector3
 @onready var interaction_raycast: RayCast3D = $Head/InteractionRaycast
 var interact_cast_result: Node = null
 var last_highlighted: Node = null
+@export var pickups: Array [Node]
+var item_exists: Array = [true, false, false]
+var current_item = 1
 
 func _ready() -> void:
 	GlobalPlayer.player = self
@@ -104,9 +108,13 @@ func _ready() -> void:
 	fire_node.visible = false
 	sticky_jump = false
 	
-	# handle respawn instantiation
-	for elem in respawn_trigger:
-		elem.respawn_signal.connect(_respawn)
+	## handle respawn instantiation
+	#for elem in respawn_trigger:
+		#elem.respawn_signal.connect(_respawn)
+		
+	# handle pickup instantiation
+	for elem in pickups:
+		elem.key_pickup_signal.connect(_add_key)
 	
 func _unhandled_input(event) -> void:
 	# Look around
@@ -196,8 +204,11 @@ func _physics_process(delta: float) -> void:
 		#emit_signal("health_changed")
 	
 	interaction_handle(delta)
-		
-	grapple_handle(delta)
+	
+	item_swap_handle()
+	
+	if current_item == 1:
+		grapple_handle(delta)
 	
 	# make the ground "stickier"; micromovements off ground are removed
 	if (is_on_floor() and velocity.y < 1.0):
@@ -409,33 +420,29 @@ func interaction_handle(delta: float) -> void:
 		interact_cast_result = interaction_raycast.get_collider()
 
 		if interact_cast_result != last_highlighted:
-			# Unhighlight previous object
 			if last_highlighted != null and last_highlighted.has_method("highlight"):
 				last_highlighted.highlight(false)
 
-			# Highlight new object if possible
 			if interact_cast_result.has_method("highlight"):
 				interact_cast_result.highlight(true)
 
-			# Update the last highlighted object
 			last_highlighted = interact_cast_result
 
-		# Handle pickup if interact button pressed
-		if Input.is_action_just_pressed("interact") and interact_cast_result.has_method("pickup"):
-			interact_cast_result.pickup()
+		# Handle interact
+		if Input.is_action_just_pressed("interact"):
+			if interact_cast_result.has_method("pickup"):
+				interact_cast_result.pickup()
+				_add_key()
+			elif interact_cast_result.has_method("open_door") and (current_item == 2 or current_item == 3):
+				if interact_cast_result.open_door():
+					_remove_key()
 
 	else:
 		# No collision, unhighlight if needed
 		if last_highlighted != null and last_highlighted.has_method("highlight"):
 			last_highlighted.highlight(false)
 			last_highlighted = null
-
 			interact_cast_result = null
-
-
-
-
-
 
 func toggle_crouch():
 	if is_crouching and !shape_cast_crouch.is_colliding():
@@ -481,4 +488,55 @@ func _on_animation_player_animation_started(anim_name: StringName) -> void:
 		is_crouching = !is_crouching
 
 func _respawn() -> void:
+	TransitionScreen.transition()
+	await TransitionScreen.on_transition_finished
 	get_tree().reload_current_scene()
+
+@onready var key: Node3D = $WeaponRig/key
+@onready var grapple_gun: Node3D = $WeaponRig/grapple_gun
+signal update_hud
+
+# adds a key to the player inventory in ascending order
+func _add_key() -> void:
+	var next = -1
+	for i in len(item_exists):
+		if !item_exists[i]:
+			next = i
+			break
+			
+	if next == -1:
+		print("error, can no longer add keys")
+	else:
+		item_exists[next] = true
+		update_hud.emit()
+
+# removes the current selected key from the player inventory
+func _remove_key() -> void:
+	item_exists[current_item - 1] = false
+	update_hud.emit()
+	current_item = 1
+	key.hide()
+	grapple_gun.show()
+	item_swap_handle()
+
+func get_inventory_list() -> Array:
+	return item_exists
+
+func item_swap_handle() -> void:
+	
+	if Input.is_action_just_pressed("item_1") and item_exists[0]:
+		current_item = 1
+		key.hide()
+		grapple_gun.show()
+	elif Input.is_action_just_pressed("item_2") and item_exists[1]:
+		if current_item == 1:
+			retract()
+		current_item = 2
+		key.show()
+		grapple_gun.hide()
+	elif Input.is_action_just_pressed("item_3") and item_exists[2]:
+		if current_item == 1:
+			retract()
+		current_item = 3
+		key.show()
+		grapple_gun.hide()

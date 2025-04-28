@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://cr2soc351dytd"]
+
+[ext_resource type="PackedScene" uid="uid://bs5gw7k4u4k34" path="res://assets/models/Door Stuff/Door.glb" id="1_lu1q4"]
+[ext_resource type="Script" uid="uid://pofpbwoxgb6m" path="res://scripts/environment/door_2.gd" id="2_eo3ir"]
+[ext_resource type="Shader" uid="uid://cetv5woff2dv5" path="res://assets/shaders/outline.gdshader" id="3_lparx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fau3g"]
+render_priority = 0
+shader = ExtResource("3_lparx")
+shader_parameter/outline_color = Vector4(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+
+[node name="Door2" instance=ExtResource("1_lu1q4")]
+script = ExtResource("2_eo3ir")
+outline_material = SubResource("ShaderMaterial_fau3g")
