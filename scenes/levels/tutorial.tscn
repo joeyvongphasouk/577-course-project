@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=4 uid="uid://jgqrsd1asrvr"]
+[gd_scene load_steps=94 format=4 uid="uid://jgqrsd1asrvr"]
 
 [ext_resource type="PackedScene" uid="uid://b7aipi1vf1vj2" path="res://scenes/menus/hud.tscn" id="1_1r3rq"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_u4f7j"]
@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://do8nuvlt0y01" path="res://assets/models/trees/twistedtree2.glb" id="6_4a02d"]
 [ext_resource type="PackedScene" uid="uid://bxbn6bo62gnom" path="res://scenes/environment/lighting/high_brazier.tscn" id="6_7ac3l"]
 [ext_resource type="PackedScene" uid="uid://d4dq7clrb5rb4" path="res://assets/models/Door Stuff/Doorway.glb" id="6_g7bfq"]
-[ext_resource type="PackedScene" uid="uid://bs5gw7k4u4k34" path="res://assets/models/Door Stuff/Door.glb" id="7_4a02d"]
 [ext_resource type="PackedScene" uid="uid://b225r0t05jmp7" path="res://scenes/environment/door_gate.tscn" id="7_iig34"]
+[ext_resource type="PackedScene" uid="uid://du82tsd3tmwim" path="res://scenes/environment/door_key_part.tscn" id="8_ney7n"]
 [ext_resource type="Terrain3DMaterial" uid="uid://124es2hu11u1" path="res://new_terrain_3d_material.tres" id="11_irnc0"]
 [ext_resource type="Terrain3DAssets" uid="uid://dal3jhw6241qg" path="res://assets/assets.tres" id="12_irnc0"]
 [ext_resource type="PackedScene" uid="uid://s6e8jnhi784u" path="res://assets/models/trees/commontree1.glb" id="13_84vya"]
@@ -39,7 +39,12 @@
 [ext_resource type="PackedScene" uid="uid://dkqv4xlmva44c" path="res://assets/Temple/Tower/object1.005.glb" id="40_r6hi5"]
 [ext_resource type="PackedScene" uid="uid://4klcp2rhxlg3" path="res://scenes/environment/next_level_trigger.tscn" id="40_x04ov"]
 [ext_resource type="PackedScene" uid="uid://busmi1l4xkmfj" path="res://assets/Temple/Tower/object1.011.glb" id="41_h21qw"]
+[ext_resource type="PackedScene" uid="uid://cmyafkr62f12y" path="res://assets/Temple/Wall/object1.040.glb" id="41_pmj0t"]
+[ext_resource type="PackedScene" uid="uid://cgm01ltjx146f" path="res://assets/Temple/Wall/object1.041.glb" id="42_ney7n"]
 [ext_resource type="PackedScene" uid="uid://niao3myxnj82" path="res://assets/Temple/Stairs/object1.007.glb" id="42_t1oap"]
+[ext_resource type="PackedScene" uid="uid://wia1o0trrivg" path="res://scenes/environment/key_door.tscn" id="43_8j442"]
+[ext_resource type="PackedScene" uid="uid://dk11plefqrenb" path="res://scenes/environment/key.tscn" id="44_8j442"]
+[ext_resource type="PackedScene" uid="uid://2uncxe3nuipx" path="res://scenes/environment/death_trigger.tscn" id="45_ts0k5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g7bfq"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -71,10 +76,10 @@ albedo_color = Color(0.607843, 0.607843, 0.607843, 1)
 points = PackedVector3Array(-10, -0.5, -7.5, -10, 0.5, -7.5, 10, -0.5, -7.5, -10, -0.5, 7.5, -10, 0.5, 7.5, 10, 0.5, -7.5, 10, -0.5, 7.5, 10, 0.5, 7.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t1oap"]
-size = Vector3(194.45, 20, 1)
+size = Vector3(194.45, 39.0972, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ney7n"]
-size = Vector3(78, 20, 1)
+size = Vector3(78, 40.9077, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8j442"]
 size = Vector3(1, 20, 20)
@@ -127,14 +132,6 @@ points = PackedVector3Array(-41, -0.5, -7.5, -41, 0.5, -7.5, 41, -0.5, -7.5, -41
 [sub_resource type="BoxShape3D" id="BoxShape3D_irnc0"]
 size = Vector3(1.54199, 1, 1.8501)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ac3l"]
-albedo_color = Color(0.909804, 0.486275, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_iig34"]
-material = SubResource("StandardMaterial3D_7ac3l")
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_irnc0"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_hscia"]
 size = Vector3(20, 1, 45.57)
 
@@ -142,7 +139,7 @@ size = Vector3(20, 1, 45.57)
 size = Vector3(1, 18.71, 26.67)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d2ubi"]
-size = Vector3(20, 15, 1)
+size = Vector3(20, 14.3126, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irnc0"]
 
@@ -346,7 +343,8 @@ size = Vector3(15, 3, 150)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_uu0hj")
 
-[node name="HUD" parent="." instance=ExtResource("1_1r3rq")]
+[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_1r3rq")]
+player = NodePath("../Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -387,11 +385,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3, -5.6, 39.1)
 shape = SubResource("ConvexPolygonShape3D_3e81p")
 
 [node name="LevelBoundary" type="CollisionShape3D" parent="Bridge Part 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.385, 4.98, 46.43)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.385, -4.56858, 46.43)
 shape = SubResource("BoxShape3D_t1oap")
 
 [node name="LevelBoundary2" type="CollisionShape3D" parent="Bridge Part 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.35, 5.23, 31.56)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.35, -5.22386, 31.56)
 shape = SubResource("BoxShape3D_ney7n")
 
 [node name="LevelBoundary3" type="CollisionShape3D" parent="Bridge Part 1"]
@@ -405,15 +403,15 @@ shape = SubResource("BoxShape3D_ts0k5")
 [node name="Arch" type="StaticBody3D" parent="."]
 
 [node name="Grapple Block Support" type="MeshInstance3D" parent="Arch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 39.7, -0.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8, 39.7, -0.888756)
 mesh = SubResource("BoxMesh_uy53l")
 
 [node name="Grapple Block" type="MeshInstance3D" parent="Arch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 37.5, -0.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 37.5, -0.888756)
 mesh = SubResource("BoxMesh_wr5d5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Arch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 37.5, -0.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 37.5, -0.888756)
 shape = SubResource("ConvexPolygonShape3D_1wklo")
 
 [node name="low_brazier" parent="Arch" instance=ExtResource("5_1wklo")]
@@ -430,10 +428,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.977, 19.718, 4.876)
 
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Arch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.35, 23.2, -1.05)
+visible = false
 shape = SubResource("ConcavePolygonShape3D_1wklo")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Arch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.35, 23.2, -1.05)
+visible = false
 mesh = SubResource("ArrayMesh_7ac3l")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_uu0hj")
@@ -457,32 +457,20 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 56.6604, 0, -27.9381)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.6899, 16.332, -29.6709)
 shape = SubResource("BoxShape3D_irnc0")
 
-[node name="Key of Some Sort" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.725, 0)
-mass = 1.2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Key of Some Sort"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.7674, 18.0861, -29.4272)
-mesh = SubResource("SphereMesh_iig34")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Key of Some Sort"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.7674, 18.0761, -29.4272)
-shape = SubResource("SphereShape3D_irnc0")
-
-[node name="KeyBoundary" type="CollisionShape3D" parent="Key of Some Sort"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.33, 3.61, -18.715)
+[node name="KeyBoundary" type="CollisionShape3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.33, 2.885, -18.715)
 shape = SubResource("BoxShape3D_hscia")
 
-[node name="KeyBoundary2" type="CollisionShape3D" parent="Key of Some Sort"]
-transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 49.82, 15.895, -17.16)
+[node name="KeyBoundary2" type="CollisionShape3D" parent="Tree"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 48.7834, 15.17, -20.7124)
 shape = SubResource("BoxShape3D_dhjpr")
 
-[node name="KeyBoundary3" type="CollisionShape3D" parent="Key of Some Sort"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.04, 15.895, -20.765)
+[node name="KeyBoundary3" type="CollisionShape3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.04, 15.17, -20.765)
 shape = SubResource("BoxShape3D_dhjpr")
 
-[node name="KeyBoundary4" type="CollisionShape3D" parent="Key of Some Sort"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.44, 13.74, -6.42)
+[node name="KeyBoundary4" type="CollisionShape3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.44, 13.2919, -8.5886)
 shape = SubResource("BoxShape3D_d2ubi")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
@@ -523,16 +511,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.4, 47.7, 0)
 visible = false
 
 [node name="Door for Key" type="StaticBody3D" parent="."]
+visible = false
 
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Door for Key"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.95, 24.25, -0.8)
+visible = false
 shape = SubResource("ConcavePolygonShape3D_7ac3l")
 
 [node name="Doorway" parent="Door for Key" instance=ExtResource("6_g7bfq")]
 transform = Transform3D(-2.24911e-07, 0, 0.93, 0, 3.08, 0, -3.77338, 0, -5.54323e-08, 81.1, 20, -0.8)
+visible = false
 
-[node name="Door2" parent="Door for Key" instance=ExtResource("7_4a02d")]
-transform = Transform3D(-1.84248e-07, 0, -1.0084, 0, 3.72703, 0, 4.21509, 0, -4.40784e-08, 81.1, 23.4493, -0.7)
+[node name="DoorKeyPart" parent="Door for Key" instance=ExtResource("8_ney7n")]
+transform = Transform3D(-1.77696e-07, 0, -1.72326, 0, 3.38021, 0, 4.06521, 0, -7.53262e-08, 81.08, 23.4701, -0.725257)
+visible = false
 
 [node name="Stairs to Temple" type="StaticBody3D" parent="."]
 
@@ -574,11 +566,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 208.7, 23.4, -1.7)
 shape = SubResource("ConcavePolygonShape3D_g7bfq")
 
 [node name="Boundary1" type="CollisionShape3D" parent="Temple Foundation"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.2, 32.05, -10.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.2, 32.05, -7.95398)
 shape = SubResource("BoxShape3D_4a02d")
 
 [node name="Boundary2" type="CollisionShape3D" parent="Temple Foundation"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.5, 32.2, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.5, 32.2, 6.45068)
 shape = SubResource("BoxShape3D_uu0hj")
 
 [node name="Temple Door" type="CSGBox3D" parent="."]
@@ -1707,3 +1699,27 @@ metadata/_edit_group_ = true
 [node name="NextLevelTrigger" parent="." instance=ExtResource("40_x04ov")]
 transform = Transform3D(1, 0, 0, 0, 3.60784, 0, 0, 0, 2.46723, 166.029, 26.3435, -0.900732)
 next_level_path = "res://scenes/levels/level2.tscn"
+
+[node name="object1_0402" parent="." instance=ExtResource("41_pmj0t")]
+transform = Transform3D(-3.75918e-07, 0, 8.2, 0, 14.4062, 0, -8.6, 0, -3.58433e-07, -4.67, -0.247647, -5.23134)
+
+[node name="object1_0403" parent="." instance=ExtResource("41_pmj0t")]
+transform = Transform3D(-3.75918e-07, 0, 8.2, 0, 14.4062, 0, -8.6, 0, -3.58433e-07, 34.5598, -0.247647, -5.23134)
+
+[node name="object1_0412" parent="." instance=ExtResource("42_ney7n")]
+transform = Transform3D(16.249, 0, 0, 0, 10.0208, 0, 0, 0, 7.76395, 21.87, -14.7351, 3.872)
+
+[node name="object1_0413" parent="." instance=ExtResource("42_ney7n")]
+transform = Transform3D(16.249, 0, 0, 0, 10.0208, 0, 0, 0, 7.76395, 21.8705, -14.7353, -13.4487)
+
+[node name="object1_0404" parent="." instance=ExtResource("41_pmj0t")]
+transform = Transform3D(-3.75918e-07, 0, 33.617, 0, 9.72311, 0, -8.6, 0, -1.46945e-06, 15.0274, 13.7856, -5.23134)
+
+[node name="KeyDoor" parent="." instance=ExtResource("43_8j442")]
+transform = Transform3D(-1.42644e-07, 0, -1.52608, 0, 2.74289, 0, 3.26332, 0, -6.67072e-08, 81.3238, 20.084, -0.872647)
+
+[node name="Key" parent="." instance=ExtResource("44_8j442")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 55.5827, 17.6125, -29.6516)
+
+[node name="DeathTrigger" parent="." instance=ExtResource("45_ts0k5")]
+transform = Transform3D(13.5375, 0, 0, 0, 0.772817, 0, 0, 0, 7.96505, 15.5329, 4.7545, -0.172064)
