@@ -23,6 +23,7 @@ collision_mask = 2
 shape = SubResource("BoxShape3D_06y70")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+visible = false
 mesh = SubResource("BoxMesh_fe1av")
 surface_material_override/0 = SubResource("StandardMaterial3D_ucsl6")
 
