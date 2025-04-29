@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=4 uid="uid://jgqrsd1asrvr"]
+[gd_scene load_steps=97 format=4 uid="uid://jgqrsd1asrvr"]
 
 [ext_resource type="PackedScene" uid="uid://b7aipi1vf1vj2" path="res://scenes/menus/hud.tscn" id="1_1r3rq"]
 [ext_resource type="PackedScene" uid="uid://blmk5cpncayv" path="res://scenes/menus/pause_menu.tscn" id="2_u4f7j"]
@@ -45,6 +45,9 @@
 [ext_resource type="PackedScene" uid="uid://wia1o0trrivg" path="res://scenes/environment/key_door.tscn" id="43_8j442"]
 [ext_resource type="PackedScene" uid="uid://dk11plefqrenb" path="res://scenes/environment/key.tscn" id="44_8j442"]
 [ext_resource type="PackedScene" uid="uid://2uncxe3nuipx" path="res://scenes/environment/death_trigger.tscn" id="45_ts0k5"]
+[ext_resource type="PackedScene" uid="uid://d1tbswq5bc5p0" path="res://assets/models/environment/TwistedTree_3.gltf" id="46_d2ubi"]
+[ext_resource type="PackedScene" uid="uid://bdo8a6wppgndx" path="res://assets/models/environment/TwistedTree_5.gltf" id="47_ivwb6"]
+[ext_resource type="PackedScene" uid="uid://bh61eh0rri3vw" path="res://assets/models/environment/Pine_2.gltf" id="48_hhicy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g7bfq"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -79,13 +82,16 @@ points = PackedVector3Array(-10, -0.5, -7.5, -10, 0.5, -7.5, 10, -0.5, -7.5, -10
 size = Vector3(194.45, 39.0972, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ney7n"]
-size = Vector3(78, 40.9077, 1)
+size = Vector3(82.7323, 40.9077, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8j442"]
 size = Vector3(1, 20, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ts0k5"]
 size = Vector3(100, 20, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hscia"]
+size = Vector3(0.202637, 9.71777, 17.0073)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4o3hj"]
 
@@ -132,15 +138,6 @@ points = PackedVector3Array(-41, -0.5, -7.5, -41, 0.5, -7.5, 41, -0.5, -7.5, -41
 [sub_resource type="BoxShape3D" id="BoxShape3D_irnc0"]
 size = Vector3(1.54199, 1, 1.8501)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hscia"]
-size = Vector3(20, 1, 45.57)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dhjpr"]
-size = Vector3(1, 18.71, 26.67)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_d2ubi"]
-size = Vector3(20, 14.3126, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irnc0"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7ac3l"]
@@ -168,10 +165,10 @@ size = Vector3(40, 1, 15)
 points = PackedVector3Array(-20, -0.5, -7.5, -20, 0.5, -7.5, 20, -0.5, -7.5, -20, -0.5, 7.5, -20, 0.5, 7.5, 20, 0.5, -7.5, 20, -0.5, 7.5, 20, 0.5, 7.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3e81p"]
-size = Vector3(100, 1, 100)
+size = Vector3(20, 1, 80)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_g7bfq"]
-data = PackedVector3Array(-50, 0.5, 50, 50, 0.5, 50, -50, -0.5, 50, 50, 0.5, 50, 50, -0.5, 50, -50, -0.5, 50, 50, 0.5, -50, -50, 0.5, -50, 50, -0.5, -50, -50, 0.5, -50, -50, -0.5, -50, 50, -0.5, -50, 50, 0.5, 50, 50, 0.5, -50, 50, -0.5, 50, 50, 0.5, -50, 50, -0.5, -50, 50, -0.5, 50, -50, 0.5, -50, -50, 0.5, 50, -50, -0.5, -50, -50, 0.5, 50, -50, -0.5, 50, -50, -0.5, -50, 50, 0.5, 50, -50, 0.5, 50, 50, 0.5, -50, -50, 0.5, 50, -50, 0.5, -50, 50, 0.5, -50, -50, -0.5, 50, 50, -0.5, 50, -50, -0.5, -50, 50, -0.5, 50, 50, -0.5, -50, -50, -0.5, -50)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_440id"]
+points = PackedVector3Array(10, 0.5, 40, 10, -0.5, 40, 10, 0.5, -40, -10, 0.5, 40, -10, -0.5, 40, 10, -0.5, -40, -10, 0.5, -40, -10, -0.5, -40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4a02d"]
 size = Vector3(5.8, 16.5, 1)
@@ -192,6 +189,13 @@ _surfaces = [{
 "vertex_count": 84,
 "vertex_data": PackedByteArray("AAAAvzMzA8HNzEDBAAAAvwAAIEAzM6PAAAAAvzMzA8EzM6PAAAAAvzMzA8HNzEDBAAAAvzMzA8EzM6PAAAAAPzMzA8HNzEDBAAAAPzMzA8HNzEDBAAAAvzMzA0HNzEDBAAAAvzMzA8HNzEDBAAAAvwAAIEAzM7NAAAAAvzMzA8HNzEBBAAAAvzMzA8EzM7NAAAAAvzMzA8HNzEBBAAAAPzMzA8EzM7NAAAAAvzMzA8EzM7NAAAAAvwAAIEAzM6PAAAAAvzMzA8HNzEDBAAAAvzMzA0HNzEDBAAAAvwAAIEAzM6PAAAAAvzMzA0HNzEDBAAAAvwAAIEAzM7NAAAAAvwAAIEAzM7NAAAAAvzMzA0HNzEBBAAAAvzMzA8HNzEBBAAAAvwAAIEAzM7NAAAAAvzMzA0HNzEDBAAAAvzMzA0HNzEBBAAAAvzMzA0HNzEBBAAAAPzMzA0HNzEBBAAAAvzMzA8HNzEBBAAAAvzMzA0HNzEDBAAAAPzMzA0HNzEBBAAAAvzMzA0HNzEBBAAAAPzMzA8HNzEDBAAAAvzMzA8EzM6PAAAAAPzMzA8EzM6PAAAAAPwAAIEAzM6PAAAAAPzMzA8HNzEDBAAAAPzMzA8EzM6PAAAAAvzMzA8HNzEBBAAAAPzMzA8HNzEBBAAAAPzMzA8EzM7NAAAAAPzMzA0HNzEBBAAAAPzMzA8HNzEBBAAAAvzMzA8HNzEBBAAAAPzMzA8HNzEBBAAAAPwAAIEAzM7NAAAAAPzMzA8EzM7NAAAAAPzMzA8HNzEDBAAAAPzMzA0HNzEDBAAAAvzMzA0HNzEDBAAAAPzMzA0HNzEDBAAAAPzMzA0HNzEBBAAAAvzMzA0HNzEDBAAAAPwAAIEAzM6PAAAAAPzMzA0HNzEDBAAAAPzMzA8HNzEDBAAAAPwAAIEAzM6PAAAAAPzMzA0HNzEBBAAAAPzMzA0HNzEDBAAAAPzMzA0HNzEBBAAAAPwAAIEAzM7NAAAAAPzMzA8HNzEBBAAAAPwAAIEAzM7NAAAAAPzMzA0HNzEBBAAAAPwAAIEAzM6PAAAAAPzMzA8EzM6PAAAAAvzMzA8EzM6PAAAAAvwAAIEAzM6PAAAAAvzMzA8EzM7NAAAAAPwAAIEAzM7NAAAAAvwAAIEAzM7NAAAAAvwAAIEAzM7NAAAAAPwAAIEAzM6PAAAAAvwAAIEAzM6PAAAAAPzMzA8EzM6PAAAAAvwAAIEAzM6PAAAAAPwAAIEAzM6PAAAAAPwAAIEAzM7NAAAAAvzMzA8EzM7NAAAAAPzMzA8EzM7NAAAAAPwAAIEAzM6PAAAAAvwAAIEAzM7NAAAAAPwAAIEAzM7NAAAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAAAAD/f/9//n8AAP9//3/+fwAA/3//f/5/AAD/f/9//n8AAP9//3/+fwAA/3//f/5/AAD/f/9//n8AAP9//3/+fwAA/3//f/5/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA////f/9//n////9//3/+f////3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/////f/9//n////9//3/+f////3//f/5/////f/9//n////9//3/+f////3//f/5/////f/9//n////9//3/+f////3//f/5//3//fwAA/7//f/9/AAD/v/9//38AAP+//////wAA/7//////AAD/v/////8AAP+//38AAP//////fwAA//////9/AAD//////3//fwAA/7//f/9/AAD/v/9//38AAP+//////wAA/7//////AAD/v/////8AAP+//38AAP//////fwAA//////9/AAD/////")
 }]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dhjpr"]
+albedo_color = Color(0, 0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d2ubi"]
+material = SubResource("StandardMaterial3D_dhjpr")
+size = Vector3(0.1, 12, 65)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_cw4as"]
 
@@ -389,7 +393,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.385, -4.56858, 46.43)
 shape = SubResource("BoxShape3D_t1oap")
 
 [node name="LevelBoundary2" type="CollisionShape3D" parent="Bridge Part 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.35, -5.22386, 31.56)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.7161, -5.22386, 31.56)
 shape = SubResource("BoxShape3D_ney7n")
 
 [node name="LevelBoundary3" type="CollisionShape3D" parent="Bridge Part 1"]
@@ -399,6 +403,10 @@ shape = SubResource("BoxShape3D_8j442")
 [node name="LevelBoundary4" type="CollisionShape3D" parent="Bridge Part 1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 137.9, 6.08, 32.01)
 shape = SubResource("BoxShape3D_ts0k5")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Bridge Part 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 111.672, 7.34538, 38.206)
+shape = SubResource("BoxShape3D_hscia")
 
 [node name="Arch" type="StaticBody3D" parent="."]
 
@@ -456,22 +464,6 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 56.6604, 0, -27.9381)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tree"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.6899, 16.332, -29.6709)
 shape = SubResource("BoxShape3D_irnc0")
-
-[node name="KeyBoundary" type="CollisionShape3D" parent="Tree"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.33, 2.885, -18.715)
-shape = SubResource("BoxShape3D_hscia")
-
-[node name="KeyBoundary2" type="CollisionShape3D" parent="Tree"]
-transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 48.7834, 15.17, -20.7124)
-shape = SubResource("BoxShape3D_dhjpr")
-
-[node name="KeyBoundary3" type="CollisionShape3D" parent="Tree"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.04, 15.17, -20.765)
-shape = SubResource("BoxShape3D_dhjpr")
-
-[node name="KeyBoundary4" type="CollisionShape3D" parent="Tree"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.44, 13.2919, -8.5886)
-shape = SubResource("BoxShape3D_d2ubi")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.35, 23.2, -1.05)
@@ -558,12 +550,12 @@ open = true
 [node name="Temple Foundation" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Temple Foundation"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206.88, 23.6, -1.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 168.973, 23.6, -1.7)
 mesh = SubResource("BoxMesh_3e81p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Temple Foundation"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 208.7, 23.4, -1.7)
-shape = SubResource("ConcavePolygonShape3D_g7bfq")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 168.973, 23.6, -1.7)
+shape = SubResource("ConvexPolygonShape3D_440id")
 
 [node name="Boundary1" type="CollisionShape3D" parent="Temple Foundation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.2, 32.05, -7.95398)
@@ -572,15 +564,6 @@ shape = SubResource("BoxShape3D_4a02d")
 [node name="Boundary2" type="CollisionShape3D" parent="Temple Foundation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 160.5, 32.2, 6.45068)
 shape = SubResource("BoxShape3D_uu0hj")
-
-[node name="Temple Door" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163.8, 32.1, 0.080005)
-size = Vector3(1, 16.4, 24.1)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Temple Door"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.300003, -4.4, 0.25)
-operation = 2
-size = Vector3(5.4, 13.8, 10.7)
 
 [node name="door_gate" parent="." node_paths=PackedStringArray("open_conditions") instance=ExtResource("7_iig34")]
 transform = Transform3D(-1.5605e-07, 0, 3.12, 0, 2.88288, 0, -3.57, 0, -1.3638e-07, 163.8, 23.9213, 1.86)
@@ -596,6 +579,31 @@ shape = SubResource("ConcavePolygonShape3D_irnc0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163.8, 32.1, -0.949995)
 mesh = SubResource("ArrayMesh_84vya")
 skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Temple Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165.236, 29.9, -0.279792)
+mesh = SubResource("BoxMesh_d2ubi")
+skeleton = NodePath("../../Temple Foundation")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Temple Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.739953, 167.305, 43.2111, -0.279792)
+mesh = SubResource("BoxMesh_d2ubi")
+skeleton = NodePath("../../Temple Foundation")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Temple Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.176212, 170.913, 55.103, -0.56515)
+mesh = SubResource("BoxMesh_d2ubi")
+skeleton = NodePath("../../Temple Foundation")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Temple Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.114373, 169.752, 55.103, 15.3785)
+mesh = SubResource("BoxMesh_d2ubi")
+skeleton = NodePath("../../Temple Foundation")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Temple Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0910672, 169.23, 55.103, -16.529)
+mesh = SubResource("BoxMesh_d2ubi")
+skeleton = NodePath("../../Temple Foundation")
 
 [node name="lit brazier2" parent="." instance=ExtResource("6_7ac3l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.1, 19.961, -6.382)
@@ -640,28 +648,32 @@ transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 117.566, 1.21386, -30.8783)
 transform = Transform3D(13, 0, 0, 0, 13, 0, 0, 0, 13, 201.322, 1.21386, 67.2247)
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(0.649713, 0, -0.760179, 0, 1, 0, 0.760179, 0, 0.649713, -17.3208, 21.8362, -4.82834)
+transform = Transform3D(0.649713, 0, -0.760179, 0, 1, 0, 0.760179, 0, 0.649713, -17.3161, 21.8362, -4.81852)
 pixel_size = 0.01
 billboard = 1
 text = "Use Left Click to shoot the grapple. 
-While the grapple is shot out, use right 
-click to shorten the grapple length"
+While holding left click, you can use right click to 
+tighten the grapple and reel yourself up. Don't fall!!"
 font_size = 24
 
 [node name="Label3D2" type="Label3D" parent="."]
 transform = Transform3D(0.649196, 0, -0.760621, 0, 1, 0, 0.760621, 0, 0.649196, 64.4292, 22.8974, -5.88516)
 pixel_size = 0.01
 billboard = 1
-text = "By shooting at an object, you can 
-pull it towards you. Try with
-this ball to your left"
+text = "It looks like the door is locked. 
+But there's a key right above it. 
+If you shoot at the key, you could
+reel it in and pick it up. Use E to pick up
+highlighted items. Remember to press 2 
+to be able to use the key"
 
 [node name="Label3D3" type="Label3D" parent="."]
 transform = Transform3D(0.496656, 0, -0.867948, 0, 1, 0, 0.867948, 0, 0.496656, 135.004, 26.6223, -3.97734)
 pixel_size = 0.01
 billboard = 1
-text = "You can set the grapple on fire.
-Use it to light the brazier."
+text = "If you shoot the grapple at the fire,
+it can be lit. Use the flame to light the 
+other brazier. Use F to extinguish the flame"
 
 [node name="Pillar2" parent="." instance=ExtResource("19_1x4hw")]
 transform = Transform3D(4.94098, 0, 0, 0, 6.55592, 0, 0, 0, 15.7766, -34.232, 0, -0.939911)
@@ -1311,6 +1323,12 @@ transform = Transform3D(150, 0, 0, 0, 150, 0, 0, 0, 150, 127.285, 24.3459, 5.884
 [node name="Fence_end4" parent="Fence" instance=ExtResource("18_cyy7t")]
 transform = Transform3D(150, 0, 0, 0, 150, 0, 0, 0, 150, 127.335, 24.3459, -8.48733)
 
+[node name="Fence_straight57" parent="Fence" instance=ExtResource("23_m6rdq")]
+transform = Transform3D(150, 0, 0, 0, 150, 0, 0, 0, 150, 60.8765, 20.246, -8.494)
+
+[node name="Fence_straight58" parent="Fence" instance=ExtResource("23_m6rdq")]
+transform = Transform3D(150, 0, 0, 0, 150, 0, 0, 0, 150, 63.1334, 20.246, -8.494)
+
 [node name="Pillar Structure" type="Node3D" parent="."]
 transform = Transform3D(-1.83588e-07, 0, -3, 0, 4.2, 0, 4.2, 0, -1.31134e-07, 116.74, 24.13, -1.89)
 
@@ -1698,6 +1716,7 @@ metadata/_edit_group_ = true
 
 [node name="NextLevelTrigger" parent="." instance=ExtResource("40_x04ov")]
 transform = Transform3D(1, 0, 0, 0, 3.60784, 0, 0, 0, 2.46723, 166.029, 26.3435, -0.900732)
+visible = false
 next_level_path = "res://scenes/levels/level2.tscn"
 
 [node name="object1_0402" parent="." instance=ExtResource("41_pmj0t")]
@@ -1719,7 +1738,21 @@ transform = Transform3D(-3.75918e-07, 0, 33.617, 0, 9.72311, 0, -8.6, 0, -1.4694
 transform = Transform3D(-1.42644e-07, 0, -1.52608, 0, 2.74289, 0, 3.26332, 0, -6.67072e-08, 81.3238, 20.084, -0.872647)
 
 [node name="Key" parent="." instance=ExtResource("44_8j442")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 55.5827, 17.6125, -29.6516)
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, 1, -1, 4.37114e-08, -4.37114e-08, 81.225, 29.738, -0.898035)
+mass = 2.5
 
 [node name="DeathTrigger" parent="." instance=ExtResource("45_ts0k5")]
 transform = Transform3D(13.5375, 0, 0, 0, 0.772817, 0, 0, 0, 7.96505, 15.5329, 4.7545, -0.172064)
+visible = false
+
+[node name="TwistedTree_32" parent="." instance=ExtResource("46_d2ubi")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -24.0021, 0.201475, 45.8459)
+
+[node name="TwistedTree_52" parent="." instance=ExtResource("47_ivwb6")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -29.116, 0.201477, -49.4793)
+
+[node name="Pine_22" parent="." instance=ExtResource("48_hhicy")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -49.0904, 0.235089, -27.4115)
+
+[node name="commontree9" parent="." instance=ExtResource("13_84vya")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -13.6199, 0.24277, -32.7171)
