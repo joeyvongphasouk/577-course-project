@@ -82,7 +82,7 @@ points = PackedVector3Array(-10, -0.5, -7.5, -10, 0.5, -7.5, 10, -0.5, -7.5, -10
 size = Vector3(194.45, 39.0972, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ney7n"]
-size = Vector3(82.7323, 40.9077, 1)
+size = Vector3(94.4325, 40.9077, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8j442"]
 size = Vector3(1, 20, 20)
@@ -393,7 +393,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.385, -4.56858, 46.43)
 shape = SubResource("BoxShape3D_t1oap")
 
 [node name="LevelBoundary2" type="CollisionShape3D" parent="Bridge Part 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.7161, -5.22386, 31.56)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.866, -5.22386, 31.56)
 shape = SubResource("BoxShape3D_ney7n")
 
 [node name="LevelBoundary3" type="CollisionShape3D" parent="Bridge Part 1"]
@@ -453,7 +453,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2, 19.5, -0.9)
 mesh = SubResource("BoxMesh_iig34")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bridge Part 2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2, 19.5, -0.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2, 19.6168, -0.9)
 shape = SubResource("ConvexPolygonShape3D_g7bfq")
 
 [node name="Tree" type="StaticBody3D" parent="."]
@@ -660,12 +660,15 @@ font_size = 24
 transform = Transform3D(0.649196, 0, -0.760621, 0, 1, 0, 0.760621, 0, 0.649196, 64.4292, 22.8974, -5.88516)
 pixel_size = 0.01
 billboard = 1
-text = "It looks like the door is locked. 
-But there's a key right above it. 
-If you shoot at the key, you could
-reel it in and pick it up. Use E to pick up
-highlighted items. Remember to press 2 
-to be able to use the key"
+text = "There's a key above the door.
+Grab the key."
+
+[node name="Label3D4" type="Label3D" parent="."]
+transform = Transform3D(0.649196, 0, -0.760621, 0, 1, 0, 0.760621, 0, 0.649196, 78.2219, 22.8974, 3.59674)
+pixel_size = 0.01
+billboard = 1
+text = "Press E to interact with highlighted items.
+Remember to press 2 to switch to the key."
 
 [node name="Label3D3" type="Label3D" parent="."]
 transform = Transform3D(0.496656, 0, -0.867948, 0, 1, 0, 0.867948, 0, 0.496656, 135.004, 26.6223, -3.97734)
