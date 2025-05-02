@@ -183,12 +183,6 @@ size_flags_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit"
 
-[node name="options_menu" parent="." instance=ExtResource("6_bre17")]
-visible = false
-
-[node name="level_selector" parent="." instance=ExtResource("7_8r73w")]
-visible = false
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="Pillar Structure" type="Node3D" parent="."]
@@ -3952,6 +3946,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_l33bb")
 transform = Transform3D(0.140063, 0, 0, 0, 1, 0, 0, 0, 1, -10.4979, 20.1981, -41.2037)
 mesh = SubResource("BoxMesh_d5sfq")
 surface_material_override/0 = SubResource("StandardMaterial3D_l33bb")
+
+[node name="level_selector" parent="." instance=ExtResource("7_8r73w")]
+visible = false
+
+[node name="options_menu" parent="." instance=ExtResource("6_bre17")]
+visible = false
 
 [connection signal="mouse_entered" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="pressed" from="MenuPanel/MarginContainer/VBoxContainer/VBoxContainer2/Start" to="." method="_on_start_pressed"]
